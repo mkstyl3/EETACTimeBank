@@ -1,16 +1,19 @@
+import {Activity} from './activity.model';
+
 export class User {
   constructor(
     public username: string,
+    public password: string,
     public name: string,
     public mail: string,
-    public password: string,
-    public image: string,
     public description: string,
     public tags: string[],
+    public image: string,
     public wallet: number,
     public rating: number,
     public numVal: number,
-    public offered: string[],
-    public received: string[]
+    public offered: Set<Activity>,
+    public received: Set<Activity>
   ) {}
 }
+

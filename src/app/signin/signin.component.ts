@@ -41,7 +41,7 @@ export class SigninComponent implements OnInit {
 
   insert(username: string, password: string) { // Working
     let user = new User(
-      username, null, null, password, null,
+      username, password, 'Albert', 'albert@gmail.com', null,
       null, null, null, null, null, null,
       null);
       console.log(user);
