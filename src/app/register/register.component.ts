@@ -7,12 +7,13 @@ const url = 'http://localhost:3000/user';
 declare const require: any;
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
   providers: [UserService]
 })
-export class SigninComponent implements OnInit {
+export class RegisterComponent implements OnInit {
+
   private title = 'EA Min1';
   private img = require('../../../../EETACTimeBank/src/assets/img/EA.jpg');
   @Output() users = new EventEmitter<Set<User>>();
@@ -31,7 +32,6 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
   }
-
   test() { // Working
     this.userService.test$().subscribe(
       (data) => {
@@ -44,7 +44,7 @@ export class SigninComponent implements OnInit {
       username, password, 'Albert', 'albert@gmail.com', null,
       null, null, null, null, null, null,
       null);
-      console.log(user);
+    console.log(user);
     this.userService.insert$(user).subscribe(
       (data) => {
         console.log(data);
