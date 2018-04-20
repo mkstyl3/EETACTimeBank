@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
 
   private title = 'EA Min1';
   private img = require('../../../../EETACTimeBank/src/assets/img/EA.jpg');
+  website = "asd";
   @Output() users = new EventEmitter<Set<User>>();
 
   constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef) {
@@ -39,9 +40,15 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  insert(username: string, password: string) { // Working
+  insert(name:string, username:string, email:string, password: string, password2: string) { // Working
+    if (password!=password2)
+    {
+      console.log("no coinciden");
+    }
+    else{
+
     let user = new User(
-      username, password, 'Albert', 'albert@gmail.com', null,
+      username, password, name, email,null,
       null, null, null, null, null, null,
       null);
     console.log(user);
@@ -54,7 +61,10 @@ export class RegisterComponent implements OnInit {
         console.log(data);
         this.showErrorToast(data);
       });
+
+    }
   }
+
 
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(

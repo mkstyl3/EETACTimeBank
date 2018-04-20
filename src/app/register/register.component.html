@@ -5,12 +5,14 @@
   </div>
   <div class="signin">
     <h1 class="h3 mb-3 font-weight-normal">TEST</h1>
-    <label for="inputUsername" class="sr-only">Username</label>
+    <input #name type="text" id="inputname" class="form-control" placeholder="nombre" required="">
     <input #username type="text" id="inputUsername" class="form-control" placeholder="Username" required="" autofocus="">
-    <label for="inputPassword" class="sr-only">Password</label>
+    <input #mail type="text" id="inputmail" class="form-control" placeholder="Mail" required="" autofocus="">
     <input #password type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
-    <button class="btn btn-lg btn-primary btn-block" (click)="signIn(username.value, password.value)">Sign in</button>
-    <p>Still not registered? Please <a target="_blank" rel="noopener" href="">SignUp</a> it's free!</p>
+    <input #password2 type="password" id="inputpassword2" class="form-control" placeholder="Confirm Password" required="" autofocus="">
+
+    <button class="btn btn-lg btn-primary btn-block" (click)="insert(name.value,username.value,mail.value, password.value, password2.value)">Sign up</button>
+    <p>Already registered? <a target="_blank" rel="noopener" href="">SignIn</a></p>
     <button class="btn btn-lg btn-primary" (click)="insert(username.value, password.value)">Test</button>
     <p class="mt-3 mb-3 text-muted">EA© Spring 2017-2018</p>
   </div>
