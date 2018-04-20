@@ -1,0 +1,17 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container" ng-controller="SignInCtrl" ng-cloak>
+  <div id="intro">
+    <img [src]='img' class="avatar" alt="avatar" />
+  </div>
+  <div class="signin">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input #username type="text" id="inputUsername" class="form-control" placeholder="Username" required="" autofocus="">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input #password type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+    <button class="btn btn-lg btn-primary btn-block" (click)="signIn(username.value, password.value)">Sign in</button>
+    <p>Still not registered? Please <a target="_blank" rel="noopener" href="">SignUp</a> it's free!</p>
+    <button class="btn btn-lg btn-primary" (click)="insert(username.value, password.value)">Test</button>
+    <p class="mt-3 mb-3 text-muted">EA© Spring 2017-2018</p>
+  </div>
+</div>
