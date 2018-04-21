@@ -3,7 +3,7 @@ import {UserService} from '../service/user.service';
 import {ToastsManager} from 'ng2-toastr';
 import {User} from '../models/user.model';
 
-const url = 'http://localhost:3000/user';
+const url = 'http://localhost:3000/users';
 declare const require: any;
 
 @Component({
@@ -44,27 +44,31 @@ export class RegisterComponent implements OnInit {
     if (password!=password2)
     {
       console.log("no coinciden");
+      this.showErrorToast("Passwords doesn't match");
     }
     else{
-
-    let user = new User(
-      username, password, name, email,null,
+      let user = new User(
+      username, password, name, email, null,
       null, null, null, null, null, null,
-      null);
-    console.log(user);
-    this.userService.insert$(user).subscribe(
-      (data) => {
-        console.log(data);
-        this.showSuccessToast('User Added!');
-      },
-      data => {
-        console.log(data);
-        this.showErrorToast(data);
-      });
-
+      null, false);
+      console.log(user);
+      this.userService.insert$(user).subscribe(
+        data => {
+          if (data.code === 11000) {
+            console.log(data);
+            this.showErrorToast('Duplicated key');
+          }
+          // Falta añadir mas códigos de error
+          else {
+            console.log(data);
+            this.showSuccessToast('User '+data.username+' added!');
+          }},
+        data => {
+          console.log(data);
+          this.showErrorToast(data);
+        });
     }
   }
-
 
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(

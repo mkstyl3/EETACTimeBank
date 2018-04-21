@@ -1,10 +1,8 @@
 .container {
   max-width: 420px;
   text-align: center;
-  padding-top: 9%;
+  padding-top: 5%;
 }
-
-
 
 .btn {
   font-size: 16px;
@@ -32,5 +30,4 @@
   margin: 0 auto;
   margin-bottom: 10px;
   border-radius: 50%;
-
 }

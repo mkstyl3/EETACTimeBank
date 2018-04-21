@@ -59,6 +59,8 @@ export class SigninComponent implements OnInit {
       });
   }
 
+  
+
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(
       data => {
