@@ -4,7 +4,7 @@ import {User} from '../models/user.model';
 import {Login} from '../models/login.model';
 import {Observable} from 'rxjs/Observable';
 
-const url = 'http://localhost:3000/user';
+const url = 'http://localhost:3000/users';
 
 @Injectable()
 export class UserService {
@@ -21,7 +21,7 @@ export class UserService {
 
   insert$(user: User) {
     console.log(user);
-    return this.http.post(url + '/insert', user);
+    return this.http.post<any>(url + '/insert', user);
   }
 
 

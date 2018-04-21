@@ -3,7 +3,6 @@ import {UserService} from '../service/user.service';
 import {ToastsManager} from 'ng2-toastr';
 import {User} from '../models/user.model';
 
-const url = 'http://localhost:3000/user';
 declare const require: any;
 
 @Component({
@@ -13,9 +12,7 @@ declare const require: any;
   providers: [UserService]
 })
 export class SigninComponent implements OnInit {
-  private title = 'EA Min1';
   private img = require('../../../../EETACTimeBank/src/assets/img/EA.jpg');
-  @Output() users = new EventEmitter<Set<User>>();
 
   constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -43,13 +40,19 @@ export class SigninComponent implements OnInit {
     let user = new User(
       username, password, 'Albert', 'albert@gmail.com', null,
       null, null, null, null, null, null,
-      null);
+      null, false);
       console.log(user);
     this.userService.insert$(user).subscribe(
-      (data) => {
-        console.log(data);
-        this.showSuccessToast('User Added!');
-      },
+      data => {
+        if (data.code === 11000) {
+          console.log(data);
+          this.showErrorToast('Duplicated key');
+        }
+        // Falta añadir mas códigos de error
+        else {
+          console.log(data);
+          this.showSuccessToast('User '+data.username+' added!');
+        }},
       data => {
         console.log(data);
         this.showErrorToast(data);

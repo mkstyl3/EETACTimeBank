@@ -13,7 +13,8 @@ export class User {
     public rating: number,
     public numVal: number,
     public offered: Set<Activity>,
-    public received: Set<Activity>
+    public received: Set<Activity>,
+    public admin: Boolean
   ) {}
 }
 
