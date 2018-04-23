@@ -4,10 +4,11 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastModule} from 'ng2-toastr';
-import {SigninComponent} from './signin/signin.component';
+import {SigninComponent} from './components/signin/signin.component';
 import {UserService} from './service/user.service';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './components/home/home.component';
 
 
 
@@ -16,7 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     SigninComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,23 @@
 import {Component, EventEmitter, OnInit, Output, ViewContainerRef} from '@angular/core';
-import {UserService} from '../service/user.service';
+import {UserService} from '../../service/user.service';
 import {ToastsManager} from 'ng2-toastr';
-import {User} from '../models/user.model';
+import {User} from '../../models/user.model';
 
+const url = 'http://localhost:3000/users';
 declare const require: any;
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
   providers: [UserService]
 })
-export class SigninComponent implements OnInit {
-  private img = require('../../../../EETACTimeBank/src/assets/img/EA.jpg');
+export class RegisterComponent implements OnInit {
+
+  private title = 'EA Min1';
+  private img = require('../../../assets/img/EA.jpg');
+  website = "asd";
+  @Output() users = new EventEmitter<Set<User>>();
 
   constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -28,7 +33,6 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
   }
-
   test() { // Working
     this.userService.test$().subscribe(
       (data) => {
@@ -36,30 +40,35 @@ export class SigninComponent implements OnInit {
       });
   }
 
-  insert(username: string, password: string) { // Working
-    let user = new User(
-      username, password, 'Albert', 'albert@gmail.com', null,
+  insert(name:string, username:string, email:string, password: string, password2: string) { // Working
+    if (password!=password2)
+    {
+      console.log("no coinciden");
+      this.showErrorToast("Passwords doesn't match");
+    }
+    else{
+      let user = new User(
+      username, password, name, email, null,
       null, null, null, null, null, null,
       null, false);
       console.log(user);
-    this.userService.insert$(user).subscribe(
-      data => {
-        if (data.code === 11000) {
+      this.userService.insert$(user).subscribe(
+        data => {
+          if (data.code === 11000) {
+            console.log(data);
+            this.showErrorToast('Duplicated key');
+          }
+          // Falta añadir mas códigos de error
+          else {
+            console.log(data);
+            this.showSuccessToast('User '+data.username+' added!');
+          }},
+        data => {
           console.log(data);
-          this.showErrorToast('Duplicated key');
-        }
-        // Falta añadir mas códigos de error
-        else {
-          console.log(data);
-          this.showSuccessToast('User '+data.username+' added!');
-        }},
-      data => {
-        console.log(data);
-        this.showErrorToast(data);
-      });
+          this.showErrorToast(data);
+        });
+    }
   }
-
-  
 
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(
