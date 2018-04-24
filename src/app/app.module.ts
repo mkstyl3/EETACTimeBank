@@ -9,9 +9,7 @@ import {UserService} from './service/user.service';
 import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
-
-
-
+import {AuthGuard} from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +25,7 @@ import { HomeComponent } from './components/home/home.component';
     ToastModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [UserService],
+  providers: [UserService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

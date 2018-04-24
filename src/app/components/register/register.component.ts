@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewContainerRef} from '@angula
 import {UserService} from '../../service/user.service';
 import {ToastsManager} from 'ng2-toastr';
 import {User} from '../../models/user.model';
+import {Router} from '@angular/router';
 
 const url = 'http://localhost:3000/users';
 declare const require: any;
@@ -16,10 +17,9 @@ export class RegisterComponent implements OnInit {
 
   private title = 'EA Min1';
   private img = require('../../../assets/img/EA.jpg');
-  website = "asd";
-  @Output() users = new EventEmitter<Set<User>>();
 
-  constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+
+  constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -40,56 +40,31 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  insert(name:string, username:string, email:string, password: string, password2: string) { // Working
+  signUp(name:string, username:string, mail:string, password: string, password2: string ) { // Working
     if (password!=password2)
     {
       console.log("no coinciden");
       this.showErrorToast("Passwords doesn't match");
     }
-    else{
-      let user = new User(
-      username, password, name, email, null,
-      null, null, null, null, null, null,
-      null, false);
-      console.log(user);
-      this.userService.insert$(user).subscribe(
+    else {
+            const userData = { name, username, mail, password };
+            this.userService.signUp$(userData).subscribe(
         data => {
-          if (data.code === 11000) {
-            console.log(data);
-            this.showErrorToast('Duplicated key');
-          }
-          // Falta añadir mas códigos de error
-          else {
-            console.log(data);
-            this.showSuccessToast('User '+data.username+' added!');
-          }},
-        data => {
-          console.log(data);
-          this.showErrorToast(data);
-        });
+          this.userService.setUserLoggedIn();
+                      this.showSuccessToast('User '+username+' added!');
+                      localStorage.setItem('userId', data.userId);
+                      localStorage.setItem('token', data.token);
+                      this.router.navigate(['home']);
+                   },
+              data => {
+                if (data.status == 400) {
+                              this.showErrorToast(data.error.ValidationError); //Joi Validation failed
+                            }
+                          else if ('SyntaxError' in data) {
+                              this.showErrorToast('Syntax Error'); //Joi Validation failed
+                            }
+                          else this.showErrorToast('This user is already registered');
+              });
     }
   }
-
-  signIn(username: string, password: string) {
-    this.userService.signIn$(username, password).subscribe(
-      data => {
-        if (data.responseId == 1) {
-          console.log(data.user);
-          this.showSuccessToast(data.response);
-        }
-
-        else if (data.responseId === 2) {
-          console.log(data.user);
-          this.showSuccessToast(data.response);
-
-        }
-        else if (data.responseId == -1 || data.responseId == -2) {
-          this.showErrorToast(data.response);
-        }
-      },
-      data => {
-        console.log(data.responseId == -3);
-        this.showErrorToast(data.response);
-      });
-  };
 }

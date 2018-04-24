@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewContainerRef} from '@angula
 import {UserService} from '../../service/user.service';
 import {ToastsManager} from 'ng2-toastr';
 import {User} from '../../models/user.model';
+import { Router } from '@angular/router';
 
 declare const require: any;
 
@@ -14,7 +15,7 @@ declare const require: any;
 export class SigninComponent implements OnInit {
   private img = require('../../../assets/img/EA.jpg');
 
-  constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+  constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -36,46 +37,19 @@ export class SigninComponent implements OnInit {
       });
   }
 
-  insert(username: string, password: string) { // Working
-    let user = new User(
-      username, password, 'Albert', 'albert@gmail.com', null,
-      null, null, null, null, null, null,
-      null, false);
-      console.log(user);
-    this.userService.insert$(user).subscribe(
-      data => {
-        if (data.code === 11000) {
-          console.log(data);
-          this.showErrorToast('Duplicated key');
-        }
-        // Falta añadir mas códigos de error
-        else {
-          console.log(data);
-          this.showSuccessToast('User ' + data.username + ' added!');
-        }},
-      data => {
-        console.log(data);
-        this.showErrorToast(data);
-      });
-  }
-
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(
       data => {
-        if (data.token) {
-          localStorage.setItem('access-token', data.token); // store the token
-          this.showSuccessToast('Logeado');
-        }
-        else if (data.response === 'User not exist') {
-          this.showErrorToast(data.response);
-        }
-
-        else if (data.response === 'Invalid password') {
-          this.showErrorToast(data.response);
-
-        }
-        else {
-          this.showErrorToast(data.response);
-        }
-        });
+        this.userService.setUserLoggedIn();
+                this.showSuccessToast('User '+username+' Logged In');
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('token', data.token);
+                this.router.navigate(['home']);
+      },
+      data => {
+        console.log();
+        this.showErrorToast('Invalid credentials');
+      });
+  };
 }
+

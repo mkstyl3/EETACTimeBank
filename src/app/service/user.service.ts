@@ -38,5 +38,5 @@ export class UserService {
   signUp$(userData: any) {
     console.log(userData);
     return this.http.post<any>(url + '/signup', userData);
-  }    
+  }
 }
