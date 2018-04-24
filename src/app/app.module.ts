@@ -10,13 +10,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import {AuthGuard} from './auth.guard';
+import { ActivityRequestComponent } from './components/activity-request/activity-request.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    ActivityRequestComponent
   ],
   imports: [
     BrowserModule,
