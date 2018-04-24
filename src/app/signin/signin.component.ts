@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewContainerRef} from '@angula
 import {UserService} from '../service/user.service';
 import {ToastsManager} from 'ng2-toastr';
 import {User} from '../models/user.model';
+import { Router } from '@angular/router';
 
 declare const require: any;
 
@@ -13,8 +14,8 @@ declare const require: any;
 })
 export class SigninComponent implements OnInit {
   private img = require('../../../../EETACTimeBank/src/assets/img/EA.jpg');
-
-  constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef) {
+  @Output() goHome = new EventEmitter<User>();
+  constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -26,6 +27,10 @@ export class SigninComponent implements OnInit {
     this.toastr.error(m);
   }
 
+  homeRedirect(user: User) {
+    this.goHome.emit(user);
+  }
+
   ngOnInit() {
   }
 
@@ -35,52 +40,20 @@ export class SigninComponent implements OnInit {
         this.showSuccessToast('Test passed!');
       });
   }
-
-  insert(username: string, password: string) { // Working
-    let user = new User(
-      username, password, 'Albert', 'albert@gmail.com', null,
-      null, null, null, null, null, null,
-      null, false);
-      console.log(user);
-    this.userService.insert$(user).subscribe(
-      data => {
-        if (data.code === 11000) {
-          console.log(data);
-          this.showErrorToast('Duplicated key');
-        }
-        // Falta añadir mas códigos de error
-        else {
-          console.log(data);
-          this.showSuccessToast('User '+data.username+' added!');
-        }},
-      data => {
-        console.log(data);
-        this.showErrorToast(data);
-      });
-  }
-
   
-
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(
       data => {
-        if (data.responseId == 1) {
-          console.log(data.user);
-          this.showSuccessToast(data.response);
-        }
-
-        else if (data.responseId === 2) {
-          console.log(data.user);
-          this.showSuccessToast(data.response);
-
-        }
-        else if (data.responseId == -1 || data.responseId == -2) {
-          this.showErrorToast(data.response);
-        }
+        this.userService.setUserLoggedIn();
+        this.showSuccessToast('User '+username+' Logged In');
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('token', data.token);
+        this.router.navigate(['home']); 
       },
       data => {
-        console.log(data.responseId == -3);
-        this.showErrorToast(data.response);
+        console.log();
+        this.showErrorToast('Invalid credentials');
       });
   };
 }
+  

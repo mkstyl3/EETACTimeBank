@@ -1,31 +1,42 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../models/user.model';
-import {Login} from '../models/login.model';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/shareReplay';
+
+
+declare var moment: any;
+
 
 const url = 'http://localhost:3000/users';
 
 @Injectable()
 export class UserService {
+  private isUserLoggedIn;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.isUserLoggedIn = false;
+  }
+
+  setUserLoggedIn() {
+    this.isUserLoggedIn = true;
+  }
+
+  getUserLoggedIn() {
+    return this.isUserLoggedIn;
+  }
 
   test$(){
     return this.http.get(url + '/test');
   }
 
-  signIn$(username: string, password: string): Observable<Login> {
-    return this.http.post<Login>(url + '/signIn', new Login(null,null, {username, password}, null, null));
+  signIn$(username: string, password: string): Observable<any> {
+    return this.http.post<any>(url + '/signin', { username, password });
   }
 
-  insert$(user: User) {
-    console.log(user);
-    return this.http.post<any>(url + '/insert', user);
-  }
-
-
-
-
-
+  signUp$(userData: any) {
+    console.log(userData);
+    return this.http.post<any>(url + '/signup', userData);
+  }    
 }
