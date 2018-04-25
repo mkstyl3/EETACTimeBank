@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import {AuthGuard} from './auth.guard';
 import { ActivityRequestComponent } from './components/activity-request/activity-request.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ActivityRequestComponent } from './components/activity-request/activity
     SigninComponent,
     RegisterComponent,
     HomeComponent,
-    ActivityRequestComponent
+    ActivityRequestComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
