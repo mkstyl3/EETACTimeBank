@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../../service/user.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  user: any;
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.getWallet();
+  }
+  getWallet() {
+    const id = localStorage.getItem('userId');
+    this.userService.getUserWallet(id).subscribe(
+      data => {
+        this.user = data;
+      },
+      data => {
+        console.log(data);
+      });
   }
 
 }

@@ -39,4 +39,8 @@ export class UserService {
     console.log(userData);
     return this.http.post<any>(url + '/signup', userData);
   }
+
+  getUserWallet(id: string): Observable<any> {
+    return this.http.post<any>(url + '/getUserById', { id });
+  }
 }
