@@ -4,7 +4,7 @@ export class ActivityRequest {
   constructor (
     userFrom  :      string,
     userTo    :      string,
-    acticity  :      string,
+    activity  :      string,
     isDone    :      boolean,
     accepted  :      boolean,
     date      :      Date

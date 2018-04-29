@@ -1,40 +1,82 @@
 <app-header></app-header>
-<body>
 
-  <div class="container">
-    <div class="row">
-      <div class="col">
-            <form>
-              <h3>Filtrar peticions</h3>
-              <select class="form-control" name="filtrar" id="filtrar" >
-                      <option value="pendents">     Pendents      </option>
-                      <option value="realitzades">  Realitzades   </option>
-                      <option value="rebutjades">   rebutjades    </option>
-                      <option value="acceptades">   acceptades    </option>
-              </select>
-              <button  type="submit" class="btn-btn-secondary"> Filtrar </button>
-            </form>
-      </div>
+<div class="container-fluid">
 
-      <div class="col">
-        <h3>Resultats</h3>
-
-      </div>
-
-      <div class="col">
-          <table>
-            <thead>
-
-            </thead>
-
-            <tbody>
-
-            </tbody>
-          </table>
-      </div>
-
-
-
+    <div class="col-lg-3 card divisor"  >
+      <h1 class="h1-strong">Resum</h1>
     </div>
-  </div>
-</body>
+
+    <div class="col-lg-4 card divisor">
+      <h1 class="h1-strong">Les teves sol·licituds</h1>
+      <table class="table table-striped tabla">
+        <thead>
+          <tr>
+            <th>Nom Activitat</th>
+            <th>Descripció</th>
+            <th>Usuari</th>
+            <th>Gestionar</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="let petition of petitions">
+          <td>
+            {{petition.name}}
+          </td>
+          <td>
+            {{petition.description}}
+          </td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-lg-4 card divisor">
+      <h1 class="h1-strong">Sol·licituds d'altres usuaris</h1>
+      <table class="table table-striped tabla">
+        <thead>
+        <tr>
+          <th>Header 1</th>
+          <th>Header 2</th>
+          <th>Header 3</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+          <th>Footer 1</th>
+          <th>Footer 2</th>
+          <th>Footer 3</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        <tr>
+          <td>Cell</td>
+          <td>Cell</td>
+          <td>Cell</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+</div>
