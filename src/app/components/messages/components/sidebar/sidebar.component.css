@@ -1,0 +1,73 @@
+.sidebar {
+  float: left;
+  height: calc(100vh - 157px);
+  background: #54b1d2;
+  width: 320px;
+}
+
+.sidebar ul {
+  padding-left: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  border-bottom: 1px solid black;
+  overflow: hidden;
+  text-align: left;
+  color: white;
+  position: relative;
+  cursor: pointer;
+}
+
+.sidebar .selected {
+  background: #2f9ac0;
+}
+
+.sidebar .username-letter {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  font-size: 25px;
+  text-transform: uppercase;
+  float: left;
+  line-height: 48px;
+  color: #392424;
+  text-align: center;
+}
+
+.sidebar .new-messages {
+  position: absolute;
+  right: 13px;
+  top: 15px;
+  width: 15px;
+  height: 15px;
+  background: #036f96;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 50%;
+  line-height: 13px;
+}
+
+.sidebar .name {
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sidebar section {
+  padding-left: 10px;
+  overflow: hidden;
+  line-height: 25px;
+}
+
+.sidebar .last-message {
+  color: #aedae9;
+  font-size: 13px;
+  color: #aedae9;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

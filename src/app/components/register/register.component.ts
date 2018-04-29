@@ -4,7 +4,6 @@ import {ToastsManager} from 'ng2-toastr';
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
 
-const url = 'http://localhost:3000/users';
 declare const require: any;
 
 @Component({

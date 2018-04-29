@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {RegisterComponent} from './components/register/register.component';
 import {SigninComponent} from './components/signin/signin.component';
 import {HomeComponent} from './components/home/home.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import {AuthGuard} from './auth.guard';
 import {ActivityRequestComponent} from './components/activity-request/activity-request.component';
 
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'signin',           component: SigninComponent },
   { path: 'register',         component: RegisterComponent },
   { path: 'home',             component: HomeComponent },
+  { path: 'messages',         component: MessagesComponent },
   { path: 'activityRequest',  component: ActivityRequestComponent},
 
   { path: '**', pathMatch: 'full', redirectTo: 'signin'}

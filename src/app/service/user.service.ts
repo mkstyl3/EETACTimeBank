@@ -5,11 +5,9 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/shareReplay';
 
-
 declare var moment: any;
 
-
-const url = 'http://localhost:3000/users';
+const url = 'users';
 
 @Injectable()
 export class UserService {
