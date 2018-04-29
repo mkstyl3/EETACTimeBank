@@ -26,8 +26,8 @@
                   <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
 
                   <label>Tria una o varias categories</label>
-                  <select class="custom-select custom-select-lg form-control" multiple
-                          [(ngModel)]="activity.category" name="category" >
+                  <select name="category" #category="ngModel" [(ngModel)]="activity.category"
+                          class="custom-select custom-select-lg form-control" multiple >
 
                           <option value="Musica">                     Musica                       </option>
                           <option value="Fotos i videos">             Fotos i videos               </option>
@@ -45,18 +45,22 @@
                   <br>
 
                   <label>Imatge:</label>
-                  <input type="file" class="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat"
+                  <input type="file" class="imatge"  name="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat"
                          class="form-control">
             </div>
 
             <div class="col">
-                  <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
-                    <span class="form-control label-default form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Material Extra">Material Extra</span>
-                    <span class="form-control label-primary form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Activitat UPC"> Activitat UPC</span>
-                    <span class="form-control label-success form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aire lliure">   Aire lliure</span>
-                    <span class="form-control label-info form-control"    name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aquatic">       Aquatic</span>
-                    <span class="form-control label-warning form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Exclusiu">      Exclusiu</span>
-                    <span class="form-control label-danger form-control"  name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Urgent">        Urgent</span>
+                    <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
+
+                    <button  class="btn btn-info"       name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Material Extra" ngDefaultControl>  Material Extra    </button>
+                    <button  class="btn btn-secondary"  name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Activitat UPC" ngDefaultControl>   Activitat UPC     </button>
+
+                    <button  class="btn btn-success"    name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aire lliure" ngDefaultControl>     Aire lliure       </button>
+                    <button  class="btn btn-danger"     name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aquatic" ngDefaultControl>         Aquatic           </button>
+                    <button  class="btn btn-warning"    name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Exclusiu" ngDefaultControl>        Exclusiu          </button>
+
+                    <button  class="btn btn btn-dark"   name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Urgent" ngDefaultControl>          Urgent            </button>
+
             </div>
     </div>
     <br>
