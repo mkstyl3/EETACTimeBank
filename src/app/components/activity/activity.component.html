@@ -1,0 +1,41 @@
+<div class="col-lg-6">
+  <h1 class="h1-strong">Registra una activitat</h1>
+
+  <form #activityForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10">
+    <p>
+        <label>Nom de l'activitat</label>
+        <input type="text" name="name" #name="ngModel" [(ngModel)]="activity.name"
+               class="form-control" required />
+        <span *ngIf = "!name.valid && name.touched">El nom és obligatori</span>
+    </p>
+
+    <p>
+      <label>Descripció</label>
+      <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description"
+             class="form-control" required />
+      <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
+    </p>
+
+    <p>
+      <label>Preu</label>
+      <input type="number" name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
+             class="form-control" required />
+      <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
+    </p>
+
+    <!--<p>
+      <label>latitude</label> <input type="number" name="latitude" #latitude="ngModel"
+                                     [(ngModel)]="activity.latitude" class="form-control">
+      <label>longitude</label><input type="number" name="longitude" #longitude="ngModel"
+                                     [(ngModel)]="activity.longitude" class="form-control">
+    </p>-->
+
+    <input type="submit" value="Afegir" class="btn btn-success" [disabled]="!activityForm.form.valid" />
+
+
+  </form>
+</div>
+
+<div class="col-lg-6">
+  <h1 class="h1-strong">Novetats</h1>
+</div>
