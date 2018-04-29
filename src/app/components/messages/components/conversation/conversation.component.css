@@ -1,0 +1,72 @@
+.messages ul {
+  padding: 0 20px;
+}
+
+.messages .message-container {
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.messages li {
+ overflow: hidden;
+}
+
+.messages .user-image img {
+  width: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.messages .message-container .message {
+  padding: 15px;
+  color: white;
+  margin: 0 60px;
+  border-radius: 3px 0 3px 3px;
+  font-weight: bold;
+  position: relative;
+}
+
+.messages .message-container.profile-message {
+  float: right;
+}
+.messages .message-container.profile-message .user-image {
+  position: relative;
+  cursor: pointer;
+}
+.messages .message-container.profile-message .user-image .status {
+  position: absolute;
+  border-radius: 50%;
+  height: 13px;
+  width: 13px;
+  background-color: #76b858;
+  right: 3px;
+  bottom: 5px;
+}
+.messages .message-container.profile-message .message {
+  background-color: #54bae2;
+}
+.messages .message-container.profile-message .message:after {
+  right: -10px;
+  border-color: #54bae2 transparent transparent #54bae2;
+  border-width: 8px 5px;
+  position: absolute;
+  content: '';
+  top: 0;
+  border-style: solid;
+}
+.messages .message-container.user-message {
+  float: left;
+}
+.messages .message-container.user-message .message {
+  background-color: white;
+  color: black;
+}
+.messages .message-container.user-message .message:after {
+  left: -10px;
+  border-color: white white transparent transparent;
+  border-width: 8px 5px;
+  position: absolute;
+  content: '';
+  top: 0;
+  border-style: solid;
+}
