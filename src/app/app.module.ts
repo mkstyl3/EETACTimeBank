@@ -12,6 +12,10 @@ import { HomeComponent } from './components/home/home.component';
 import {AuthGuard} from './auth.guard';
 import { ActivityRequestComponent } from './components/activity-request/activity-request.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ActivityComponent } from './components/activity/activity.component';
+import {FormsModule} from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
@@ -20,14 +24,16 @@ import { HeaderComponent } from './components/header/header.component';
     RegisterComponent,
     HomeComponent,
     ActivityRequestComponent,
-    HeaderComponent
+    HeaderComponent,
+    ActivityComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [UserService, AuthGuard],
   bootstrap: [AppComponent]

@@ -1,25 +1,26 @@
-/*GENERAL*/
 a {text-decoration: none;  color: white ;}
 h3 {size: A5; font-style: italic; font-size: small}
 
+.navigation{
 
+}
 
-/*//////////////////GENERAL////////////////////////*/
-
-.titol {
-  border-color: #610B0B; color: white;
+.navigation .navbar-default {
   background: #363636;
-  padding: 0.5em; font-size: large;
+  border-color: #610B0B; color: white;
+  margin: 0px !important; padding: 0px !important;
 }
 
 .MenuSuperior{
 
   background: #DC2F2F;
   list-style-type: none; margin: 0; padding: 0; overflow: hidden;
-
+  margin: 0px !important; padding: 0px !important;
 }
 .MenuSuperior li {float: right; padding: 10px; text-decoration: none;
+
   list-style-type: none;
 }
+
 
 nav a.selected, a:hover { color: #610B0B;}
