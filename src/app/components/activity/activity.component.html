@@ -1,39 +1,69 @@
 <div class="col-lg-6">
   <h1 class="h1-strong">Registra una activitat</h1>
 
-  <form #activityForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10">
-    <p>
-        <label>Nom de l'activitat</label>
-        <input type="text" name="name" #name="ngModel" [(ngModel)]="activity.name"
-               class="form-control" required />
-        <span *ngIf = "!name.valid && name.touched">El nom és obligatori</span>
-    </p>
+  <form #activityForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10, form-inLine">
+    <div class="row">
+            <div class="col">
+                <label>Nom de l'activitat</label>
+                <input type="text" name="name" #name="ngModel" [(ngModel)]="activity.name"
+                       class="form-control" required />
+                <span *ngIf = "!name.valid && name.touched">El nom és obligatori</span>
+            </div>
 
-    <p>
-      <label>Descripció</label>
-      <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description"
-             class="form-control" required />
-      <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
-    </p>
+            <div class="col">
+              <label>Descripció corta</label>
+              <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description"
+                     class="form-control" required />
+              <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
+            </div>
+    </div>
 
-    <p>
-      <label>Preu</label>
-      <input type="number" name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
-             class="form-control" required />
-      <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
-    </p>
+    <div class="row">
+            <div class="col">
+                  <label>Preu</label>
+                  <input type="number" name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
+                         class="form-control" required />
+                  <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
 
-    <!--<p>
-      <label>latitude</label> <input type="number" name="latitude" #latitude="ngModel"
-                                     [(ngModel)]="activity.latitude" class="form-control">
-      <label>longitude</label><input type="number" name="longitude" #longitude="ngModel"
-                                     [(ngModel)]="activity.longitude" class="form-control">
-    </p>-->
+                  <label>Tria una o varias categories</label>
+                  <select class="custom-select custom-select-lg form-control" multiple
+                          [(ngModel)]="activity.category" name="category" >
 
+                          <option value="Musica">                     Musica                       </option>
+                          <option value="Fotos i videos">             Fotos i videos               </option>
+                          <option value="informatica i oficina">      Informatica i oficina        </option>
+                          <option value="Bellesa i salut">            Bellesa i salut              </option>
+                          <option value="Alimentació i beguda">       Alimentació i beguda         </option>
+                          <option value="Hogar, jardí, bricolatge">   Hogar, jardí, bricolatge     </option>
+                          <option value="Videojocs">                  Videojocs                    </option>
+                          <option value="moda">                       Moda                         </option>
+                          <option value="Esport i aire lliure">       Esport i aire lliure         </option>
+                          <option value="coche i moto">               Coche i Moto                 </option>
+                          <option value="manualitats">                Manualitats                  </option>
+                          <option value="Ocio">                       Ocio                         </option>
+                  </select>
+                  <br>
+
+                  <label>Imatge:</label>
+                  <input type="file" class="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat"
+                         class="form-control">
+            </div>
+
+            <div class="col">
+                  <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
+                    <span class="form-control label-default form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Material Extra">Material Extra</span>
+                    <span class="form-control label-primary form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Activitat UPC"> Activitat UPC</span>
+                    <span class="form-control label-success form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aire lliure">   Aire lliure</span>
+                    <span class="form-control label-info form-control"    name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aquatic">       Aquatic</span>
+                    <span class="form-control label-warning form-control" name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Exclusiu">      Exclusiu</span>
+                    <span class="form-control label-danger form-control"  name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Urgent">        Urgent</span>
+            </div>
+    </div>
+    <br>
     <input type="submit" value="Afegir" class="btn btn-success" [disabled]="!activityForm.form.valid" />
-
-
   </form>
+
+
 </div>
 
 <div class="col-lg-6">
