@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserChatService} from '../../../../service/user.chat.service';
 
 @Component({
   selector: 'app-messages-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
-  providers: [UserChatService],
 })
 export class SidebarComponent implements OnInit {
   userChats;
-  constructor(private userChatService: UserChatService) { }
+  userTo;
+
+  constructor(private userChatService: UserChatService) {
+  }
 
   ngOnInit() {
     return this.userChatService.getUserChats().subscribe(userChats => {
@@ -17,9 +19,11 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  onUserClick(user) {
-
+  onUserClick(chatId) {
+    this.userChatService.setCurrentChat(chatId);
+    //this.userTo = userId;
   }
+
   hasNewMessages(chat) {
     return !!chat.newMessages;
   }
