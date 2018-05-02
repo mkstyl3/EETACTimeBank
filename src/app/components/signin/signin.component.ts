@@ -41,10 +41,10 @@ export class SigninComponent implements OnInit {
     this.userService.signIn$(username, password).subscribe(
       data => {
         this.userService.setUserLoggedIn();
-                this.showSuccessToast('User '+username+' Logged In');
-                localStorage.setItem('userId', data.userId);
-                localStorage.setItem('token', data.token);
-                this.router.navigate(['home']);
+        this.showSuccessToast('User '+username+' Logged In');
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('token', data.token);
+        this.router.navigate(['home']);
       },
       data => {
         console.log();
