@@ -1,0 +1,42 @@
+.send-message {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  padding: 10px 20px 10px 25px;
+  background-color: #dddddd;
+}
+.send-message .field {
+  position: relative;
+}
+.send-message .field:before {
+  left: -10px;
+  border-color: white white transparent transparent;
+  border-width: 8px 5px;
+  position: absolute;
+  content: '';
+  top: 0;
+  border-style: solid;
+}
+.send-message .field input {
+  -webkit-appearance: none;
+  border: none;
+  background-color: white;
+  width: 100%;
+  display: block;
+  border-radius: 0 3px 3px 3px;
+  padding: 15px;
+  cursor: pointer;
+}
+.send-message .field input::-webkit-input-placeholder {
+  color: #c5c5c5;
+  font-weight: bold;
+}
+.send-message .field input:-moz-placeholder {
+  color: #c5c5c5;
+  font-weight: bold;
+}
+.send-message .field input:-ms-input-placeholder {
+  color: #c5c5c5;
+  font-weight: bold;
+}

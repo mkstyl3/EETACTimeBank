@@ -1,0 +1,7 @@
+<div class="send-message" (ngSubmit)="onSendMessage()">
+  <form name="chatForm" novalidate>
+    <div class="field">
+      <input [(ngModel)]="message" name="message" placeholder="Write a new message" (keypress)="onSendMessage()">
+    </div>
+  </form>
+</div>

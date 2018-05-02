@@ -4,11 +4,9 @@ import { User } from '../models/user.model';
 import { Observable } from '../../../node_modules/rxjs';
 
 
-
 declare var moment: any;
 
-
-const url = 'http://localhost:3000/users';
+const url = 'users';
 
 @Injectable()
 export class UserService {
@@ -37,5 +35,9 @@ export class UserService {
   signUp$(userData: any) {
     console.log(userData);
     return this.http.post<any>(url + '/signup', userData);
+  }
+
+  getUserWallet(id: string): Observable<any> {
+    return this.http.post<any>(url + '/getUserById', { id });
   }
 }

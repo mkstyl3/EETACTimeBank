@@ -1,0 +1,17 @@
+<aside class="sidebar">
+  <ul>
+    <li *ngFor="let chat of userChats" [ngClass]="{'selected': (selectedUser !== undefined) && (selectedUser.id === user.id)}">
+      <div (click) = "onUserClick(chat.id)">
+        <div class="username-letter">
+          <span *ngIf="!chat.userAvatar">{{chat.userName[0]}}</span>
+          <img *ngIf="chat.userAvatar" src="{{chat.userAvatar}}" width="50">
+        </div>
+        <section class="user-details">
+          <div class="name">{{chat.userName}}</div>
+          <div class="last-message" *ngIf="!!chat.lastMessage">{{chat.lastMessage}}</div>
+        </section>
+        <span class="new-messages" *ngIf="hasNewMessages(chat)">{{chat.newMessages}}</span>
+      </div>
+    </li>
+  </ul>
+</aside>

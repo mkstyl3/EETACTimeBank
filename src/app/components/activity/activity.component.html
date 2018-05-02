@@ -1,0 +1,75 @@
+<div class="col-lg-6">
+  <h1 class="h1-strong">Registra una activitat</h1>
+
+  <form #activityForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10, form-inLine">
+    <div class="row">
+            <div class="col">
+                <label>Nom de l'activitat</label>
+                <input type="text" name="name" #name="ngModel" [(ngModel)]="activity.name"
+                       class="form-control" required />
+                <span *ngIf = "!name.valid && name.touched">El nom és obligatori</span>
+            </div>
+
+            <div class="col">
+              <label>Descripció corta</label>
+              <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description"
+                     class="form-control" required />
+              <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
+            </div>
+    </div>
+
+    <div class="row">
+            <div class="col">
+                  <label>Preu</label>
+                  <input type="number" name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
+                         class="form-control" required />
+                  <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
+
+                  <label>Tria una o varias categories</label>
+                  <select name="category" #category="ngModel" [(ngModel)]="activity.category"
+                          class="custom-select custom-select-lg form-control" multiple >
+
+                          <option value="Musica">                     Musica                       </option>
+                          <option value="Fotos i videos">             Fotos i videos               </option>
+                          <option value="informatica i oficina">      Informatica i oficina        </option>
+                          <option value="Bellesa i salut">            Bellesa i salut              </option>
+                          <option value="Alimentació i beguda">       Alimentació i beguda         </option>
+                          <option value="Hogar, jardí, bricolatge">   Hogar, jardí, bricolatge     </option>
+                          <option value="Videojocs">                  Videojocs                    </option>
+                          <option value="moda">                       Moda                         </option>
+                          <option value="Esport i aire lliure">       Esport i aire lliure         </option>
+                          <option value="coche i moto">               Coche i Moto                 </option>
+                          <option value="manualitats">                Manualitats                  </option>
+                          <option value="Ocio">                       Ocio                         </option>
+                  </select>
+                  <br>
+
+                  <label>Imatge:</label>
+                  <input type="file" class="imatge"  name="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat"
+                         class="form-control">
+            </div>
+
+            <div class="col">
+                    <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
+
+                    <button  class="btn btn-info"       name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Material Extra" ngDefaultControl>  Material Extra    </button>
+                    <button  class="btn btn-secondary"  name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Activitat UPC" ngDefaultControl>   Activitat UPC     </button>
+
+                    <button  class="btn btn-success"    name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aire lliure" ngDefaultControl>     Aire lliure       </button>
+                    <button  class="btn btn-danger"     name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Aquatic" ngDefaultControl>         Aquatic           </button>
+                    <button  class="btn btn-warning"    name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Exclusiu" ngDefaultControl>        Exclusiu          </button>
+
+                    <button  class="btn btn btn-dark"   name="tag" #tag="ngModel" [(ngModel)]="activity.tag" value="Urgent" ngDefaultControl>          Urgent            </button>
+
+            </div>
+    </div>
+    <br>
+    <input type="submit" value="Afegir" class="btn btn-success" [disabled]="!activityForm.form.valid" />
+  </form>
+
+
+</div>
+
+<div class="col-lg-6">
+  <h1 class="h1-strong">Novetats</h1>
+</div>

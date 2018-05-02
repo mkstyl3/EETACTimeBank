@@ -5,7 +5,6 @@ import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 
-const url = 'http://localhost:3000/users';
 declare const require: any;
 
 @Component({
