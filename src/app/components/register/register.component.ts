@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
       const userData = { name, username, mail, password };
       this.userService.signUp$(userData).subscribe(
         data => {
-          this.userService.setUserLoggedIn();
+          //this.userService.setUserLoggedIn();
           this.showSuccessToast('User '+username+' added!');
           localStorage.setItem('userId', data.userId);
           localStorage.setItem('token', data.token);

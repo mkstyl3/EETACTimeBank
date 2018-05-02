@@ -4,24 +4,12 @@ import { User } from '../models/user.model';
 import { Observable } from '../../../node_modules/rxjs';
 
 
-declare var moment: any;
-
 const url = 'users';
 
 @Injectable()
 export class UserService {
-  private isUserLoggedIn;
 
   constructor(private http: HttpClient) {
-    this.isUserLoggedIn = false;
-  }
-
-  setUserLoggedIn() {
-    this.isUserLoggedIn = true;
-  }
-
-  getUserLoggedIn() {
-    return this.isUserLoggedIn;
   }
 
   test$(){
@@ -40,4 +28,6 @@ export class UserService {
   getUserWallet(id: string): Observable<any> {
     return this.http.post<any>(url + '/getUserById', { id });
   }
+
+  
 }

@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './components/home/home.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { SidebarComponent } from './components/messages/components/sidebar/sidebar.component';
-import {AuthGuard} from './auth.guard';
+import {AuthGuard} from './auth/auth.guard';
 import { ActivityRequestComponent } from './components/activity-request/activity-request.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ActivityComponent } from './components/activity/activity.component';
@@ -22,6 +22,7 @@ import {FormsModule} from '@angular/forms';
 import {ConversationComponent} from './components/messages/components/conversation/conversation.component';
 import {SendMessageComponent} from './components/messages/components/send-message/send-message.component';
 import APIInterceptor from './interceptors/api.interceptor';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import APIInterceptor from './interceptors/api.interceptor';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [UserService, AuthGuard, {
+  providers: [UserService, AuthGuard,
+    AuthService, {
     provide: HTTP_INTERCEPTORS,
     useClass: APIInterceptor,
     multi: true,
