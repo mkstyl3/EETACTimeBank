@@ -59,7 +59,7 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Id</th>
+                  <th>Data</th>
                   <th>Activitat</th>
                   <th>Preu</th>
                   <th>Impartida per</th>
@@ -67,8 +67,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor=" let i = index">
-                  </tr>
+                <tr *ngFor=" let act of doneActivitiesList.req">
+                  <th *ngIf="act.isDone">{{act.date}}</th>
+                  <th *ngIf="act.isDone">{{act.activity}}</th>
+                  <th *ngIf="act.isDone">{{act.preu}}</th>
+                  <th *ngIf="act.isDone">{{act.userTo}}</th>
+                  <th *ngIf="act.isDone">{{act.userFrom}}</th>
+                </tr>
                 </tbody>
               </table>
             </div>

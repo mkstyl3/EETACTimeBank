@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../service/user.service';
+import {ActivityRequestService} from '../../service/activity-request.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,12 @@ import {UserService} from '../../service/user.service';
 export class HeaderComponent implements OnInit {
 
   user: any;
-  constructor(private userService: UserService) { }
+  doneActivitiesList: any;
+  constructor(private userService: UserService /*, private activityRequestService: ActivityRequestService*/) { }
 
   ngOnInit() {
     this.getWallet();
+    this.getDoneActivities();
   }
   getWallet() {
     const id = localStorage.getItem('userId');
@@ -23,6 +26,24 @@ export class HeaderComponent implements OnInit {
       data => {
         console.log(data);
       });
+  }
+  getDoneActivities() {
+    const id = localStorage.getItem('userId');
+
+    this.userService.getPetitions(id).subscribe(
+      data => {
+        this.doneActivitiesList = data;
+        console.log(data);
+      }
+    );
+
+    /*
+    this.activityRequestService.getPetitions(id).subscribe(
+      data => {
+        console.log(data);
+      }
+    );
+    */
   }
 
 }

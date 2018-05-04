@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Observable } from '../../../node_modules/rxjs';
+import {ActivityRequest} from '../models/activityRequest.model';
 
 
 const url = 'users';
@@ -28,6 +29,7 @@ export class UserService {
   getUserWallet(id: string): Observable<any> {
     return this.http.post<any>(url + '/getUserById', { id });
   }
-
-  
+  getPetitions(id) {
+    return this.http.get('activityRequest/requested/' + id);
+  }
 }
