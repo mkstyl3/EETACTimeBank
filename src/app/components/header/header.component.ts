@@ -12,9 +12,9 @@ export class HeaderComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.getWallet();
+    //this.getWallet();
   }
-  getWallet() {
+  /*getWallet() {
     const id = localStorage.getItem('userId');
     this.userService.getUserWallet(id).subscribe(
       data => {
@@ -23,6 +23,6 @@ export class HeaderComponent implements OnInit {
       data => {
         console.log(data);
       });
-  }
+  }*/
 
 }

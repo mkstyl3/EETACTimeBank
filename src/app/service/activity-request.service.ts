@@ -12,8 +12,13 @@ export class ActivityRequestService {
   constructor(private http: HttpClient) {  }
 
   ////////*************METODES*******************////////////
-  getPetitions(id){
-    return this.http.get<ActivityRequest[]>(this.url+'/activityRequest/requested/'+id)
+  getMyPetitions(id){
+    return this.http.get<ActivityRequest[]>('activityRequest/requested/'+id)
+      .map(res=>res);
+  }
+
+  getTheirPetitions(id){
+    return this.http.get<ActivityRequest[]>('activityRequest/petitions/'+id)
       .map(res=>res);
   }
 
