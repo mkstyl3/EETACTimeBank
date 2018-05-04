@@ -6,6 +6,7 @@ import {HomeComponent} from './components/home/home.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { AuthGuard } from './auth/auth.guard';
 import {ActivityRequestComponent} from './components/activity-request/activity-request.component';
+import {ProfileComponent} from './components/profile/profile.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'signin',           component: SigninComponent },
   { path: 'register',         component: RegisterComponent },
   { path: 'home',             component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'profile',          component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'messages',         component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'activityRequest',  component: ActivityRequestComponent, canActivate: [AuthGuard] },
 
@@ -20,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]
   })
 

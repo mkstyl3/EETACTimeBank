@@ -4,6 +4,7 @@ import {ToastsManager} from 'ng2-toastr';
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
 import {ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
+import {ActivityService} from '../../service/activity.service';
 
 declare const require: any;
 
@@ -61,7 +62,7 @@ export class RegisterComponent implements OnInit {
         },
         data => {
           switch(data.error.validationError) {
-            case 'mail': 
+            case 'mail':
               this.showErrorToast('Invalid email format'); //Joi Validation failed
               break;
             case 'name':
@@ -77,6 +78,4 @@ export class RegisterComponent implements OnInit {
         });
     }
   }
-
-
 }
