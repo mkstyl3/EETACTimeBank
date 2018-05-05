@@ -13,13 +13,14 @@ export class ActivityRequestService {
 
   ////////*************METODES*******************////////////
   getMyPetitions(id){
-    return this.http.get<ActivityRequest[]>('activityRequest/requested/'+id)
-      .map(res=>res);
+    return this.http.get<ActivityRequest[]>('activityRequest/requested/' + id)
+      .map(res => res);
   }
 
   getTheirPetitions(id){
-    return this.http.get<ActivityRequest[]>('activityRequest/petitions/'+id)
-      .map(res=>res);
+    return this.http.get<ActivityRequest[]>('activityRequest/petitions/' + id)
+      .map(res => res);
   }
+
 
 }

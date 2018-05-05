@@ -28,7 +28,12 @@ export class UserService {
   getUserWallet(id: string): Observable<any> {
     return this.http.post<any>(url + '/getUserById', { id });
   }
+  // Peticiones Temporales Josean
   getPetitions(id) {
     return this.http.get('activityRequest/requested/' + id);
   }
+  getTheirPetitions(id) {
+    return this.http.get<any>('activityRequest/petitions/' + id);
+  }
+  // Peticiones Temporales Josean
 }

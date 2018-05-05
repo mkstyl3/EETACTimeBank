@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {ActivityRequestService} from '../../service/activity-request.service';
+import {ActivityRequest} from '../../models/activityRequest.model';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +10,11 @@ import {ActivityRequestService} from '../../service/activity-request.service';
 })
 export class HeaderComponent implements OnInit {
 
-  user: any;
-  doneActivitiesList: any;
+  user = {username: 'Usuario', wallet: 'Wallet'};
+  SearchDone = false;
+  // doneActivitiesList = new ActivityRequest('', '', '', false, false, null);
+  myActivitiesList: Array<ActivityRequest> = [];
+  theirActivitiesList: Array<ActivityRequest> = [];
   constructor(private userService: UserService /*, private activityRequestService: ActivityRequestService*/) { }
 
   ngOnInit() {
@@ -22,6 +26,7 @@ export class HeaderComponent implements OnInit {
     this.userService.getUserWallet(id).subscribe(
       data => {
         this.user = data;
+        console.log(this.user);
       },
       data => {
         console.log(data);
@@ -32,8 +37,18 @@ export class HeaderComponent implements OnInit {
 
     this.userService.getPetitions(id).subscribe(
       data => {
-        this.doneActivitiesList = data;
+        const da: any = data;
+        this.myActivitiesList = da;
         console.log(data);
+        this.SearchDone = true;
+      }
+    );
+    this.userService.getTheirPetitions(id).subscribe(
+      data => {
+        const da2: any = data;
+        this.theirActivitiesList = da2;
+        console.log(data);
+        this.SearchDone = true;
       }
     );
 
