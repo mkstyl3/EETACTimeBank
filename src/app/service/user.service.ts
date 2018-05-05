@@ -4,7 +4,6 @@ import { User } from '../models/user.model';
 import { Observable } from '../../../node_modules/rxjs';
 import {ActivityRequest} from '../models/activityRequest.model';
 
-
 const url = 'users';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  test$(){
+  test$() {
     return this.http.get(url + '/test');
   }
 
