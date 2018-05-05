@@ -44,8 +44,8 @@ export class SigninComponent implements OnInit {
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(
       data => {
-        //this.userService.setUserLoggedIn();
-        this.showSuccessToast('User '+username+' Logged In');
+        // this.userService.setUserLoggedIn();
+        this.showSuccessToast('User ' + username + ' Logged In');
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('token', data.token);
         this.router.navigate(['home']);

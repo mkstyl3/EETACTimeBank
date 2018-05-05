@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Observable } from '../../../node_modules/rxjs';
 
-
 const url = 'users';
 
 @Injectable()
@@ -12,7 +11,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  test$(){
+  test$() {
     return this.http.get(url + '/test');
   }
 
@@ -28,6 +27,4 @@ export class UserService {
   getUserWallet(id: string): Observable<any> {
     return this.http.post<any>(url + '/getUserById', { id });
   }
-
-  
 }
