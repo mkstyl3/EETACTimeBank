@@ -1,5 +1,5 @@
 <section class="messages">
-  <div *ngIf=conversation>
+  <div *ngIf=conversation (click)="onConversationClicked()">
     <ul *ngFor="let message of conversation.messages">
       <li *ngIf=isTheUser(message)>
         <div class="profile-message message-container">

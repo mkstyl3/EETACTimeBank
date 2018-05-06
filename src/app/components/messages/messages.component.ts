@@ -13,5 +13,6 @@ export class MessagesComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    // getUSerChats
   }
 }

@@ -9,6 +9,7 @@ h3 {size: A5; font-style: italic; font-size: small}
   border-color: #610B0B; color: white;
   background: #363636;
   padding: 0.5em; font-size: large;
+  margin: 0;
 }
 
 .MenuSuperior{

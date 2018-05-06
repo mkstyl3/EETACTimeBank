@@ -1,3 +1,11 @@
+.messages {
+  height: calc(100vh - 161px);
+  overflow-y: auto;
+  padding-bottom: 130px;
+  padding-top: 25px;
+  box-sizing: border-box;
+}
+
 .messages ul {
   padding: 0 20px;
 }

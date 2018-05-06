@@ -1,8 +1,7 @@
 .conversation {
-  padding-top: 25px;
   margin-left: 320px;
-  height: calc(100vh - 157px);
   background: #dddddd;
   position: relative;
+  overflow: hidden;
   z-index: 1;
 }

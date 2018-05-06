@@ -8,20 +8,28 @@ import {UserChatService} from '../../../../service/user.chat.service';
 })
 export class SidebarComponent implements OnInit {
   userChats;
-  userTo;
+  currentChat;
 
   constructor(private userChatService: UserChatService) {
   }
 
   ngOnInit() {
-    return this.userChatService.getUserChats().subscribe(userChats => {
+    this.userChatService.getUserChats().subscribe(userChats => {
+      this.userChatService.userChats.next(userChats);
+    });
+
+    this.userChatService.userChats.subscribe(userChats => {
       this.userChats = userChats;
     });
+
+    this.userChatService.currentChat.subscribe(currentChat => {
+      this.currentChat = currentChat;
+    });
+
   }
 
   onUserClick(chatId) {
     this.userChatService.setCurrentChat(chatId);
-    //this.userTo = userId;
   }
 
   hasNewMessages(chat) {

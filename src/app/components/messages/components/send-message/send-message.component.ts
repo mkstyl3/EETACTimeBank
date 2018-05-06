@@ -19,5 +19,6 @@ export class SendMessageComponent implements OnInit {
   onSendMessage() {
     console.log(this.message);
     this.userChatService.sendMessage(this.message);
+    this.message = null;
   }
 }
