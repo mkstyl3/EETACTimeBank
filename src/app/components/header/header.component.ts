@@ -26,10 +26,9 @@ export class HeaderComponent implements OnInit {
     this.userService.getUserWallet(id).subscribe(
       data => {
         this.user = data;
-        console.log(this.user);
       },
       data => {
-        console.log(data);
+        console.error(data);
       });
   }
   getDoneActivities() {
@@ -38,7 +37,6 @@ export class HeaderComponent implements OnInit {
       data => {
         const da: any = data;
         this.myActivitiesList = da;
-        console.log(data);
         this.SearchDone = true;
       }
     );
@@ -46,7 +44,6 @@ export class HeaderComponent implements OnInit {
       data => {
         const da2: any = data;
         this.theirActivitiesList = da2;
-        console.log(data);
         this.SearchDone = true;
       }
     );

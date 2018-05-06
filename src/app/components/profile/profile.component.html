@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Show Modal -->
         <div class="modal fade" id="showActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -54,8 +54,7 @@
                   <agm-map
                     [latitude]="latitud_map"
                     [longitude]="longitud_map"
-                    [zoom]="17" *ngIf="showMap"
-                    (mapClick)="mapClick($event)">
+                    [zoom]="17" *ngIf="showMap">
 
                     <!-- Actividad -->
                     <agm-marker
@@ -88,7 +87,68 @@
             </div>
           </div>
         </div>
+        <!-- Fin Modal -->
 
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header modal-header-primary">
+                <h1>Editar {{activity.name}}
+                  <br><a><small class="text-muted">@{{activity.user}}</small></a>
+                </h1>
+              </div>
+              <div class="modal-body">
+                <em>Publicado el {{activity.date | date:"dd/MM/yyyy/ 'a las' h:mma"}}</em>
+
+                <form (submit)="editActivity(name, cost, description, tag)">
+                  <br><a>Nom de l'activitat</a>
+                  <br><input class="input-box" #name type="text" placeholder="{{activity.name}}">
+                  <br><br><a>Cost en hores</a>
+                  <br><input class="input-box" #cost type="number" placeholder="{{activity.cost}}h">
+                  <br><br><a>Descripció del que es realitzarà</a>
+                  <br><input class="input-box" #description type="text" placeholder="{{activity.description}}">
+                  <br><br><a>Etiquetes resum</a>
+                  <br><input class="input-box" #tag type="text" placeholder="{{activity.tag}}">
+                </form>
+
+                <!-- Mapa -->
+                <div>
+                  <agm-map
+                    [latitude]="latitud_map"
+                    [longitude]="longitud_map"
+                    [zoom]="17" *ngIf="showMap"
+                    (mapClick)="mapClick($event)">
+
+                    <!-- Actividad -->
+                    <agm-marker
+                      [latitude]="latitud_marker_activity"
+                      [longitude]="longitud_marker_activity">
+                      <agm-info-window>
+                        {{activity.name}}
+                      </agm-info-window>
+                    </agm-marker>
+
+                    <!-- Usuario -->
+                    <agm-marker
+                      [latitude]="latitud_marker_user"
+                      [longitude]="longitud_marker_user">
+                      <agm-info-window>
+                        Your current position
+                      </agm-info-window>
+                    </agm-marker>
+
+                  </agm-map>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" (click)="editActivity(name, cost, description, tag, latitud_marker_activity, longitud_marker_activity)">Enviar</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tanca</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin Modal -->
       </div>
     </div>
   </div>
