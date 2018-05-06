@@ -1,5 +1,5 @@
 <app-header></app-header>
-<body *ngIf=show>
+<body class="main-container" *ngIf=show>
   <div class="row">
     <div class="card profile-user">
       <img src="{{user.image}}" width="70%"/><br/>
@@ -26,12 +26,69 @@
           </div>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
-              <button (click)="popupView(activity)" class="btn btn-sm btn-outline-secondary">VER</button>
-              <button (click)="popupEdit(activity)" class="btn btn-sm btn-outline-secondary">EDITAR</button>
+              <button (click)="popupView(activity)" class="btn btn-sm btn-outline-secondary"
+                  data-toggle="modal" data-target="#showActivity">VER</button>
+              <button (click)="popupEdit(activity)" class="btn btn-sm btn-outline-secondary"
+                  data-toggle="modal" data-target="#editActivity">EDITAR</button>
             </div>
             <h5>{{activity.cost}}h</h5>
           </div>
         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="showActivity" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header modal-header-primary">
+                <h1>{{activity.name}}
+                  <br><a><small class="text-muted">@{{activity.user}}</small></a>
+                </h1>
+              </div>
+              <div class="modal-body">
+                <em>Publicado el {{activity.date | date:"dd/MM/yyyy/ 'a las' h:mma"}}</em>
+                <h3>Preu: {{activity.cost}}h</h3>
+                <h4>{{activity.description}}</h4>
+
+                <!-- Mapa -->
+                <div>
+                  <agm-map
+                    [latitude]="latitud_map"
+                    [longitude]="longitud_map"
+                    [zoom]="17" *ngIf="showMap"
+                    (mapClick)="mapClick($event)">
+
+                    <!-- Actividad -->
+                    <agm-marker
+                      [latitude]="latitud_marker_activity"
+                      [longitude]="longitud_marker_activity">
+                      <agm-info-window>
+                        {{activity.name}}
+                      </agm-info-window>
+                    </agm-marker>
+
+                    <!-- Usuario -->
+                    <agm-marker
+                      [latitude]="latitud_marker_user"
+                      [longitude]="longitud_marker_user">
+                      <agm-info-window>
+                        Your current position
+                      </agm-info-window>
+                    </agm-marker>
+
+                  </agm-map>
+                </div>
+                <div><br></div>
+                <div class="row">
+                  <div class="card" *ngFor="let tag of activity.tags">{{tag}}</div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tanca</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

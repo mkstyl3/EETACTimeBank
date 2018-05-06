@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit {
   }
   getDoneActivities() {
     const id = localStorage.getItem('userId');
-
     this.userService.getPetitions(id).subscribe(
       data => {
         const da: any = data;
@@ -60,5 +59,4 @@ export class HeaderComponent implements OnInit {
     );
     */
   }
-
 }
