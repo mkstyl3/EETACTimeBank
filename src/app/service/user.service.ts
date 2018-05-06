@@ -1,33 +1,17 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {User} from '../models/user.model';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/shareReplay';
-
-declare var moment: any;
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../models/user.model';
+import { Observable } from '../../../node_modules/rxjs';
+import {ActivityRequest} from '../models/activityRequest.model';
 
 const url = 'users';
 
 @Injectable()
 export class UserService {
-  private isUserLoggedIn;
 
-  constructor(private http: HttpClient) {
-    this.isUserLoggedIn = false;
-  }
+  constructor(private http: HttpClient) { }
 
-  setUserLoggedIn() {
-    this.isUserLoggedIn = true;
-  }
-
-  getUserLoggedIn() {
-    return this.isUserLoggedIn;
-  }
-
-  test$(){
-    return this.http.get(url + '/test');
-  }
+  test$() { return this.http.get(url + '/test'); }
 
   signIn$(username: string, password: string): Observable<any> {
     return this.http.post<any>(url + '/signin', { username, password });
@@ -41,4 +25,16 @@ export class UserService {
   getUserWallet(id: string): Observable<any> {
     return this.http.post<any>(url + '/getUserById', { id });
   }
+
+  getProfileUser$(name: string) {
+    return this.http.get<User>(url + '/' + name);
+  }
+  // Peticiones Temporales Josean
+  getPetitions(id) {
+    return this.http.get('activityRequest/requested/' + id);
+  }
+  getTheirPetitions(id) {
+    return this.http.get<any>('activityRequest/petitions/' + id);
+  }
+  // Peticiones Temporales Josean
 }

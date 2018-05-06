@@ -3,6 +3,8 @@ import {UserService} from '../../service/user.service';
 import {ToastsManager} from 'ng2-toastr';
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
+import {ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
+import {ActivityService} from '../../service/activity.service';
 
 declare const require: any;
 
@@ -22,6 +24,10 @@ export class RegisterComponent implements OnInit {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
+  onSubmit() {
+    console.log("Form submitted!");
+    }
+
   showSuccessToast(m: string) {
     this.toastr.success(m);
   }
@@ -40,30 +46,36 @@ export class RegisterComponent implements OnInit {
   }
 
   signUp(name:string, username:string, mail:string, password: string, password2: string ) { // Working
-    if (password!=password2)
-    {
+    if (password != password2) {
       console.log("no coinciden");
       this.showErrorToast("Passwords doesn't match");
     }
     else {
-            const userData = { name, username, mail, password };
-            this.userService.signUp$(userData).subscribe(
+      const userData = { name, username, mail, password };
+      this.userService.signUp$(userData).subscribe(
         data => {
-          this.userService.setUserLoggedIn();
-                      this.showSuccessToast('User '+username+' added!');
-                      localStorage.setItem('userId', data.userId);
-                      localStorage.setItem('token', data.token);
-                      this.router.navigate(['home']);
-                   },
-              data => {
-                if (data.status == 400) {
-                              this.showErrorToast(data.error.ValidationError); //Joi Validation failed
-                            }
-                          else if ('SyntaxError' in data) {
-                              this.showErrorToast('Syntax Error'); //Joi Validation failed
-                            }
-                          else this.showErrorToast('This user is already registered');
-              });
+          //this.userService.setUserLoggedIn();
+          this.showSuccessToast('User '+username+' added!');
+          localStorage.setItem('userId', data.userId);
+          localStorage.setItem('token', data.token);
+          this.router.navigate(['home']);
+        },
+        data => {
+          switch(data.error.validationError) {
+            case 'mail':
+              this.showErrorToast('Invalid email format'); //Joi Validation failed
+              break;
+            case 'name':
+              this.showErrorToast('Invalid name format');
+              break;
+            case 'username':
+              this.showErrorToast('Invalid username format');
+              break;
+            case 'password':
+              this.showErrorToast('Invalid password format');
+              break;
+          }
+        });
     }
   }
 }

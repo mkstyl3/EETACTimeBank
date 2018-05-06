@@ -2,6 +2,7 @@ import { Component, OnInit }      from '@angular/core';
 import {ActivityRequestService}   from '../../service/activity-request.service'
 import {Activity}                 from '../../models/activity.model'
 import {ActivityRequest}          from '../../models/activityRequest.model'
+import {ActivityRequestResponse}  from '../../models/activityRequestResponse.model'
 import {ActivityService} from '../../service/activity.service';
 import {resolveProjectModule} from '@angular/cli/utilities/require-project-module';
 
@@ -14,16 +15,30 @@ import {resolveProjectModule} from '@angular/cli/utilities/require-project-modul
 export class ActivityRequestComponent implements OnInit {
 
   public activityRequest: ActivityRequest;
-  petition: ActivityRequest[];
+    myPetition:    ActivityRequestResponse[];
+    theirPetition: ActivityRequestResponse[];
 
   constructor(private actvitiyRequestService : ActivityRequestService) {
 
-    this.actvitiyRequestService.getPetitions(localStorage.userId).subscribe(
+    this.actvitiyRequestService.getMyPetitions(localStorage.userId).subscribe(
 
       response => {
         if (response) {
           console.log(response)
-          //this.petition = response;
+          this.myPetition = response;
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+
+    this.actvitiyRequestService.getTheirPetitions(localStorage.userId).subscribe(
+
+      response => {
+        if (response) {
+          console.log(response)
+          this.theirPetition = response;
         }
       },
       error => {
@@ -37,18 +52,6 @@ export class ActivityRequestComponent implements OnInit {
   ngOnInit() {
   }
 
-  myPetitions(){
-    this.actvitiyRequestService.getPetitions(localStorage.userId).subscribe(
-      response => {
-        if (response) {
-          console.log(response)
-        }
-      },
-      error => {
-        console.log(<any>error);
-      }
-    );
-  }
 
 
 

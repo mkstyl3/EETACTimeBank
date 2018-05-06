@@ -1,0 +1,22 @@
+.main-container{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  width:90%;
+}
+.profile-user{
+  width: 30%;
+  border: 1px solid white;
+}
+.profile-list{
+  width: 70%;
+}
+
+.input-box{
+  width: 100%;
+}
+
+agm-map {
+  width: 450px;
+  height: 300px;
+}

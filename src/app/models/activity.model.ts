@@ -1,6 +1,5 @@
 export class Activity {
   constructor (
-
     name: string,
     latitude: number,
     longitude: number,
@@ -9,6 +8,5 @@ export class Activity {
     description: string,
     imatge: string,
     date: string,
-
-  ){}
+  ) {}
 }
