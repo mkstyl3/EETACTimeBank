@@ -32,3 +32,14 @@ nav a.selected, a:hover { color: #610B0B;}
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
+button {
+  background:none!important;
+  color:inherit;
+  border:none;
+  padding:0!important;
+  font: inherit;
+  /*border is optional*/
+  border-bottom:1px solid #444;
+  cursor: pointer;
+}
