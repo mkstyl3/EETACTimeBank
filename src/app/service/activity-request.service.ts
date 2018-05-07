@@ -3,11 +3,12 @@ import {HttpClient, HttpHeaders}   from '@angular/common/http';
 import "rxjs/Rx";
 import {ActivityRequest} from '../models/activityRequest.model'
 import {Observable} from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ActivityRequestService {
-  public url = 'http://localhost:3000';
+  public url = environment.urlBackend;
 
 
 

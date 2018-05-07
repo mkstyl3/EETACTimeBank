@@ -21,7 +21,7 @@ export class AuthService {
 
     if (decoded.exp === undefined) return null;
 
-    const date = new Date(0); 
+    const date = new Date(0);
     date.setUTCSeconds(decoded.exp);
     return date;
   }
