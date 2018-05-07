@@ -1,4 +1,4 @@
-<div class="send-message" >
+<div class="send-message"  *ngIf="CurrentChat()">
   <form name="chatForm" (ngSubmit)="onSendMessage()">
     <div class="field">
       <input [(ngModel)]="message" name="message" placeholder="Writee a new message" required>
