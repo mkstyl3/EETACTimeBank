@@ -8,7 +8,9 @@
             <span class="status"></span>
           </div>
           <div class="message">
-            <p class="ng-binding">{{message.text}}</p>
+            <p maxlength="4" class="ng-binding">{{message.text}}</p>
+            <p class="dateOfMessage"> {{setDate(message)}} </p>
+
           </div>
         </div>
       </li>
@@ -18,7 +20,8 @@
             <img src={{oppositePhoto}}>
           </div>
           <div class="message">
-            <p class="ng-binding">{{message.text}}</p>
+            <p maxlength="4" class="ng-binding">{{message.text}}</p>
+            <p class="dateOfMessage"> {{setDate(message)}}</p>
           </div>
         </div>
       </li>

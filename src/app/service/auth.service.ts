@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import * as jwt_decode from 'jwt-decode';
 
 export const TOKEN_NAME: string = 'token';
+
 @Injectable()
 export class AuthService {
-  
-  constructor() { }
+
+  constructor() {
+  }
 
   getToken(): string {
     return localStorage.getItem(TOKEN_NAME);
@@ -27,11 +29,11 @@ export class AuthService {
   }
 
   isTokenExpired(token?: string): boolean {
-    if(!token) token = this.getToken();
-    if(!token) return true;
+    if (!token) token = this.getToken();
+    if (!token) return true;
 
     const date = this.getTokenExpirationDate(token);
-    if(date === undefined) return false;
+    if (date === undefined) return false;
     return !(date.valueOf() > new Date().valueOf());
   }
 }
