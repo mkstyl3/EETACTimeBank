@@ -29,12 +29,4 @@ export class UserService {
   getProfileUser$(name: string) {
     return this.http.get<User>(url + '/' + name);
   }
-  // Peticiones Temporales Josean
-  getPetitions(id) {
-    return this.http.get('activityRequest/requested/' + id);
-  }
-  getTheirPetitions(id) {
-    return this.http.get<any>('activityRequest/petitions/' + id);
-  }
-  // Peticiones Temporales Josean
 }
