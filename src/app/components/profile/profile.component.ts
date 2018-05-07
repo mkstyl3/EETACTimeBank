@@ -17,6 +17,8 @@ export class ProfileComponent implements OnInit {
   user: User;
   show: boolean;
   id_activity: string;
+  tagString: string;
+  first: boolean;
   latitud_map: number;
   longitud_map: number;
   latitud_marker_user: number;
@@ -29,6 +31,7 @@ export class ProfileComponent implements OnInit {
               private activityService: ActivityService) {
     this.show = false;
     this.showMap = false;
+    this.tagString = '';
   }
 
   ngOnInit() { this.connect(); }
@@ -60,10 +63,16 @@ export class ProfileComponent implements OnInit {
 
   popupEdit(activity) {
     this.id_activity = activity._id;
-
+    this.first = true;
     for (const tags of activity.tags) {
-      console.log(tags);
+      if (this.first === true) {
+        this.tagString = tags;
+        this.first = false;
+      } else {
+        this.tagString = this.tagString + ', ' + tags;
+      }
     }
+    console.log(this.tagString);
 
     // Prepara el mapa
     this.showMap = false;

@@ -11,7 +11,7 @@
             </div>
 
             <div class="col">
-              <label>Descripció corta</label>
+              <label>Descripció breu</label>
               <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description"
                      class="form-control" required />
               <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
