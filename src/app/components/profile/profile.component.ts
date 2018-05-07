@@ -1,10 +1,8 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
-import { Activity } from '../../models/activity.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
-import {componentRefresh} from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +13,6 @@ import {componentRefresh} from '@angular/core/src/render3/instructions';
 
 export class ProfileComponent implements OnInit {
 
-  @Input() newSearch: Boolean;
-  nameUser: string;
   user: User;
   show: boolean;
   id_activity: string;
@@ -28,7 +24,8 @@ export class ProfileComponent implements OnInit {
   longitud_marker_activity: number;
   showMap: boolean;
 
-  constructor(private http: HttpClient, private userService: UserService, private activityService: ActivityService) {
+  constructor(private http: HttpClient, private userService: UserService,
+              private activityService: ActivityService) {
     this.show = false;
     this.showMap = false;
   }
@@ -72,15 +69,18 @@ export class ProfileComponent implements OnInit {
     this.setUpPosicion(); // Coloca la posicion del usuario
   }
 
-  editActivity(name, cost, description, tags, latitude, longitude) {
+  editActivity(name, cost, description, tag, latitude, longitude) {
+    const tags: string[] = tag.value.split(', '); // Prepara la lista de Tags
 
     /* TODO: eliminar los campos que no se rellenan para que no se elimine el contenido anterior */
+
     const json = {
       name: name.value,
       cost: cost.value,
       description: description.value,
       latitude: latitude,
-      longitude: longitude
+      longitude: longitude,
+      tags: tags
     };
 
     console.log(json); // Body de la petición PUT
@@ -89,7 +89,6 @@ export class ProfileComponent implements OnInit {
       console.log(data);
       if (data.result === 'ACTUALIZADO') { console.log('OK'); }
     });
-
   }
 
 
@@ -103,13 +102,6 @@ export class ProfileComponent implements OnInit {
         // Devuelve los valores del CallBack
         self.latitud_marker_user = position.coords.latitude;
         self.longitud_marker_user = position.coords.longitude;
-/*
-        // Si la actividad no tiene ubicación se le asigna la del usuario
-        if ((self.latitud_map === null) || (self.longitud_map === null)) {
-          self.latitud_map = self.latitud_marker_user;
-          self.longitud_map = self.longitud_marker_user;
-        }
-*/
         self.showMap = true;
       });
     } else { console.error('Error: No se puede acceder a la localización'); }
@@ -120,5 +112,4 @@ export class ProfileComponent implements OnInit {
     this.latitud_marker_activity = event.coords.lat;
     this.longitud_marker_activity = event.coords.lng;
   }
-
 }

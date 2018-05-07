@@ -17,7 +17,7 @@ declare const require: any;
 export class RegisterComponent implements OnInit {
 
   private title = 'EA Min1';
-  private img = require('../../../assets/img/EA.jpg');
+  public img = require('../../../assets/img/EA.jpg');
 
 
   constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router) {
@@ -45,25 +45,25 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  signUp(name:string, username:string, mail:string, password: string, password2: string ) { // Working
+  signUp(name: string, username: string, mail: string, password: string, password2: string ) { // Working
     if (password != password2) {
-      console.log("no coinciden");
-      this.showErrorToast("Passwords doesn't match");
-    }
-    else {
+      console.log('no coinciden');
+      this.showErrorToast('Passwords doesn´t match');
+    } else {
       const userData = { name, username, mail, password };
       this.userService.signUp$(userData).subscribe(
         data => {
-          //this.userService.setUserLoggedIn();
-          this.showSuccessToast('User '+username+' added!');
+          // this.userService.setUserLoggedIn();
+          this.showSuccessToast('User ' + username + ' added!');
+          localStorage.setItem('username', data.username);
           localStorage.setItem('userId', data.userId);
           localStorage.setItem('token', data.token);
           this.router.navigate(['home']);
         },
         data => {
-          switch(data.error.validationError) {
+          switch (data.error.validationError) {
             case 'mail':
-              this.showErrorToast('Invalid email format'); //Joi Validation failed
+              this.showErrorToast('Invalid email format'); // Joi Validation failed
               break;
             case 'name':
               this.showErrorToast('Invalid name format');

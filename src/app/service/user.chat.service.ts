@@ -8,6 +8,7 @@ import {Chat} from '../models/chat/chat';
 import {Message} from '../models/chat/message';
 import * as io from 'socket.io-client';
 import {messageTypes} from '../configs/enums_chat';
+import { environment } from '../../environments/environment';
 const url = 'chats';
 
 @Injectable()
@@ -16,7 +17,7 @@ export class UserChatService {
   newMessage = new BehaviorSubject(null);
   userChats = new BehaviorSubject(null);
   private socket;
-  private url = 'http://localhost:8880';
+  private url = environment.urlChat;
 
   constructor(private http: HttpClient) {
   }
