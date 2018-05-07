@@ -3,11 +3,16 @@ import {HttpClient, HttpHeaders}   from '@angular/common/http';
 import "rxjs/Rx";
 import {ActivityRequest} from '../models/activityRequest.model'
 import {Observable} from 'rxjs/Observable';
+<<<<<<< HEAD
 import { environment } from '../../environments/environment';
+=======
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+>>>>>>> e02dcc39323bbb4ba28f5a6b04c76d86a4de16a4
 
 @Injectable()
 export class ActivityRequestService {
   public url = environment.urlBackend;
+
 
 
   constructor(private http: HttpClient) {  }
@@ -20,8 +25,17 @@ export class ActivityRequestService {
 
   getTheirPetitions(id){
     return this.http.get<ActivityRequest[]>('activityRequest/petitions/' + id)
+
+  }
+  getCounters(id){
+    return this.http.get('activityRequest/count/' + id)
       .map(res => res);
   }
 
 
+  deletePetition(idPetition) {
+    return this.http.delete('activityRequest/' + idPetition)
+      .map (res=>res);
+
+  }
 }

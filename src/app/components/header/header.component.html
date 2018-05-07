@@ -11,18 +11,18 @@
   <div class="container-fluid">
     <nav class="MenuSuperior">
       <ul>
-        <li> <a href="http://localhost:4200/activityRequest" > Peticions    </a></li>
-        <li> <a routerLink="/profile"                        > Perfil       </a></li>
-        <li> <a href="#"                                     > Favorits     </a></li>
-        <li> <a routerLink="/messages"                       > Mensajes     </a></li>
-        <li> <a data-toggle="modal" data-target="#primary">  <font color="white">Banc [ {{user.wallet}}  h ]</font>
+        <li><a href="http://localhost:4200/activityRequest"> Peticions </a></li>
+        <li><a routerLink="/profile"> Perfil </a></li>
+        <li><a href="#"> Favorits </a></li>
+        <li><a routerLink="/messages"> Mensajes </a></li>
+        <li><a data-toggle="modal" data-target="#primary"> <font color="white">Banc [ {{user.wallet}} h ]</font>
         </a></li>
-        <li> <a routerLink="/home"> Inicio</a></li>
+        <li><a routerLink="/home"> Inicio</a></li>
       </ul>
     </nav>
   </div>
 
-    <!-- Modal -->
+  <!-- Modal -->
   <div class="modal fade" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -31,8 +31,9 @@
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         </div>
         <div class="modal-body">
-          <h4>Saldo actual de l'usuari {{user.username}}:  {{user.wallet}}  hores </h4>
-          <hr/><hr/>
+          <h4>Saldo actual de l'usuari {{user.username}}: {{user.wallet}} hores </h4>
+          <hr/>
+          <hr/>
           <h3>Últimes transaccions realitzades en aquest compte:</h3>
           <table *ngIf="SearchDone" class="table table-striped table-condensed">
             <thead>
@@ -47,15 +48,25 @@
             <tbody>
             <tr *ngFor=" let act of myActivitiesList">
               <td *ngIf="act.isDone">{{act.date | date: 'longDate'}}</td>
-              <td *ngIf="act.isDone"><button type='button' class='differentbutton' title="{{act.activity.description}}">{{act.activity.name}}</button></td>
-              <td *ngIf="act.isDone"><span class="label label-danger">- {{act.activity.cost}} h <i class="glyphicon glyphicon-time"></i></span>
+              <td *ngIf="act.isDone">
+                <button type='button' class='differentbutton' title="{{act.activity.description}}">
+                  {{act.activity.name}}
+                </button>
+              </td>
+              <td *ngIf="act.isDone"><span class="label label-danger">- {{act.activity.cost}} h <i
+                class="glyphicon glyphicon-time"></i></span>
               <td *ngIf="act.isDone">{{act.userTo.username}}</td>
               <td *ngIf="act.isDone">{{act.userFrom.username}}</td>
             </tr>
             <tr *ngFor=" let act of theirActivitiesList">
               <td *ngIf="act.isDone">{{act.date | date: 'longDate'}}</td>
-              <td *ngIf="act.isDone"><button type='button' class='differentbutton' title="{{act.activity.description}}">{{act.activity.name}}</button></td>
-              <td *ngIf="act.isDone"><span class="label label-success">+ {{act.activity.cost}} h <i class="glyphicon glyphicon-time"></i></span>
+              <td *ngIf="act.isDone">
+                <button type='button' class='differentbutton' title="{{act.activity.description}}">
+                  {{act.activity.name}}
+                </button>
+              </td>
+              <td *ngIf="act.isDone"><span class="label label-success">+ {{act.activity.cost}} h <i
+                class="glyphicon glyphicon-time"></i></span>
               <td *ngIf="act.isDone">{{act.userTo.username}}</td>
               <td *ngIf="act.isDone">{{act.userFrom.username}}</td>
             </tr>

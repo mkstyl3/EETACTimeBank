@@ -1,10 +1,10 @@
 <section class="messages">
-  <div *ngIf=conversation (click)="onConversationClicked()">
+  <div *ngIf=conversation (click)="onConversationClicked()" >
     <ul *ngFor="let message of conversation.messages">
       <li *ngIf=isTheUser(message)>
         <div class="profile-message message-container">
           <div class="user-image float-right">
-            <img src="https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png">
+            <img src={{myPhoto}}>
             <span class="status"></span>
           </div>
           <div class="message">
@@ -15,7 +15,7 @@
       <li *ngIf=!isTheUser(message) >
         <div class="user-message message-container ng-scope">
           <div class="user-image float-left">
-            <img src="https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png">
+            <img src={{oppositePhoto}}>
           </div>
           <div class="message">
             <p class="ng-binding">{{message.text}}</p>

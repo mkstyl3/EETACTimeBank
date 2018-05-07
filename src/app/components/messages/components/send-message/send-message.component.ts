@@ -21,4 +21,10 @@ export class SendMessageComponent implements OnInit {
     this.userChatService.sendMessage(this.message);
     this.message = null;
   }
+  CurrentChat() {
+    if (!this.userChatService.currentChat.value) {
+      return false;
+    }
+    return true;
+  }
 }

@@ -1,9 +1,14 @@
 <app-header></app-header>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="container-fluid">
 
     <div class="col-lg-3 card divisor"  >
-      <h1 class="h1-strong">Resum</h1>
+      <div ng *ngIf="counters">
+        <h1 class="h1-strong">Resum</h1>
+        <h4>Total sol·licituds Pendents</h4>
+        <p > {{counters.petitions}} </p>
+        <h4>Total sol·licituds teves</h4>
+        <p > {{counters.requested}} </p>
+      </div>
     </div>
 
     <div class="col-lg-4 card divisor">
@@ -14,29 +19,36 @@
             <th>Nom Activitat</th>
             <th>Descripció</th>
             <th>Usuari</th>
+            <th>Preu</th>
             <th>Gestionar</th>
+            <th>Realitzada</th>
           </tr>
         </thead>
 
         <tbody>
         <tr *ngFor="let petition of myPetition">
           <td>
-            <!--{{petition.activity.name}} -->
+            {{petition.activity.name}}
           </td>
           <td>
-            <!--{{petition.activity.description}} -->
+            {{petition.activity.description}}
           </td>
           <td>
             {{petition.userTo.name}}
           </td>
           <td>
-            <button class="btn btn-danger"  >
+            {{petition.activity.cost}}
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="deletePetition(petition._id)"  >
               <i class="fa fa-trash" style="font-size: 18px "></i>
             </button>
             <button class="btn btn-danger"  >
               <i class="fa fa-check" style="font-size: 18px "></i>
             </button>
           </td>
+          <td>
+
         </tr>
 
         </tbody>
@@ -51,20 +63,22 @@
             <th>Nom activitat</th>
             <th> Descripció</th>
             <th> Usuari </th>
+            <th>Preu</th>
             <th> Gestionar </th>
           </tr>
         </thead>
 
         <tbody>
         <tr *ngFor="let request of theirPetition">
-          <td><!--{{petition.activity.name}} --> </td>
-          <td><!--{{petition.activity.description}} --></td>
+          <td>{{request.activity.name}} </td>
+          <td>{{request.activity.description}}</td>
           <td>{{request.userFrom.name}}</td>
+          <td>{{request.activity.cost}} </td>
           <td>
             <button class="btn btn-danger"  >
               <i class="fa fa-trash" style="font-size: 18px "></i>
             </button>
-            <button class="btn btn-danger"  >
+            <button class="btn btn-danger" (click)="deletePetition(request._id)" >
               <i class="fa fa-check" style="font-size: 18px "></i>
             </button>
           </td>
