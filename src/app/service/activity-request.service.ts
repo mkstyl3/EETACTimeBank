@@ -3,10 +3,12 @@ import {HttpClient, HttpHeaders}   from '@angular/common/http';
 import "rxjs/Rx";
 import {ActivityRequest} from '../models/activityRequest.model'
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class ActivityRequestService {
   public url = 'http://localhost:3000';
+
 
 
   constructor(private http: HttpClient) {  }
@@ -19,8 +21,17 @@ export class ActivityRequestService {
 
   getTheirPetitions(id){
     return this.http.get<ActivityRequest[]>('activityRequest/petitions/' + id)
+
+  }
+  getCounters(id){
+    return this.http.get('activityRequest/count/' + id)
       .map(res => res);
   }
 
 
+  deletePetition(idPetition) {
+    return this.http.delete('activityRequest/' + idPetition)
+      .map (res=>res);
+
+  }
 }
