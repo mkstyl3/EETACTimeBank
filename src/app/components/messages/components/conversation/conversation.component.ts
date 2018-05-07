@@ -115,6 +115,14 @@ export class ConversationComponent implements OnInit {
     this.userChatService.userChats.next(chats);
   }
 
+  private setDate(message) {
+    const newDate = new Date(message.date);
+    if (newDate.getMinutes() < 10) {
+      return newDate.getHours() + ':0' + newDate.getMinutes();
+    }
+    return newDate.getHours() + ':' + newDate.getMinutes();
+  }
+
   private assignPhotos() {
     const id = localStorage.getItem('userId');
     if (this.conversation.users[0].userId === id) {
@@ -123,7 +131,7 @@ export class ConversationComponent implements OnInit {
     }
     else {
       this.oppositePhoto = this.conversation.users[0].userAvatar;
-      this.myPhoto= this.conversation.users[1].userAvatar;
+      this.myPhoto = this.conversation.users[1].userAvatar;
     }
   }
 }
