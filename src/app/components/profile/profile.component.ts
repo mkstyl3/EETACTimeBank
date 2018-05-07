@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit {
   showMap: boolean;
 
   constructor(private http: HttpClient, private userService: UserService, private activityService: ActivityService) {
-    this.nameUser = 'alberti_tu';
     this.show = false;
     this.showMap = false;
   }
@@ -39,7 +38,7 @@ export class ProfileComponent implements OnInit {
   // Recibe la respuesta del servidor
   connect() {
     this.show = false;
-    this.userService.getProfileUser$(this.nameUser).subscribe(
+    this.userService.getProfileUser$(localStorage.getItem('username')).subscribe(
       data => {
         this.user = data;      // El JSON se guarda en user
         console.log(this.user);
