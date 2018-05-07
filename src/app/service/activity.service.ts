@@ -17,7 +17,7 @@ export class ActivityService {
     return this.http.post<Activity>('activities/', newActivity).map(res => res);
   }
 
-  updateActivity(id: string, updateActivity: Activity) {
+  updateActivity(id: string, updateActivity: any) {
     return this.http.put<any>('activities/' + id, updateActivity);
   }
 

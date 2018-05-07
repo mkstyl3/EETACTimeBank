@@ -13,7 +13,7 @@ declare const require: any;
   providers: [UserService]
 })
 export class SigninComponent implements OnInit {
-  private img = require('../../../assets/img/EA.jpg');
+  public img = require('../../../assets/img/EA.jpg');
 
   constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -46,6 +46,7 @@ export class SigninComponent implements OnInit {
       data => {
         // this.userService.setUserLoggedIn();
         this.showSuccessToast('User ' + username + ' Logged In');
+        localStorage.setItem('username', data.username);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('token', data.token);
         this.router.navigate(['home']);
