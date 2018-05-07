@@ -18,10 +18,10 @@ export class APIInterceptor implements HttpInterceptor {
       return next.handle(apiReq);
     }
     
-    //const authorization = this.authService.getToken();
+    const authorization = this.authService.getToken();
     const apiReq = req.clone({ 
-      url: `http://localhost:3000/${req.url}`
-      //headers: req.headers.set('Authorization', authorization) 
+      url: `http://localhost:3000/${req.url}`,
+      headers: req.headers.set('Authorization', authorization) 
     });
     return next.handle(apiReq)
       .catch((error, caught) => {
