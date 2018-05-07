@@ -55,6 +55,6 @@ export class SigninComponent implements OnInit {
         console.log();
         this.showErrorToast('Invalid credentials');
       });
-  };
+  }
 }
 

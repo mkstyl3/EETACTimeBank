@@ -1,10 +1,8 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
-import { Activity } from '../../models/activity.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
-import {componentRefresh} from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +13,6 @@ import {componentRefresh} from '@angular/core/src/render3/instructions';
 
 export class ProfileComponent implements OnInit {
 
-  nameUser: string;
   user: User;
   show: boolean;
   id_activity: string;
@@ -27,7 +24,8 @@ export class ProfileComponent implements OnInit {
   longitud_marker_activity: number;
   showMap: boolean;
 
-  constructor(private http: HttpClient, private userService: UserService, private activityService: ActivityService) {
+  constructor(private http: HttpClient, private userService: UserService,
+              private activityService: ActivityService) {
     this.show = false;
     this.showMap = false;
   }
@@ -114,5 +112,4 @@ export class ProfileComponent implements OnInit {
     this.latitud_marker_activity = event.coords.lat;
     this.longitud_marker_activity = event.coords.lng;
   }
-
 }
