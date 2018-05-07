@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {ActivityRequestService} from '../../service/activity-request.service';
 import {ActivityRequest} from '../../models/activityRequest.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   user = {username: 'Usuario', wallet: 'Wallet'};
   SearchDone = false;
+  public urlBase = environment.urlFrontend;
   // doneActivitiesList = new ActivityRequest('', '', '', false, false, null);
   myActivitiesList: Array<ActivityRequest> = [];
   theirActivitiesList: Array<ActivityRequest> = [];
