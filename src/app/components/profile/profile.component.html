@@ -103,13 +103,13 @@
 
                 <form (submit)="editActivity(name, cost, description, tag)">
                   <br><a>Nom de l'activitat</a>
-                  <br><input class="input-box" #name type="text" placeholder="{{activity.name}}">
+                  <br><input class="input-box" #name type="text" [(ngModel)]="activity.name" name="name">
                   <br><br><a>Cost en hores</a>
-                  <br><input class="input-box" #cost type="number" placeholder="{{activity.cost}}h">
+                  <br><input class="input-box" #cost type="number" min=0 step=1 [(ngModel)]="activity.cost" name="cost">
                   <br><br><a>Descripció del que es realitzarà</a>
-                  <br><input class="input-box" #description type="text" placeholder="{{activity.description}}">
+                  <br><input class="input-box" #description type="text" [(ngModel)]="activity.description" name="description">
                   <br><br><a>Etiquetes resum, separa-les amb una ',' i un espai en blanc</a>
-                  <br><input class="input-box" #tag type="text" placeholder="{{activity.tag}}">
+                  <br><input class="input-box" #tag type="text" [(ngModel)]="activity.tag" name="tag">
                 </form>
 
                 <!-- Mapa -->

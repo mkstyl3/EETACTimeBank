@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
 @Component({
   selector: 'app-profile',
@@ -59,6 +60,11 @@ export class ProfileComponent implements OnInit {
 
   popupEdit(activity) {
     this.id_activity = activity._id;
+
+    for (const tags of activity.tags) {
+      console.log(tags);
+    }
+
     // Prepara el mapa
     this.showMap = false;
     this.latitud_map = activity.latitude;
@@ -71,9 +77,6 @@ export class ProfileComponent implements OnInit {
 
   editActivity(name, cost, description, tag, latitude, longitude) {
     const tags: string[] = tag.value.split(', '); // Prepara la lista de Tags
-
-    /* TODO: eliminar los campos que no se rellenan para que no se elimine el contenido anterior */
-
     const json = {
       name: name.value,
       cost: cost.value,
