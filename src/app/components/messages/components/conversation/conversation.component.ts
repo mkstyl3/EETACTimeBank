@@ -11,6 +11,8 @@ import {messageTypes} from '../../../../configs/enums_chat';
 export class ConversationComponent implements OnInit {
   conversation: Chat = null;
   currentChatId;
+  myPhoto;
+  oppositePhoto;
 
   constructor(private userChatService: UserChatService) {
   }
@@ -26,6 +28,7 @@ export class ConversationComponent implements OnInit {
       if (currentChatId) {
         this.userChatService.getUserChat(currentChatId).subscribe((conversation) => {
           this.conversation = conversation;
+          this.assignPhotos();
           this.scrollConversation();
         });
       }
@@ -36,6 +39,20 @@ export class ConversationComponent implements OnInit {
         const frameTosend = {'chatId': this.currentChatId, message};
         this.userChatService.sendMessageSocket(messageTypes.NEW_MESSAGE, frameTosend);
         this.conversation.messages.push(message);
+        const userChats = this.userChatService.userChats.value;
+        console.log(userChats);
+        console.log(this.currentChatId);
+        const chats = userChats.map(chat => {
+          console.log('chat');
+          console.log(chat);
+          if (chat.id === this.currentChatId) {
+            console.log('trobat afegeixo el missatge:' + message.text);
+            return {...chat, lastMessage: message.text};
+          } else {
+            return chat;
+          }
+        });
+        this.userChatService.userChats.next(chats);
         this.scrollConversation();
       }
     });
@@ -45,7 +62,7 @@ export class ConversationComponent implements OnInit {
         this.scrollConversation();
       }
 
-     // const currentChat = this.userChatService.currentChat;
+      // const currentChat = this.userChatService.currentChat;
       const userChats = this.userChatService.userChats.value;
       console.log(userChats);
       console.log(privateMessage);
@@ -53,7 +70,7 @@ export class ConversationComponent implements OnInit {
         console.log('chat');
         console.log(chat);
         if (chat.userId === privateMessage.userFrom) {
-          return { ...chat, lastMessage: privateMessage.text, newMessages: chat.newMessages + 1 };
+          return {...chat, lastMessage: privateMessage.text, newMessages: chat.newMessages + 1};
         } else {
           return chat;
         }
@@ -70,8 +87,12 @@ export class ConversationComponent implements OnInit {
     return false;
   }
 
-  scrollConversation () {
-    setTimeout(function() {
+  assignImagesProfiles() {
+    const users = this.conversation.users;
+  }
+
+  scrollConversation() {
+    setTimeout(function () {
       const mainEl = document.querySelector('.messages');
       mainEl.scrollTop = mainEl.scrollHeight;
 
@@ -86,7 +107,7 @@ export class ConversationComponent implements OnInit {
 
     const chats = userChats.map(chat => {
       if (chat.id === currentChatId) {
-        return { ...chat, newMessages: 0 };
+        return {...chat, newMessages: 0};
       } else {
         return chat;
       }
@@ -94,4 +115,15 @@ export class ConversationComponent implements OnInit {
     this.userChatService.userChats.next(chats);
   }
 
+  private assignPhotos() {
+    const id = localStorage.getItem('userId');
+    if (this.conversation.users[0].userId === id) {
+      this.myPhoto = this.conversation.users[0].userAvatar;
+      this.oppositePhoto = this.conversation.users[1].userAvatar;
+    }
+    else {
+      this.oppositePhoto = this.conversation.users[0].userAvatar;
+      this.myPhoto= this.conversation.users[1].userAvatar;
+    }
+  }
 }
