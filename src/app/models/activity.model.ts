@@ -8,6 +8,7 @@ export class Activity {
     description: string,
     imatge: string,
     date: string,
+    tag: [string]
   ) {
     this.name = name;
     this.latitude = latitude;
@@ -17,6 +18,7 @@ export class Activity {
     this.description = description;
     this.imatge = imatge;
     this.date = date;
+    this.tag = tag;
   }
   name: string;
   latitude: number;
@@ -26,4 +28,6 @@ export class Activity {
   description: string;
   imatge: string;
   date: string;
+  tag: [string];
+  category: string;
 }

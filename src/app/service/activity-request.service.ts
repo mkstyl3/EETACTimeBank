@@ -3,11 +3,8 @@ import {HttpClient, HttpHeaders}   from '@angular/common/http';
 import "rxjs/Rx";
 import {ActivityRequest} from '../models/activityRequest.model'
 import {Observable} from 'rxjs/Observable';
-<<<<<<< HEAD
 import { environment } from '../../environments/environment';
-=======
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
->>>>>>> e02dcc39323bbb4ba28f5a6b04c76d86a4de16a4
 
 @Injectable()
 export class ActivityRequestService {
