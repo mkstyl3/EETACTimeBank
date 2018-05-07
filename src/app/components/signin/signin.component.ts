@@ -13,7 +13,7 @@ declare const require: any;
   providers: [UserService]
 })
 export class SigninComponent implements OnInit {
-  private img = require('../../../assets/img/EA.jpg');
+  public img = require('../../../assets/img/EA.jpg');
 
   constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router) {
     this.toastr.setRootViewContainerRef(vcr);

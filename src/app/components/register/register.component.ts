@@ -17,7 +17,7 @@ declare const require: any;
 export class RegisterComponent implements OnInit {
 
   private title = 'EA Min1';
-  private img = require('../../../assets/img/EA.jpg');
+  public img = require('../../../assets/img/EA.jpg');
 
 
   constructor(private userService: UserService, public toastr: ToastsManager, vcr: ViewContainerRef, private router: Router) {
