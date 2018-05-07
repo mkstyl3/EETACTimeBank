@@ -22,6 +22,7 @@ import { ConversationComponent } from './components/messages/components/conversa
 import { SendMessageComponent } from './components/messages/components/send-message/send-message.component';
 import { APIInterceptor } from './interceptors/api.interceptor';
 import { AuthService } from './service/auth.service';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuthService } from './service/auth.service';
     BrowserAnimationsModule,
     ToastModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyD4btF6um1qmUt7IZDVsU8WlWI6-PMYZk0' })
   ],
   providers: [UserService, AuthGuard,
     AuthService, {

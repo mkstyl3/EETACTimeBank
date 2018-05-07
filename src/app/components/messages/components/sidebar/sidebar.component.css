@@ -1,6 +1,6 @@
 .sidebar {
   float: left;
-  height: calc(100vh - 157px);
+  height: calc(100vh - 161px);
   background: #54b1d2;
   width: 320px;
 }
@@ -17,6 +17,10 @@
   color: white;
   position: relative;
   cursor: pointer;
+}
+
+.sidebar li img {
+  border-radius: 50%;
 }
 
 .sidebar .selected {

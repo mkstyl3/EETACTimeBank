@@ -1,11 +1,11 @@
  export class Message {
-  constructor(userTo: string, text: string, date: Date, readIt: boolean) {
-    this.userTo = userTo;
+  constructor(userFrom: string, text: string, date: Date, readIt: boolean) {
+    this.userFrom = userFrom;
     this.text = text;
     this.date = date;
     this.readIt = readIt;
   }
-   userTo: string;
+   userFrom: string;
    text: string;
    date: Date;
    readIt: boolean;
