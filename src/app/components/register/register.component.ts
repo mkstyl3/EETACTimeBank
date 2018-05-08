@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Form submitted!");
+    console.log('Form submitted!');
     }
 
   showSuccessToast(m: string) {
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
   }
 
   signUp(name: string, username: string, mail: string, password: string, password2: string ) { // Working
-    if (password != password2) {
+    if (password !== password2) {
       console.log('no coinciden');
       this.showErrorToast('Passwords doesn´t match');
     } else {
