@@ -82,9 +82,23 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
         <div *ngFor="let j of novetats; let k = index" [ngClass]="k == 0 ? 'item active' : 'item'"
-             style="background-color:lightblue">
-          <h5>{{j.name}}</h5>
-          <h5>{{j.cost}}</h5>
+             style="background-color:lightblue; text-align: center" class="card divisor">
+          <table>
+            <thead class="thead-dark"> <tr><th> Activitat</th></tr></thead>
+            <tbody>
+                    <tr>
+                        <td>{{j.name}}, amb: {{j.user.name}}</td>
+                    </tr>
+                    <tr>
+                      <td> aprendrás a fer: <br>{{j.description}}</td>
+
+                    </tr>
+                    <tr>
+                      <td> per només : {{j.cost}} dels teus minuts</td>
+                    </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
 
