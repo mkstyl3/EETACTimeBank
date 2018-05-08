@@ -24,25 +24,7 @@ export class ActivityComponent implements OnInit {
 
   constructor(private activityService: ActivityService)
       {
-<<<<<<< HEAD
         this.activity = new Activity("", 10, 10, 10, localStorage.username, "", "", "");
-=======
-        this.activity = new Activity("", 10, 10, 10, localStorage.userId, "", "", "");
-
-        this.activityService.getNovetats().subscribe(
-          response=> {
-            if(response){
-              console.log(response)
-              this.novetats = response;
-            }
-          },
-          error=> {
-            console.log(<any>error);
-          }
-        );
-
-
->>>>>>> bbf959e618cefb1c69da0f5aa40096205b13eedb
       }
 
   ngOnInit() {
