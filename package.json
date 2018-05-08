@@ -23,7 +23,6 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@auth0/angular-jwt": "^1.1.0",
-
     "bootstrap": "3.3.6",
     "core-js": "^2.4.1",
     "dependencies": "0.0.1",
@@ -32,6 +31,7 @@
     "ng-tags-input": "^3.2.0",
     "ng2-toastr": "^4.1.2",
     "rxjs": "^5.5.6",
+    "util.js": "0.0.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
