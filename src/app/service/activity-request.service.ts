@@ -10,29 +10,22 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class ActivityRequestService {
   public url = environment.urlBackend;
 
-
-
   constructor(private http: HttpClient) {  }
 
-  ////////*************METODES*******************////////////
-  getMyPetitions(id){
-    return this.http.get<ActivityRequest[]>('activityRequest/requested/' + id)
-      .map(res => res);
+  // *************METODES******************* //
+
+  getMyPetitions(id) {
+    return this.http.get<ActivityRequest[]>('activityRequest/requested/' + id).map(res => res);
   }
 
-  getTheirPetitions(id){
-    return this.http.get<ActivityRequest[]>('activityRequest/petitions/' + id)
-      .map(res => res);
+  getTheirPetitions(id) {
+    return this.http.get<ActivityRequest[]>('activityRequest/petitions/' + id).map(res => res);
   }
-  getCounters(id){
-    return this.http.get('activityRequest/count/' + id)
-      .map(res => res);
+  getCounters(id) {
+    return this.http.get('activityRequest/count/' + id).map(res => res);
   }
-
 
   deletePetition(idPetition) {
-    return this.http.delete('activityRequest/' + idPetition)
-      .map (res=>res);
-
+    return this.http.delete('activityRequest/' + idPetition).map (res => res);
   }
 }

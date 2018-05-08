@@ -38,12 +38,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
   }
-  test() { // Working
-    this.userService.test$().subscribe(
-      (data) => {
-        this.showSuccessToast('Test passed!');
-      });
-  }
 
   signUp(name: string, username: string, mail: string, password: string, password2: string ) { // Working
     if (password !== password2) {

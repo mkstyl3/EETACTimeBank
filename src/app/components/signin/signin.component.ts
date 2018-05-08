@@ -30,17 +30,6 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
   }
 
-  test() { // Working
-    this.userService.test$().subscribe(
-      (data) => {
-        this.showSuccessToast('Test passed!');
-      },
-      (data) => {
-        alert(data.error);
-      }
-    );
-  }
-
   signIn(username: string, password: string) {
     this.userService.signIn$(username, password).subscribe(
       data => {
