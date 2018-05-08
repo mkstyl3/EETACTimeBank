@@ -22,7 +22,7 @@ export class ActivityRequestService {
 
   getTheirPetitions(id){
     return this.http.get<ActivityRequest[]>('activityRequest/petitions/' + id)
-
+      .map(res => res);
   }
   getCounters(id){
     return this.http.get('activityRequest/count/' + id)

@@ -2,7 +2,9 @@ a {text-decoration: none;  color: white ;}
 h3 {size: A5; font-style: italic; font-size: small}
 
 /*//////////////////GENERAL////////////////////////*/
-
+.general{
+  padding:0px;
+}
 .titol {
   border-color: #610B0B; color: white;
   background: #363636;

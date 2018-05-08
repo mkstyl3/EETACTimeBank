@@ -70,4 +70,23 @@
 
 <div class="col-lg-6">
   <h1 class="h1-strong">Novetats</h1>
+  <table class="table table-striped tabla">
+    <thead>
+    <tr>
+      <th>Usuari</th>
+      <th>Activitat</th>
+      <th>Descripció</th>
+      <th>Preu</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor = "let novetat of novetats">
+      <td>{{novetat.user.name}}</td>
+      <td>{{novetat.name}}</td>
+      <td>{{novetat.description}}</td>
+      <td>{{novetat.cost}}</td>
+
+    </tr>
+    </tbody>
+  </table>
 </div>
