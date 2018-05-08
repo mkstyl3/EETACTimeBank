@@ -3,6 +3,7 @@ import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/com
 import {Observable} from 'rxjs/Observable';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class APIInterceptor implements HttpInterceptor {
@@ -13,14 +14,14 @@ export class APIInterceptor implements HttpInterceptor {
     
     if(req.url.match('users/signin') || req.url.match('users/signup')) {
       const apiReq = req.clone({ 
-        url: `http://localhost:3000/${req.url}`
+        url: environment.urlBackend + `/${req.url}`
       });
       return next.handle(apiReq);
     }
     
     //const authorization = this.authService.getToken();
     const apiReq = req.clone({ 
-      url: `http://localhost:3000/${req.url}`
+      url: environment.urlBackend+`/${req.url}`
       //headers: req.headers.set('Authorization', authorization) 
     });
     return next.handle(apiReq)

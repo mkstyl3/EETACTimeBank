@@ -1,10 +1,9 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
-import { Activity } from '../../models/activity.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
-import {componentRefresh} from '@angular/core/src/render3/instructions';
+import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +14,11 @@ import {componentRefresh} from '@angular/core/src/render3/instructions';
 
 export class ProfileComponent implements OnInit {
 
-  nameUser: string;
   user: User;
   show: boolean;
   id_activity: string;
+  tagString: string;
+  first: boolean;
   latitud_map: number;
   longitud_map: number;
   latitud_marker_user: number;
@@ -27,9 +27,11 @@ export class ProfileComponent implements OnInit {
   longitud_marker_activity: number;
   showMap: boolean;
 
-  constructor(private http: HttpClient, private userService: UserService, private activityService: ActivityService) {
+  constructor(private http: HttpClient, private userService: UserService,
+              private activityService: ActivityService) {
     this.show = false;
     this.showMap = false;
+    this.tagString = '';
   }
 
   ngOnInit() { this.connect(); }
@@ -61,6 +63,17 @@ export class ProfileComponent implements OnInit {
 
   popupEdit(activity) {
     this.id_activity = activity._id;
+    this.first = true;
+    for (const tags of activity.tags) {
+      if (this.first === true) {
+        this.tagString = tags;
+        this.first = false;
+      } else {
+        this.tagString = this.tagString + ', ' + tags;
+      }
+    }
+    console.log(this.tagString);
+
     // Prepara el mapa
     this.showMap = false;
     this.latitud_map = activity.latitude;
@@ -73,9 +86,6 @@ export class ProfileComponent implements OnInit {
 
   editActivity(name, cost, description, tag, latitude, longitude) {
     const tags: string[] = tag.value.split(', '); // Prepara la lista de Tags
-
-    /* TODO: eliminar los campos que no se rellenan para que no se elimine el contenido anterior */
-
     const json = {
       name: name.value,
       cost: cost.value,
@@ -114,5 +124,4 @@ export class ProfileComponent implements OnInit {
     this.latitud_marker_activity = event.coords.lat;
     this.longitud_marker_activity = event.coords.lng;
   }
-
 }

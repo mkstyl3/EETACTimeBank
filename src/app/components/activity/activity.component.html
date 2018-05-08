@@ -5,14 +5,14 @@
     <div class="row">
             <div class="col">
                 <label>Nom de l'activitat</label>
-                <input type="text" name="activityName" #name="ngModel" [(ngModel)]="activityName"
+                <input type="text" name="name" #name="ngModel" [(ngModel)]="activity.name"
                        class="form-control" required />
                 <span *ngIf = "!name.valid && name.touched">El nom és obligatori</span>
             </div>
 
             <div class="col">
-              <label>Descripció corta</label>
-              <input type="text" name="activityDescription" #description="ngModel" [(ngModel)]="activityDescription"
+              <label>Descripció breu</label>
+              <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description"
                      class="form-control" required />
               <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
             </div>
@@ -21,12 +21,12 @@
     <div class="row">
             <div class="col">
                   <label>Preu</label>
-                  <input type="number" name="activityCost" #cost="ngModel" [(ngModel)]="activityCost"
+                  <input type="number" name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
                          class="form-control" required />
                   <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
 
                   <label>Tria una o varias categories</label>
-                  <select name="activityCategory" #category="ngModel" [(ngModel)]="activityCategory"
+                  <select name="category" #category="ngModel" [(ngModel)]="activity.category"
                           class="custom-select custom-select-lg form-control" multiple >
 
                           <option value="Musica">                     Musica                       </option>
@@ -45,32 +45,24 @@
                   <br>
 
                   <label>Imatge:</label>
-                  <input type="file" class="activityImatge"  name="activityImatge" #imatge="ngModel" [(ngModel)]="aactivityImatge" lang="cat"
+                  <input type="file" class="imatge"  name="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat"
                          class="form-control">
             </div>
-
 
             <div class="col">
                     <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
 
-                    <button  class="btn btn-info"       name="activityTag" #tag="ngModel" [(ngModel)]="activityTag" value="Material Extra" ngDefaultControl>  Material Extra    </button>
-                    <button  class="btn btn-secondary"  name="activityTag" #tag="ngModel" [(ngModel)]="activityTag" value="Activitat UPC" ngDefaultControl>   Activitat UPC     </button>
-
-                    <button  class="btn btn-success"    name="activityTag" #tag="ngModel" [(ngModel)]="activityTag" value="Aire lliure" ngDefaultControl>     Aire lliure       </button>
-                    <button  class="btn btn-danger"     name="activityTag" #tag="ngModel" [(ngModel)]="activityTag" value="Aquatic" ngDefaultControl>         Aquatic           </button>
-                    <button  class="btn btn-warning"    name="activityTag" #tag="ngModel" [(ngModel)]="activityTag" value="Exclusiu" ngDefaultControl>        Exclusiu          </button>
-
-                    <button  class="btn btn btn-dark"   name="activityTag" #tag="ngModel" [(ngModel)]="activityTag" value="Urgent" ngDefaultControl >          Urgent            </button>
+                    <button  class="btn btn-info"  type="button"   (click)="addTag('Material Extra')">  Material Extra    </button>
+                    <button  class="btn btn-secondary" type="button" (click)="addTag('Activitat UPC')">   Activitat UPC     </button>
+                    <button  class="btn btn-success"  type="button"  (click)="addTag('Aire lliure')">     Aire lliure       </button>
+                    <button  class="btn btn-danger"   type="button"   (click)="addTag('Aquatic')">         Aquatic           </button>
+                    <button  class="btn btn-warning"  type="button"  (click)="addTag('Exclusiu')">        Exclusiu          </button>
+                    <button  class="btn btn btn-dark"  type="button"  (click)="addTag('Urgent')">          Urgent            </button>
 
             </div>
-
-
-
-
-
     </div>
     <br>
-    <button type="submit" (click)="onSubmit()" class="btn-btn-primary"> Afegir </button>
+    <input type="submit" value="Afegir" class="btn btn-success" [disabled]="!activityForm.form.valid" />
   </form>
 
 
@@ -78,27 +70,4 @@
 
 <div class="col-lg-6">
   <h1 class="h1-strong">Novetats</h1>
-  <br>
-  <div class="col-lg-12 card divisor">
-    <h3>Ultimes activitats publicades</h3>
-    <table>
-      <thead>
-      <tr>
-        <th>Activitat</th>
-        <th>Descripció</th>
-        <th>Usuari </th>
-        <th>Preu</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let novetat of novetats"></tr>
-      <td>{{novetat.activity.cost}}</td>
-      </tbody>
-    </table>
-
-  </div>
-
-
 </div>
-
-

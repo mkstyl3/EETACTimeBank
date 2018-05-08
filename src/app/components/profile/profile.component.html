@@ -13,14 +13,14 @@
       </div>
     </div>
     <div class="profile-list">
-      <h4>Lista de Actividades Ofertadas</h4>
+      <h3>Lista de Actividades Ofertadas</h3>
       <div class="card" *ngFor="let activity of user.offered">
         <div class="card-body">
-          <h5 class="card-text">{{activity.name}}
+          <h3 class="card-text">{{activity.name}}
             <a><small class="text-muted">@{{activity.user}}</small></a>
-          </h5>
+          </h3>
           <p><em>Publicado el {{activity.date | date:"dd/MM/yyyy/ 'a las' h:mma"}}</em></p>
-          <hr><h6>{{activity.description}}</h6>
+          <hr><h5>{{activity.description}}</h5>
           <div class="row">&nbsp;&nbsp;
             <div class="card" *ngFor="let tag of activity.tags">&nbsp;{{tag}}&nbsp;</div>
           </div>
@@ -31,7 +31,7 @@
               <button (click)="popupEdit(activity)" class="btn btn-sm btn-outline-secondary"
                   data-toggle="modal" data-target="#editActivity">EDITAR</button>
             </div>
-            <h5>{{activity.cost}}h</h5>
+            <h3>{{activity.cost}}h</h3>
           </div>
         </div>
 
@@ -103,13 +103,13 @@
 
                 <form (submit)="editActivity(name, cost, description, tag)">
                   <br><a>Nom de l'activitat</a>
-                  <br><input class="input-box" #name type="text" placeholder="{{activity.name}}">
+                  <br><input class="input-box" #name type="text" [(ngModel)]="activity.name" name="name">
                   <br><br><a>Cost en hores</a>
-                  <br><input class="input-box" #cost type="number" placeholder="{{activity.cost}}h">
+                  <br><input class="input-box" #cost type="number" min=0 step=0.25 [(ngModel)]="activity.cost" name="cost">
                   <br><br><a>Descripció del que es realitzarà</a>
-                  <br><input class="input-box" #description type="text" placeholder="{{activity.description}}">
+                  <br><input class="input-box" #description type="text" [(ngModel)]="activity.description" name="description">
                   <br><br><a>Etiquetes resum, separa-les amb una ',' i un espai en blanc</a>
-                  <br><input class="input-box" #tag type="text" placeholder="{{activity.tag}}">
+                  <br><input class="input-box" #tag type="text" [(ngModel)]="tagString" name="tag">
                 </form>
 
                 <!-- Mapa -->
