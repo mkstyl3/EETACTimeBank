@@ -6,6 +6,7 @@
 export const environment = {
   production: false,
   urlBackend: 'http://localhost:3000',
+  urlFrontend: 'http://localhost:4200',
   urlChat: 'http://localhost:8880'
 };
 

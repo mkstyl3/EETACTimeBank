@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders}   from '@angular/common/http';
-import "rxjs/Rx";
-import {ActivityRequest} from '../models/activityRequest.model'
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import 'rxjs/Rx';
+import {ActivityRequest} from '../models/activityRequest.model';
 import {Observable} from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -22,7 +22,7 @@ export class ActivityRequestService {
 
   getTheirPetitions(id){
     return this.http.get<ActivityRequest[]>('activityRequest/petitions/' + id)
-
+      .map(res => res);
   }
   getCounters(id){
     return this.http.get('activityRequest/count/' + id)

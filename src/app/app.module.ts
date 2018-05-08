@@ -23,6 +23,7 @@ import { SendMessageComponent } from './components/messages/components/send-mess
 import { APIInterceptor } from './interceptors/api.interceptor';
 import { AuthService } from './service/auth.service';
 import { AgmCoreModule } from '@agm/core';
+import { TableActivityRequestComponent } from './components/table-activity-request/table-activity-request.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AgmCoreModule } from '@agm/core';
     SendMessageComponent,
     HeaderComponent,
     ActivityComponent,
-    ProfileComponent
+    ProfileComponent,
+    TableActivityRequestComponent
   ],
   imports: [
     BrowserModule,

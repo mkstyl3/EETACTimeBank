@@ -2,7 +2,9 @@ a {text-decoration: none;  color: white ;}
 h3 {size: A5; font-style: italic; font-size: small}
 
 /*//////////////////GENERAL////////////////////////*/
-
+.general{
+  padding:0px;
+}
 .titol {
   border-color: #610B0B; color: white;
   background: #363636;
@@ -34,13 +36,3 @@ nav a.selected, a:hover { color: #610B0B;}
   border-top-right-radius: 5px;
 }
 
-button {
-  background:none!important;
-  color:inherit;
-  border:none;
-  padding:0!important;
-  font: inherit;
-  /*border is optional*/
-  border-bottom:1px solid #444;
-  cursor: pointer;
-}

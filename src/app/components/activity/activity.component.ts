@@ -21,10 +21,14 @@ export class ActivityComponent implements OnInit {
 
   constructor(private activityService: ActivityService)
       {
-        this.activity = new Activity("", 10, 10, 10, localStorage.userId, "", "", "",null);
+        this.activity = new Activity("", 10, 10, 10, localStorage.userId, "", "", "");
       }
 
   ngOnInit() {
+  }
+
+  addTag(tag: string) {
+    this.activity.tags.push(tag);
   }
 
   onSubmit(){

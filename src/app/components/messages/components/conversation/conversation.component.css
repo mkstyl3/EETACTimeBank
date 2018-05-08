@@ -53,6 +53,18 @@
 .messages .message-container.profile-message .message {
   background-color: #54bae2;
 }
+.messages .dateOfMessage{
+  font-size: 12px;
+  border-bottom: 0;
+  position: absolute;
+  right: 0;
+  padding-right: 16px;
+
+}
+.messages .dateOfMessage .text{
+  overflow: hidden;
+
+}
 .messages .message-container.profile-message .message:after {
   right: -10px;
   border-color: #54bae2 transparent transparent #54bae2;

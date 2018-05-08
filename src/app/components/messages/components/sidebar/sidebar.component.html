@@ -1,5 +1,6 @@
 <aside class="sidebar">
   <ul>
+    <div *ngIf="userChats">
     <li *ngFor="let chat of userChats" [ngClass]="{'selected': (currentChat !== undefined) && (currentChat === chat.id)}">
       <div (click) = "onUserClick(chat.id)">
         <div class="username-letter">
@@ -13,5 +14,6 @@
         <span class="new-messages" *ngIf="hasNewMessages(chat)">{{chat.newMessages}}</span>
       </div>
     </li>
+    </div>
   </ul>
 </aside>
