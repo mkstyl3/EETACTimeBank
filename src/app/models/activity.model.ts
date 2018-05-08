@@ -6,8 +6,7 @@ export class Activity {
     cost: number,
     user: string,
     description: string,
-    imatge: string,
-    date: string
+    imatge: string
   ) {
     this.name = name;
     this.latitude = latitude;
@@ -16,7 +15,6 @@ export class Activity {
     this.user = user;
     this.description = description;
     this.imatge = imatge;
-    this.date = date;
     this.tags = [];
   }
   name: string;

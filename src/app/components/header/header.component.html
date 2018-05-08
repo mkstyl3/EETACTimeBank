@@ -34,46 +34,10 @@
         </div>
         <div class="modal-body">
           <h4>Saldo actual de l'usuari {{user.username}}: {{user.wallet}} hores </h4>
-          <hr/>
-          <hr/>
-          <h3>Últimes transaccions realitzades en aquest compte:</h3>
-          <table *ngIf="SearchDone" class="table table-striped table-condensed">
-            <thead>
-            <tr>
-              <th>Data</th>
-              <th>Activitat</th>
-              <th>Preu</th>
-              <th>Impartida per</th>
-              <th>Impartida a</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor=" let act of myActivitiesList">
-              <td *ngIf="act.isDone">{{act.date | date: 'longDate'}}</td>
-              <td *ngIf="act.isDone">
-                <button type='button' class='differentbutton' title="{{act.activity.description}}">
-                  {{act.activity.name}}
-                </button>
-              </td>
-              <td *ngIf="act.isDone"><span class="label label-danger">- {{act.activity.cost}} h <i
-                class="glyphicon glyphicon-time"></i></span>
-              <td *ngIf="act.isDone">{{act.userTo.username}}</td>
-              <td *ngIf="act.isDone">{{act.userFrom.username}}</td>
-            </tr>
-            <tr *ngFor=" let act of theirActivitiesList">
-              <td *ngIf="act.isDone">{{act.date | date: 'longDate'}}</td>
-              <td *ngIf="act.isDone">
-                <button type='button' class='differentbutton' title="{{act.activity.description}}">
-                  {{act.activity.name}}
-                </button>
-              </td>
-              <td *ngIf="act.isDone"><span class="label label-success">+ {{act.activity.cost}} h <i
-                class="glyphicon glyphicon-time"></i></span>
-              <td *ngIf="act.isDone">{{act.userTo.username}}</td>
-              <td *ngIf="act.isDone">{{act.userFrom.username}}</td>
-            </tr>
-            </tbody>
-          </table>
+          <!-- Activity Request Table -->
+          <app-table-activity-request></app-table-activity-request>
+
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tanca</button>

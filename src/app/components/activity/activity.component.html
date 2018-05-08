@@ -21,7 +21,7 @@
     <div class="row">
             <div class="col">
                   <label>Preu</label>
-                  <input type="number" name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
+                  <input type="number" min=0 step=0.25 name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
                          class="form-control" required />
                   <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
 

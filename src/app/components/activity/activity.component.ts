@@ -22,46 +22,27 @@ export class ActivityComponent implements OnInit {
   public novetats: NovetatsResponse[];
 
 
-  constructor(private activityService: ActivityService)
-      {
-        this.activity = new Activity("", 10, 10, 10, localStorage.userId, "", "", "");
-
-        this.activityService.getNovetats().subscribe(
-          response=> {
-            if(response){
-              console.log(response)
-              this.novetats = response;
-            }
-          },
-          error=> {
-            console.log(<any>error);
-          }
-        );
-
-
-      }
-
-  ngOnInit() {
+  constructor(private activityService: ActivityService) {
+    this.activity = new Activity('', 10, 10, 0, localStorage.username, '', '');
   }
 
-  addTag(tag: string) {
-    this.activity.tags.push(tag);
-  }
+  ngOnInit() { }
 
-  onSubmit(){
+  addTag(tag: string) { this.activity.tags.push(tag); }
+
+  onSubmit() {
     console.log(this.activity);
 
     this.activityService.newActivity(this.activity).subscribe(
-      response =>{
-        if(response){
-          console.log(response)
+      response => {
+        if (response) {
+          console.log(response);
         }
 
       },
-      error=> {
+      error => {
         console.log(<any>error);
       }
     );
   }
-
 }
