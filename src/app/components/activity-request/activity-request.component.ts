@@ -16,7 +16,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 })
 export class ActivityRequestComponent implements OnInit {
 
-  public activityRequest: ActivityRequest;
+    public activityRequest: ActivityRequest;
     myPetition:    ActivityRequestResponse[];
     theirPetition: ActivityRequestResponse[];
     counters;
@@ -61,10 +61,7 @@ export class ActivityRequestComponent implements OnInit {
             this.counters = response;
           }
         },
-        error=>{
-
-        }
-      );
+       );
     }
 
 
@@ -73,8 +70,7 @@ export class ActivityRequestComponent implements OnInit {
   deletePetition(id) {
     const response = confirm("estas segur d'esborrar la petició?")
     if (response) {
-      console.log(id);
-      const myPetition = this.myPetition; //arreglo
+
       this.actvitiyRequestService.deletePetition(id).subscribe(
         data => {
           if (data) {

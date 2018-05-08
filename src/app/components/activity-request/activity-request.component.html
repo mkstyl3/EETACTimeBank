@@ -1,7 +1,7 @@
 <app-header></app-header>
-<div class="container-fluid">
+<div class="container-fluid general ">
 
-    <div class="col-lg-3 card divisor"  >
+    <div class="col-lg-2 "  >
       <div ng *ngIf="counters">
         <h1 class="h1-strong">Resum</h1>
         <h4>Total sol·licituds Pendents</h4>
@@ -41,14 +41,15 @@
           </td>
           <td>
             <button class="btn btn-danger" (click)="deletePetition(petition._id)"  >
-              <i class="fa fa-trash" style="font-size: 18px "></i>
+              <i class="fa fa-trash" style="font-size: 12px "></i>
             </button>
             <button class="btn btn-danger"  >
-              <i class="fa fa-check" style="font-size: 18px "></i>
+              <i class="fa fa-check" style="font-size: 12px "></i>
             </button>
           </td>
-          <td>
-
+          <td *ngIf="!petition.activity.isDone">
+            Pendent d'aprovar
+          </td>
         </tr>
 
         </tbody>
@@ -61,10 +62,11 @@
         <thead>
           <tr>
             <th>Nom activitat</th>
-            <th> Descripció</th>
-            <th> Usuari </th>
+            <th>Descripció</th>
+            <th>Usuari </th>
             <th>Preu</th>
-            <th> Gestionar </th>
+            <th>Gestionar </th>
+            <th>Estat</th>
           </tr>
         </thead>
 
@@ -76,12 +78,17 @@
           <td>{{request.activity.cost}} </td>
           <td>
             <button class="btn btn-danger"  >
-              <i class="fa fa-trash" style="font-size: 18px "></i>
+              <i class="fa fa-trash" style="font-size: 12px "></i>
             </button>
             <button class="btn btn-danger" (click)="deletePetition(request._id)" >
-              <i class="fa fa-check" style="font-size: 18px "></i>
+              <i class="fa fa-check" style="font-size: 12px "></i>
             </button>
           </td>
+          <td *ngIf="!request.activity.isDone">
+            Pendent d'aprovar
+
+          </td>
+
         </tr>
 
         </tbody>
