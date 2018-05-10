@@ -1,4 +1,4 @@
-<div class="col-lg-6">
+<div class="col-lg-6 divisor">
   <h1 class="h1-strong">Registra una activitat</h1>
 
   <form #activityForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10, form-inLine">
@@ -68,10 +68,68 @@
 
 </div>
 
-<div class="col-lg-6">
+<div class="col-lg-6 divisor">
   <h1 class="h1-strong">Novetats</h1>
 
+  <div style="position: relative;" *ngIf="novetats != []" class="carousel">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" *ngFor="let x of novetats;
+                                              let i = index" [attr.data-slide-to]="i" ngClass="i == 0 ? 'active' : ''">
 
+        </li>
+      </ol>
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox" align="center">
+        <div *ngFor="let j of novetats; let k = index" [ngClass]="k == 0 ? 'item active' : 'item'" class="carousel-contenidor" >
+          <table class="carousel-table" >
+            <thead> <th><h3> Activitat</h3></th></thead>
+            <tbody>
+            <tr>
+              <td> {{j.name}}, amb: {{j.user.name}}</td>
+
+              <td>
+                <button class="btn btn-danger" type="button" (click)="veurePerfil(j.user.name)" >
+                  <i class="fa fa-address-book" style="font-size: 12px " title="Veure Usuari"></i>
+                  <a routerLink="/profile">  </a>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td> aprendrás a fer: <br>{{j.description}}</td>
+              <td>
+                <button class="btn btn-danger"  >
+                  <i class="fa fa-eye" style="font-size: 12px " title="Detall Activitat"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td> <br>per només : {{j.cost}} dels teus minuts</td>
+              <td>
+                <button class="btn btn-danger"  >
+                  <i class="fa fa-handshake-o" style="font-size: 11px " title="Fer una petició"></i>
+
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: #C40018"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="color: #C40018"></span >
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
 
 
 </div>

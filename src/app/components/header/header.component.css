@@ -7,14 +7,14 @@ h3 {size: A5; font-style: italic; font-size: small}
 }
 .titol {
   border-color: #610B0B; color: white;
-  background: #363636;
+  background: #292725;
   padding: 0.5em; font-size: large;
   margin: 0;
 }
 
 .MenuSuperior{
 
-  background: #DC2F2F;
+  background: #C40018;
   list-style-type: none; margin: 0; padding: 0; overflow: hidden;
 
 }

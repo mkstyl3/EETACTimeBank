@@ -7,3 +7,39 @@
 
 
 }
+
+.carousel-table{
+  align: center;
+  padding: 30px;
+text-decoration-color: #FFFFFF;
+}
+.carousel-table , th{
+  text-align: center;
+
+  background-color: #FFFFFF;
+  text-anchor: middle;
+  margin: 15px;
+}
+.carousel-table , td{
+  padding: 15px;
+}
+.carousel-control{
+  background-image: linear-gradient(to right,rgba(0, 0, 0, 0) 0,rgba(216, 20, 20, 0.16) 100%)
+
+}
+
+.carousel-indicators li
+{
+  background: #C40018;
+}
+
+.divisor{
+  padding: 40px;
+
+}
+
+.carousel-contenidor{
+  padding: 50px;
+  text-align-all: center;
+  background: #FFFFFF;
+}

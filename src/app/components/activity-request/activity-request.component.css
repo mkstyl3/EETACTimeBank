@@ -9,8 +9,12 @@
 
 }
 .divisor{
-  margin: 5px;
-  padding: 4px;
+  margin: 40px;
+  padding: 20px;
+}
+.card divisor{
+  padding: 10px;
+  margin: 10px;
 }
 .tabla{
   margin-top: 8px;
