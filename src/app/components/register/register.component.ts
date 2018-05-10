@@ -38,12 +38,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
   }
-  test() { // Working
-    this.userService.test$().subscribe(
-      (data) => {
-        this.showSuccessToast('Test passed!');
-      });
-  }
 
   signUp(name: string, username: string, mail: string, password: string, password2: string ) { // Working
     if (password !== password2) {
@@ -55,7 +49,7 @@ export class RegisterComponent implements OnInit {
         data => {
           // this.userService.setUserLoggedIn();
           this.showSuccessToast('User ' + username + ' added!');
-          localStorage.setItem('username', data.username);
+          localStorage.setItem('username', username);
           localStorage.setItem('userId', data.userId);
           localStorage.setItem('token', data.token);
           this.router.navigate(['home']);

@@ -11,8 +11,6 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  test$() { return this.http.get(url + '/test'); }
-
   signIn$(username: string, password: string): Observable<any> {
     return this.http.post<any>(url + '/signin', { username, password });
   }

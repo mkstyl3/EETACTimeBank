@@ -24,10 +24,7 @@ export class ActivityService {
     return this.http.put<any>('activities/' + id, updateActivity);
   }
 
-  getNovetats(){
-    return this.http.get<NovetatsResponse[]>('activities/novetats')
-      .map(res=>res);
-     }
-
-
+  getNovetats() {
+    return this.http.get<NovetatsResponse[]>('activities/novetats').map(res => res);
+  }
 }
