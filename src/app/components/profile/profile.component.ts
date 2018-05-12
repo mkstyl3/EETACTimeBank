@@ -4,6 +4,8 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +17,9 @@ import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/tes
 export class ProfileComponent implements OnInit {
 
   user: User;
+  userForeign: string;
   show: boolean;
+  owner: boolean;
   id_activity: string;
   tagString: string;
   first: boolean;
@@ -28,18 +32,26 @@ export class ProfileComponent implements OnInit {
   showMap: boolean;
 
   constructor(private http: HttpClient, private userService: UserService,
-              private activityService: ActivityService) {
+              private activityService: ActivityService, private route: ActivatedRoute,
+            private router: Router) {
     this.show = false;
     this.showMap = false;
     this.tagString = '';
+    this.route.params.subscribe( params => console.log(params));
   }
 
-  ngOnInit() { this.connect(); }
+  ngOnInit() {
+    this.route.params.subscribe( params => params['username'] ?
+    this.connect(params['username'], false) : this.connect(localStorage.getItem('username'), true)
+      );
+  }
 
   // Recibe la respuesta del servidor
-  connect() {
+  connect(user: string, owner: boolean) {
     this.show = false;
-    this.userService.getProfileUser$(localStorage.getItem('username')).subscribe(
+    this.owner = owner;
+    if (owner === false) {this.userForeign = user; }
+    this.userService.getProfileUser$(user).subscribe(
       data => {
         this.user = data;      // El JSON se guarda en user
         console.log(this.user);
@@ -48,6 +60,17 @@ export class ProfileComponent implements OnInit {
 
       (err: HttpErrorResponse) => { console.log(err.error); }
     );
+  }
+
+  addChat() {
+    this.http.post<any>('chats/add',
+     {user1: localStorage.getItem('username'), user2: this.userForeign}).subscribe(
+       status => {
+         if (status.status != null && status.status === 'ok') {
+           this.router.navigate(['/messages']);
+         }
+       }
+     );
   }
 
   popupView(activity) {
