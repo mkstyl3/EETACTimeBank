@@ -25,7 +25,9 @@ export class ActivityComponent implements OnInit {
 
   constructor(private activityService: ActivityService, private userService: UserService) {
     this.activity = new Activity('', 10, 10, 0, localStorage.username, '', '');
+  }
 
+  ngOnInit() {
     this.activityService.getNovetats().subscribe(
       response=> {
         if(response){
@@ -37,10 +39,7 @@ export class ActivityComponent implements OnInit {
         console.log(<any>error);
       }
     );
-
   }
-
-  ngOnInit() { }
 
   addTag(tag: string) { this.activity.tags.push(tag); }
 
