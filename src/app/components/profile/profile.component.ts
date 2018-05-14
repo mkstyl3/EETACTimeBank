@@ -26,12 +26,15 @@ export class ProfileComponent implements OnInit {
   latitud_marker_activity: number;
   longitud_marker_activity: number;
   showMap: boolean;
+  username: string;
 
   constructor(private http: HttpClient, private userService: UserService,
               private activityService: ActivityService) {
     this.show = false;
     this.showMap = false;
     this.tagString = '';
+    this.username = localStorage.getItem('username')
+
   }
 
   ngOnInit() { this.connect(); }
@@ -39,7 +42,7 @@ export class ProfileComponent implements OnInit {
   // Recibe la respuesta del servidor
   connect() {
     this.show = false;
-    this.userService.getProfileUser$(localStorage.getItem('username')).subscribe(
+    this.userService.getProfileUser$(this.username).subscribe(
       data => {
         this.user = data;      // El JSON se guarda en user
         console.log(this.user);

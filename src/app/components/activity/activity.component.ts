@@ -7,6 +7,10 @@ import { UserService } from '../../service/user.service';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ActivityRequest} from '../../models/activityRequest.model';
+import {isDate} from 'util';
+import {DateFormatter} from '@angular/common/src/pipes/deprecated/intl';
 
 
 @Component({
@@ -17,8 +21,9 @@ import {HttpModule} from '@angular/http';
 })
 export class ActivityComponent implements OnInit {
 
-  public title: string;
+
   public activity: Activity;
+  public activityRequest : ActivityRequest;
   public user: User;
   public novetats: NovetatsResponse[];
 
@@ -45,12 +50,55 @@ export class ActivityComponent implements OnInit {
   addTag(tag: string) { this.activity.tags.push(tag); }
 
   veurePerfil(name:string){
-      this.userService.getProfileUser$(name)
+      this.userService.getProfileUser$(name).subscribe(
+        data=>{
+          this.user = data;
+          console.log(this.user);
+          },
+        (err: HttpErrorResponse) =>
+        {
+          console.log(err)
+        }
+      )
+  }
+
+  getActivity(id){
+    this.activityService.getActivity(id).subscribe(
+      data=>{
+        this.activity = data;
+        console.log(this.activity);
+      },
+      (err: HttpErrorResponse)=>
+      {
+        console.log(err)
+      }
+    )
+  }
+
+  makeApetition(idFrom, idActivity, ){
+    this.activityRequest = new ActivityRequest(localStorage.userId, idFrom,idActivity, false, null, null);
+    return
+
+  }
+
+  sendAPetition(activityRequest){
+
+    console.log(this.activityRequest)
+    this.activityService.makeApetition(this.activityRequest).subscribe(
+
+      response =>{
+        if(response){
+          console.log(response)
+        }
+      },
+      error => {
+        console.log(<any>error);
+      }
+    )
   }
 
   onSubmit() {
     console.log(this.activity);
-
     this.activityService.newActivity(this.activity).subscribe(
       response => {
         if (response) {
@@ -63,4 +111,8 @@ export class ActivityComponent implements OnInit {
       }
     );
   }
+
+
+
+
 }

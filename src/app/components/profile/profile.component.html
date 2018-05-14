@@ -2,16 +2,16 @@
 <body class="main-container" *ngIf=show>
   <div class="row">
     <div class="card profile-user">
-      <img src="{{user.image}}" width="70%"/><br/>
-      <h3>{{user.name}}</h3>
-      <h4><small class="text-muted">@{{user.username}}</small></h4>
-      <a href="mailto:{{user.mail}}?body=Your message within Main Body">{{user.mail}}</a>
-      <p>{{user.description}}</p>
-      <a>Temas de interés:</a>
-      <div class="row">&nbsp;&nbsp;
-        <div class="card" *ngFor="let tag of user.tags">&nbsp;{{tag}}&nbsp;</div>
-      </div>
+    <img src="{{user.image}}" width="70%"/><br/>
+    <h3>{{user.name}}</h3>
+    <h4><small class="text-muted">@{{user.username}}</small></h4>
+    <a href="mailto:{{user.mail}}?body=Your message within Main Body">{{user.mail}}</a>
+    <p>{{user.description}}</p>
+    <a>Temas de interés:</a>
+    <div class="row">&nbsp;&nbsp;
+      <div class="card" *ngFor="let tag of user.tags">&nbsp;{{tag}}&nbsp;</div>
     </div>
+  </div>
     <div class="profile-list">
       <h3>Lista de Actividades Ofertadas</h3>
       <div class="card" *ngFor="let activity of user.offered">
