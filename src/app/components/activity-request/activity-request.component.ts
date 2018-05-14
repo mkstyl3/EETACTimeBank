@@ -7,6 +7,7 @@ import {ActivityService} from '../../service/activity.service';
 import {resolveProjectModule} from '@angular/cli/utilities/require-project-module';
 import {error} from 'util';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Message } from '../../models/chat/message';
 
 @Component({
   selector: 'app-activity-request',
@@ -26,9 +27,15 @@ export class ActivityRequestComponent implements OnInit {
 
     constructor(private actvitiyRequestService : ActivityRequestService) {
 
+    }
+
+
+  ngOnInit() {
+    this.getPeticions();
+  }
+
+  getPeticions() {
     this.actvitiyRequestService.getMyPetitions(localStorage.userId).subscribe(
-
-
       response => {
         if (response) {
           console.log(response)
@@ -62,20 +69,16 @@ export class ActivityRequestComponent implements OnInit {
           }
         },
        );
-    }
-
-
-  ngOnInit() {
   }
-  deletePetition(id) {
+  deletePetition(peticion) {
     const response = confirm("estas segur d'esborrar la petició?")
     if (response) {
 
-      this.actvitiyRequestService.deletePetition(id).subscribe(
+      this.actvitiyRequestService.deletePetition(peticion).subscribe(
         data => {
           if (data) {
-
-            console.log(data)
+            this.getPeticions();
+            console.log(data);
           }
         },
         error => {
@@ -83,7 +86,29 @@ export class ActivityRequestComponent implements OnInit {
         }
       );
     }
-  }return;
+  }
+
+  acceptPetition(peticion) {
+    this.actvitiyRequestService.acceptPetition(peticion._id).subscribe(
+      data => {
+        console.log(data);
+        if (data.message === 'ok') {
+          peticion.accepted = true;
+        }
+      }
+    );
+  }
+
+  donePetition(peticion) {
+    this.actvitiyRequestService.donePetition(peticion._id).subscribe(
+      data => {
+        console.log(data);
+        if (data.message === 'ok') {
+          peticion.accepted = true;
+        }
+      }
+    );
+  }
 
 
 }

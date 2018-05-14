@@ -28,4 +28,12 @@ export class ActivityRequestService {
   deletePetition(idPetition) {
     return this.http.delete('activityRequest/' + idPetition).map (res => res);
   }
+
+  acceptPetition(idPetition) {
+    return this.http.put('activityRequest/accept/', {'id': idPetition}).map(res => res);
+  }
+
+  donePetition(idPetition) {
+    return this.http.put('activityRequest/done/', {'id': idPetition}).map(res => res);
+  }
 }

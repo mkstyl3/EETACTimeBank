@@ -20,8 +20,9 @@
             <th>Descripció</th>
             <th>Usuari</th>
             <th>Preu</th>
-            <th>Gestionar</th>
+            <th>Borrar</th>
             <th>Realitzada</th>
+            <th>Finalitzar</th>
           </tr>
         </thead>
 
@@ -43,12 +44,26 @@
             <button class="btn btn-danger" (click)="deletePetition(petition._id)"  >
               <i class="fa fa-trash" style="font-size: 12px "></i>
             </button>
-            <button class="btn btn-danger"  >
+          </td>
+          <td *ngIf="!petition.isDone&&!petition.accepted">
+            Pendent d'aprovar
+
+          </td>
+          <td *ngIf="petition.accepted&&!petition.isDone">
+            Aprovada
+          </td>
+          <td *ngIf="petition.isDone">
+            Finalitzada
+          </td>
+          <td *ngIf="petition.accepted&&!petition.isDone">
+            <button class="btn btn-danger" (click)="donePetition(petition)" >
               <i class="fa fa-check" style="font-size: 12px "></i>
             </button>
           </td>
-          <td *ngIf="!petition.activity.isDone">
-            Pendent d'aprovar
+          <td *ngIf="!(petition.accepted&&!petition.isDone)">
+            <button class="btn btn-danger" (click)="donePetition(petition)" disabled>
+              <i class="fa fa-check" style="font-size: 12px "></i>
+            </button>
           </td>
         </tr>
 
@@ -77,16 +92,22 @@
           <td>{{request.userFrom.name}}</td>
           <td>{{request.activity.cost}} </td>
           <td>
-            <button class="btn btn-danger"  >
-              <i class="fa fa-trash" style="font-size: 12px "></i>
-            </button>
-            <button class="btn btn-danger" (click)="deletePetition(request._id)" >
+            <button class="btn btn-danger" *ngIf="request.accepted===undefined||request.accepted===false" (click)="acceptPetition(request)">
               <i class="fa fa-check" style="font-size: 12px "></i>
             </button>
+            <button class="btn btn-danger" (click)="deletePetition(request._id)" >
+              <i class="fa fa-trash" style="font-size: 12px "></i>
+            </button>
           </td>
-          <td *ngIf="!request.activity.isDone">
+          <td *ngIf="!request.isDone&&!request.accepted">
             Pendent d'aprovar
 
+          </td>
+          <td *ngIf="request.accepted&&!request.isDone">
+            Aprovada
+          </td>
+          <td *ngIf="request.isDone">
+            Finalitzada
           </td>
 
         </tr>
