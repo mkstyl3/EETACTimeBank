@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../service/user.service';
 import {ActivityRequest} from '../../models/activityRequest.model';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   user = {username: 'Usuario', wallet: 'Wallet'};
   public urlBase = environment.urlFrontend;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.getWallet();
@@ -26,5 +27,10 @@ export class HeaderComponent implements OnInit {
       data => {
         console.error(data);
       });
+  }
+
+  shutdown() {
+    localStorage.clear();
+    this.router.navigate(['/signin']);
   }
 }
