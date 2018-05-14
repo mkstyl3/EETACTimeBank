@@ -18,7 +18,6 @@ export class APIInterceptor implements HttpInterceptor {
       });
       return next.handle(apiReq);
     }
-    
     const authorization = this.authService.getToken();
     const apiReq = req.clone({
       url: environment.urlBackend + `/${req.url}`,

@@ -4,6 +4,8 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
 import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -27,28 +29,37 @@ export class ProfileComponent implements OnInit {
   longitud_marker_activity: number;
   showMap: boolean;
   username: string;
+  owner: boolean;
+  userForeign: string;
 
   constructor(private http: HttpClient, private userService: UserService,
-              private activityService: ActivityService) {
+    private activityService: ActivityService, private route: ActivatedRoute,
+    private router: Router) {
     this.show = false;
     this.showMap = false;
     this.tagString = '';
-    this.username = localStorage.getItem('username')
+    this.username = localStorage.getItem('username');
 
   }
 
-  ngOnInit() { this.connect(); }
+  ngOnInit() {
+    this.route.params.subscribe( params => params['username'] ?
+    this.connect(params['username'], false) : this.connect(localStorage.getItem('username'), true)
+  );
+}
 
   // Recibe la respuesta del servidor
-  connect() {
+  connect(user: string, owner: boolean) {
     this.show = false;
-    this.userService.getProfileUser$(this.username).subscribe(
+    this.owner = owner;
+    if (owner === false) {this.userForeign = user; }
+    console.log(user);
+    this.userService.getProfileUser$(user).subscribe(
       data => {
         this.user = data;      // El JSON se guarda en user
         console.log(this.user);
         this.show = true;      // Mostramos el resultado
       },
-
       (err: HttpErrorResponse) => { console.log(err.error); }
     );
   }
@@ -104,6 +115,17 @@ export class ProfileComponent implements OnInit {
       console.log(data);
       if (data.result === 'ACTUALIZADO') { console.log('OK'); }
     });
+  }
+
+  addChat() {
+    this.http.post<any>('chats/add',
+    {user1: localStorage.getItem('username'), user2: this.userForeign}).subscribe(
+      status => {
+        if (status.status != null && status.status === 'ok') {
+          this.router.navigate(['/messages']);
+        }
+      }
+    );
   }
 
 

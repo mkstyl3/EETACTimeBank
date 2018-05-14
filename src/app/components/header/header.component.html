@@ -13,6 +13,7 @@
   <div class="container-fluid general">
     <nav class="MenuSuperior">
       <ul>
+        <li><a (click)="shutdown()">Salir</a></li>
         <li><a routerLink="/activityRequest"> Peticions </a></li>
         <li><a routerLink="/profile"> Perfil </a></li>
         <li><a href="#"> Favorits </a></li>
@@ -20,7 +21,8 @@
         <li><a data-toggle="modal" data-target="#primary"> <font color="white">Banc [ {{user.wallet}} h ]</font>
         </a></li>
         <li><a routerLink="/home"> Inicio</a></li>
-        <li><a (click)="shutdown()">Salir</a></li>
+        <li class="Buscador"><input type="text" [(ngModel)]="buscador" placeholder="Usuario"></li>
+        <li class="Buscador"><button (click)="buscarUsuario()">Buscar</button></li>
       </ul>
     </nav>
   </div>

@@ -22,6 +22,10 @@ h3 {size: A5; font-style: italic; font-size: small}
   list-style-type: none;
 }
 
+.Buscador{
+  float: left !important;
+}
+
 nav a.selected, a:hover { color: #610B0B;}
 .modal-header-primary {
   color:#fff;

@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   user = {username: 'Usuario', wallet: 'Wallet'};
   public urlBase = environment.urlFrontend;
+  public buscador;
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
@@ -27,6 +28,11 @@ export class HeaderComponent implements OnInit {
       data => {
         console.error(data);
       });
+  }
+
+  buscarUsuario()
+  {
+    this.router.navigate(['/profile/' + this.buscador]);
   }
 
   shutdown() {
