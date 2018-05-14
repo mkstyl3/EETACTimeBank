@@ -92,7 +92,7 @@ export class ActivityRequestComponent implements OnInit {
     this.actvitiyRequestService.acceptPetition(peticion._id).subscribe(
       data => {
         console.log(data);
-        if (data.message === 'ok') {
+        if (data['message'] === 'ok') {
           peticion.accepted = true;
         }
       }
@@ -103,7 +103,7 @@ export class ActivityRequestComponent implements OnInit {
     this.actvitiyRequestService.donePetition(peticion._id).subscribe(
       data => {
         console.log(data);
-        if (data.message === 'ok') {
+        if (data['message'] === 'ok') {
           peticion.accepted = true;
         }
       }
