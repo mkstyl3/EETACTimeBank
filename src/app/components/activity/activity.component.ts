@@ -17,13 +17,14 @@ import {DateFormatter} from '@angular/common/src/pipes/deprecated/intl';
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css'],
-  providers:[ActivityService]
+  providers: [ActivityService]
 })
 export class ActivityComponent implements OnInit {
 
 
   public activity: Activity;
-  public activityRequest : ActivityRequest;
+  public activitySelect: Activity;
+  public activityRequest: ActivityRequest;
   public user: User;
   public novetats: NovetatsResponse[];
 
@@ -48,21 +49,20 @@ export class ActivityComponent implements OnInit {
 
   addTag(tag: string) { this.activity.tags.push(tag); }
 
-  veurePerfil(name:string){
+  veurePerfil(name: string) {
       this.userService.getProfileUser$(name).subscribe(
-        data=>{
+        data => {
           this.user = data;
           console.log(this.user);
           },
-        (err: HttpErrorResponse) =>
-        {
-          console.log(err)
+        (err: HttpErrorResponse) => {
+          console.log(err);
         }
-      )
+      );
   }
 
-  getActivity(id){
-    this.activityService.getActivity(id).subscribe(
+  getActivity(activitySelect: Activity){
+    /*this.activityService.getActivity(id).subscribe(
       data=>{
         this.activity = data;
         console.log(this.activity);
@@ -71,29 +71,29 @@ export class ActivityComponent implements OnInit {
       {
         console.log(err)
       }
-    )
+    )*/
+    this.activitySelect = activitySelect;
   }
 
-  makeApetition(idFrom, idActivity, ){
-    this.activityRequest = new ActivityRequest(localStorage.userId, idFrom,idActivity, false, null, null);
-    return
-
+  makeApetition(ToName, idActivity) {
+    this.activityRequest = new ActivityRequest(localStorage.username, ToName, idActivity, false, null, null);
+    this.sendAPetition(this.activityRequest);
   }
 
-  sendAPetition(activityRequest){
+  sendAPetition(activityRequest) {
 
-    console.log(this.activityRequest)
+    console.log(this.activityRequest);
     this.activityService.makeApetition(this.activityRequest).subscribe(
 
-      response =>{
-        if(response){
-          console.log(response)
+      response => {
+        if (response) {
+          console.log(response);
         }
       },
       error => {
         console.log(<any>error);
       }
-    )
+    );
   }
 
   onSubmit() {

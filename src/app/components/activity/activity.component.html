@@ -85,9 +85,9 @@
               <thead> <th><h3> Activitat</h3></th></thead>
               <tbody>
               <tr>
-                <td> {{j.name}}, amb: {{j.user.name}}</td>
+                <td> {{j.name}}, amb: {{j.user}}</td>
                 <td>
-                  <a href="#modalUser"  class="btn btn-danger" data-toggle="modal" (click)="veurePerfil(j.user.username)">
+                  <a href="#modalUser"  class="btn btn-danger" data-toggle="modal" (click)="veurePerfil(j.user)">
                     <i class="fa fa-address-book" style="font-size: 12px " title="Veure Usuari"></i>
                   </a>
                 </td>
@@ -96,7 +96,7 @@
               <tr>
                 <td> aprendrás a fer: <br>{{j.description}}</td>
                 <td>
-                  <a href="#modalActivity" class="btn btn-danger" data-toggle="modal" (click)="getActivity(j._id)" >
+                  <a href="#modalActivity" class="btn btn-danger" data-toggle="modal" (click)="getActivity(j)" >
                     <i class="fa fa-eye" style="font-size: 12px " title="Detall Activitat"></i>
                   </a>
                 </td>
@@ -105,7 +105,7 @@
               <tr>
                 <td> <br>per només : {{j.cost}} dels teus minuts</td>
                 <td>
-                  <a href="#modalPeticio" class="btn btn-danger" data-toggle="modal" (click)="makeApetition(j.user._id, _id)" >
+                  <a href="#modalPeticio" class="btn btn-danger" data-toggle="modal" (click)="makeApetition(j.user, j._id)" >
                     <i class="fa fa-handshake-o" style="font-size: 11px " title="Fer una petició"></i>
 
                   </a>
@@ -176,7 +176,7 @@
 
         <div class="modal-body">
           <div class=" col-lg-4 card">
-            <h2>{{activity.name}}</h2>
+            <h2>{{activitySelect.description}}</h2>
           </div>
 
         </div>

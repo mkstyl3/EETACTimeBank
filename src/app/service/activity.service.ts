@@ -33,8 +33,8 @@ export class ActivityService {
     return this.http.get<Activity>('activities/' +id).map(res => res);
   }
 
-  makeApetition(newRequest){
-    return this.http.post<ActivityRequest>('activities/' , newRequest).map(res => res);
+  makeApetition(newRequest) {
+    return this.http.post<ActivityRequest>('activityRequest/fromname/' , newRequest).map(res => res);
 
   }
 
