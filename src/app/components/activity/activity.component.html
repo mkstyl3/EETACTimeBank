@@ -1,4 +1,3 @@
-
   <div class="col-lg-6 divisor">
     <h1 class="h1-strong">Registra una activitat</h1>
 
@@ -22,7 +21,7 @@
       <div class="row">
               <div class="col">
                     <label>Preu</label>
-                    <input type="number" name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
+                    <input type="number" min=0 step=0.25 name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
                            class="form-control" required />
                     <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
 
@@ -82,10 +81,10 @@
         <div class="carousel-inner" role="listbox" align="center">
           <div *ngFor="let j of novetats; let k = index" [ngClass]="k == 0 ? 'item active' : 'item'" class="carousel-contenidor" >
             <table class="carousel-table" >
-              <thead> <th><h3> Activitat</h3></th></thead>
+              <thead><h3>{{j.name}}</h3></thead>
               <tbody>
               <tr>
-                <td> {{j.name}}, amb: {{j.user}}</td>
+                <td>@{{j.user}}</td>
                 <td>
                   <a href="#modalUser"  class="btn btn-danger" data-toggle="modal" (click)="veurePerfil(j.user)">
                     <i class="fa fa-address-book" style="font-size: 12px " title="Veure Usuari"></i>
@@ -94,16 +93,16 @@
               </tr>
 
               <tr>
-                <td> aprendrás a fer: <br>{{j.description}}</td>
+                <td> Apendràs a fer: <br>{{j.description}}</td>
                 <td>
                   <a href="#modalActivity" class="btn btn-danger" data-toggle="modal" (click)="getActivity(j)" >
-                    <i class="fa fa-eye" style="font-size: 12px " title="Detall Activitat"></i>
+                    <i class="fa fa-eye" style="font-size: 12px " title="Detall de l'Activitat"></i>
                   </a>
                 </td>
               </tr>
 
               <tr>
-                <td> <br>per només : {{j.cost}} dels teus minuts</td>
+                <td> <br>Per només : {{j.cost}}h de la teva guardiola</td>
                 <td>
                   <a href="#modalPeticio" class="btn btn-danger" data-toggle="modal" (click)="makeApetition(j.user, j._id)" >
                     <i class="fa fa-handshake-o" style="font-size: 11px " title="Fer una petició"></i>

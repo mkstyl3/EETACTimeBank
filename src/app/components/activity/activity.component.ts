@@ -30,7 +30,7 @@ export class ActivityComponent implements OnInit {
 
 
   constructor(private activityService: ActivityService, private userService: UserService) {
-    this.activity = new Activity('', 10, 10, 0, localStorage.username, '', '');
+    this.activity = new Activity('', 41.275443, 1.98665, 0, localStorage.username, '', '');
   }
 
   ngOnInit() {

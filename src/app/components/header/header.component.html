@@ -13,14 +13,14 @@
   <div class="container-fluid general">
     <nav class="MenuSuperior">
       <ul>
-        <li><a (click)="shutdown()">Salir</a></li>
-        <li><a routerLink="/activityRequest"> Peticions </a></li>
-        <li><a routerLink="/profile"> Perfil </a></li>
-        <li><a href="#"> Favorits </a></li>
-        <li><a routerLink="/messages"> Mensajes </a></li>
-        <li><a data-toggle="modal" data-target="#primary"> <font color="white">Banc [ {{user.wallet}} h ]</font>
+        <li><a class="btn btn-toolbar" (click)="shutdown()">Salir</a></li>
+        <li><a class="btn btn-danger" routerLink="/activityRequest"> Peticions </a></li>
+        <li><a class="btn btn-danger" routerLink="/profile"> Perfil </a></li>
+        <li><a class="btn btn-danger" href="#"> Favorits </a></li>
+        <li><a class="btn btn-danger" routerLink="/messages"> Mensajes </a></li>
+        <li><a class="btn btn-danger" data-toggle="modal" data-target="#primary"> <font color="white">Banc [ {{user.wallet}} h ]</font>
         </a></li>
-        <li><a routerLink="/home"> Inicio</a></li>
+        <li><a class="btn btn-danger" routerLink="/home"> Inicio</a></li>
         <li class="Buscador"><input type="text" [(ngModel)]="buscador" placeholder="Usuario"></li>
         <li class="Buscador"><button (click)="buscarUsuario()">Buscar</button></li>
       </ul>
@@ -40,7 +40,6 @@
           <!-- Activity Request Table -->
           <app-table-activity-request></app-table-activity-request>
 
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tanca</button>
@@ -48,6 +47,5 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-
   </div>
 </header>

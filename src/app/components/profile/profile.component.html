@@ -30,7 +30,9 @@
               <button (click)="popupView(activity)" class="btn btn-sm btn-outline-secondary"
                   data-toggle="modal" data-target="#showActivity">VER</button>
               <button (click)="popupEdit(activity)" class="btn btn-sm btn-outline-secondary"
-              data-toggle="modal" data-target="#editActivity" *ngIf="owner">EDITAR</button>
+                  data-toggle="modal" data-target="#editActivity" *ngIf="owner">EDITAR</button>
+              <button (click)="popupEdit(activity)" class="btn btn-sm btn-outline-secondary"
+                  data-toggle="modal" data-target="#editActivity" *ngIf="!owner">RESERVAR</button>
             </div>
             <h3>{{activity.cost}}h</h3>
           </div>
