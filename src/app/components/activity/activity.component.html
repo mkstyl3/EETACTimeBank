@@ -1,220 +1,217 @@
-  <div class="col-lg-6 divisor">
-    <h1 class="h1-strong">Registra una activitat</h1>
-
-    <form #activityForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10, form-inLine">
-      <div class="row">
-              <div class="col">
-                  <label>Nom de l'activitat</label>
-                  <input type="text" name="name" #name="ngModel" [(ngModel)]="activity.name"
-                         class="form-control" required />
-                  <span *ngIf = "!name.valid && name.touched">El nom és obligatori</span>
-              </div>
-
-              <div class="col">
-                <label>Descripció breu</label>
-                <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description"
-                       class="form-control" required />
-                <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
-              </div>
+<!-- NOVA ACTIVITAT -->
+<div class="col-lg-6 divisor">
+  <h1 class="h1-strong">Registra una activitat</h1>
+  <form #activityForm="ngForm"  (ngSubmit)="onSubmit()" class="col-lg-10, form-inLine">
+    <div class="row">
+      <div class="col">
+        <label>Nom de l'activitat</label>
+        <input type="text" name="name" #name="ngModel" [(ngModel)]="activity.name"
+        class="form-control" required />
+        <span *ngIf = "!name.valid && name.touched">El nom és obligatori</span>
       </div>
-
-      <div class="row">
-              <div class="col">
-                    <label>Preu</label>
-                    <input type="number" min=0 step=0.25 name="cost" #cost="ngModel" [(ngModel)]="activity.cost"
-                           class="form-control" required />
-                    <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
-
-                    <label>Tria una o varias categories</label>
-                    <select name="category" #category="ngModel" [(ngModel)]="activity.category"
-                            class="custom-select custom-select-lg form-control" multiple >
-
-                            <option value="Musica">                     Musica                       </option>
-                            <option value="Fotos i videos">             Fotos i videos               </option>
-                            <option value="informatica i oficina">      Informatica i oficina        </option>
-                            <option value="Bellesa i salut">            Bellesa i salut              </option>
-                            <option value="Alimentació i beguda">       Alimentació i beguda         </option>
-                            <option value="Hogar, jardí, bricolatge">   Hogar, jardí, bricolatge     </option>
-                            <option value="Videojocs">                  Videojocs                    </option>
-                            <option value="moda">                       Moda                         </option>
-                            <option value="Esport i aire lliure">       Esport i aire lliure         </option>
-                            <option value="coche i moto">               Coche i Moto                 </option>
-                            <option value="manualitats">                Manualitats                  </option>
-                            <option value="Ocio">                       Ocio                         </option>
-                    </select>
-                    <br>
-
-                    <label>Imatge:</label>
-                    <input type="file" class="imatge"  name="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat"
-                           class="form-control">
-              </div>
-
-              <div class="col">
-                      <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
-
-                      <button  class="btn btn-info"  type="button"   (click)="addTag('Material Extra')">  Material Extra    </button>
-                      <button  class="btn btn-secondary" type="button" (click)="addTag('Activitat UPC')">   Activitat UPC     </button>
-                      <button  class="btn btn-success"  type="button"  (click)="addTag('Aire lliure')">     Aire lliure       </button>
-                      <button  class="btn btn-danger"   type="button"   (click)="addTag('Aquatic')">         Aquatic           </button>
-                      <button  class="btn btn-warning"  type="button"  (click)="addTag('Exclusiu')">        Exclusiu          </button>
-                      <button  class="btn btn btn-dark"  type="button"  (click)="addTag('Urgent')">          Urgent            </button>
-              </div>
-      </div>
-      <br>
-      <input type="submit" value="Afegir" class="btn btn-success" [disabled]="!activityForm.form.valid" />
-    </form>
-  </div>
-
-  <div class="col-lg-6 divisor">
-    <h1 class="h1-strong">Novetats</h1>
-
-    <div style="position: relative;" *ngIf="novetats != []" class="carousel">
-      <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" *ngFor="let x of novetats;
-                                                let i = index" [attr.data-slide-to]="i" ngClass="i == 0 ? 'active' : ''">
-
-          </li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox" align="center">
-          <div *ngFor="let j of novetats; let k = index" [ngClass]="k == 0 ? 'item active' : 'item'" class="carousel-contenidor" >
-            <table class="carousel-table" >
-              <thead><h3>{{j.name}}</h3></thead>
-              <tbody>
-              <tr>
-                <td>@{{j.user}}</td>
-                <td>
-                  <a href="#modalUser"  class="btn btn-danger" data-toggle="modal" (click)="veurePerfil(j.user)">
-                    <i class="fa fa-address-book" style="font-size: 12px " title="Veure Usuari"></i>
-                  </a>
-                </td>
-              </tr>
-
-              <tr>
-                <td> Apendràs a fer: <br>{{j.description}}</td>
-                <td>
-                  <a href="#modalActivity" class="btn btn-danger" data-toggle="modal" (click)="getActivity(j)" >
-                    <i class="fa fa-eye" style="font-size: 12px " title="Detall de l'Activitat"></i>
-                  </a>
-                </td>
-              </tr>
-
-              <tr>
-                <td> <br>Per només : {{j.cost}}h de la teva guardiola</td>
-                <td>
-                  <a href="#modalPeticio" class="btn btn-danger" data-toggle="modal" (click)="makeApetition(j.user, j._id)" >
-                    <i class="fa fa-handshake-o" style="font-size: 11px " title="Fer una petició"></i>
-
-                  </a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: #C40018"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="color: #C40018"></span >
-          <span class="sr-only">Next</span>
-        </a>
+      <div class="col">
+        <label>Descripció breu</label>
+        <input type="text" name="description" #description="ngModel" [(ngModel)]="activity.description" class="form-control" required />
+        <span *ngIf = "!description.valid && description.touched">la descripció és obligatoria</span>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <label>Preu</label>
+        <input type="number" min=0 step=0.25 name="cost" #cost="ngModel" [(ngModel)]="activity.cost" class="form-control" required />
+        <span *ngIf = "!cost.valid && cost.touched">el preu és obligatori</span>
+        <label>Tria una o varias categories</label>
+        <select name="category" #category="ngModel" [(ngModel)]="activity.category" class="custom-select custom-select-lg form-control" multiple >
+          <option value="Musica">                     Musica                       </option>
+          <option value="Fotos i videos">             Fotos i videos               </option>
+          <option value="informatica i oficina">      Informatica i oficina        </option>
+          <option value="Bellesa i salut">            Bellesa i salut              </option>
+          <option value="Alimentació i beguda">       Alimentació i beguda         </option>
+          <option value="Hogar, jardí, bricolatge">   Hogar, jardí, bricolatge     </option>
+          <option value="Videojocs">                  Videojocs                    </option>
+          <option value="moda">                       Moda                         </option>
+          <option value="Esport i aire lliure">       Esport i aire lliure         </option>
+          <option value="coche i moto">               Coche i Moto                 </option>
+          <option value="manualitats">                Manualitats                  </option>
+          <option value="Ocio">                       Ocio                         </option>
+        </select>
+        <br>
+        <label>Imatge:</label>
+        <input type="file" class="imatge"  name="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat" class="form-control">
+      </div>
+      <div class="col">
+        <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
+        <button  class="btn btn-info"  type="button"   (click)="addTag('Material Extra')">  Material Extra    </button>
+        <button  class="btn btn-secondary" type="button" (click)="addTag('Activitat UPC')">   Activitat UPC     </button>
+        <button  class="btn btn-success"  type="button"  (click)="addTag('Aire lliure')">     Aire lliure       </button>
+        <button  class="btn btn-danger"   type="button"   (click)="addTag('Aquatic')">         Aquatic           </button>
+        <button  class="btn btn-warning"  type="button"  (click)="addTag('Exclusiu')">        Exclusiu          </button>
+        <button  class="btn btn btn-dark"  type="button"  (click)="addTag('Urgent')">          Urgent            </button></div>
+    </div>
+    <br>
+    <input type="submit" value="Afegir" class="btn btn-success" [disabled]="!activityForm.form.valid" />
+  </form>
+</div>
 
-  </div>
+<!-- NOVETATS -->
+<div class="col-lg-6 divisor">
+  <h1 class="h1-strong">Novetats</h1>
+  <div style="position: relative;" *ngIf="novetats != []" class="carousel">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" *ngFor="let x of novetats;
+          let i = index" [attr.data-slide-to]="i" ngClass="i == 0 ? 'active' : ''">
+        </li>
+      </ol>
 
-  <!--modals emergents dins el camp novetats al pressionar els botons -->
-  <div class="modal fade" id="modalUser">
-      <div class="modal-dialog">
-        <div class="modal-content">
-
-          <div class="modal-header">
-            <h3>Perfil de l'usuari</h3>
-            <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          </div>
-
-          <div class="modal-body">
-
-              <div class=" col-lg-4 card">
-                <img src="{{user.image}}" width="50%"/><br/>
-              </div>
-
-              <div class=" col-lg-5">
-                <h2>{{user.name}}</h2>
-                <h4><small class="text-muted">@{{user.username}}</small></h4>
-                <a href="mailto:{{user.mail}}?body=Your message within Main Body">{{user.mail}}</a>
-                <p>{{user.description}}</p>
-                <h4>Puntuació: {{user.rating}}</h4>
-                <a href="#" class="btn btn-danger"> <i class="fa fa-envelope" style="font-size: 11px" title="enviar un missatge"></i> </a>
-              </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
-          </div>
-
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox" align="center">
+        <div *ngFor="let activity of novetats; let k = index" [ngClass]="k == 0 ? 'item active' : 'item'" class="carousel-contenidor" >
+          <table class="carousel-table" >
+            <thead>
+              <h3>{{activity.name}}</h3>
+            </thead>
+            <tbody>
+            <tr>
+              <td>@{{activity.user}}</td>
+              <td>
+                <!-- Profile Button -->
+                <button (click)="veurePerfil(activity.user)" data-toggle="modal" data-target="#modalUser" class="btn btn-danger">
+                  <i class="fa fa-address-book" style="font-size: 12px " title="Veure Usuari"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>Apendràs a fer: <br>{{activity.description}}</td>
+              <td>
+                <!-- Activity Button -->
+                <button (click)="getActivity(activity)" data-toggle="modal" data-target="#modalActivity" class="btn btn-danger">
+                  <i class="fa fa-eye" style="font-size: 12px " title="Detall de l'Activitat"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td><br>Per només : {{activity.cost}}h de la teva guardiola</td>
+              <td>
+                <button (click)="makeApetition(activity.user, activity._id)" data-toggle="modal" data-target="#modalPeticio" class="btn btn-danger">
+                  <i class="fa fa-handshake-o" style="font-size: 11px " title="Fer una petició"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
+
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="color: #C40018"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" style="color: #C40018"></span >
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
   </div>
+</div>
 
-  <div class="modal fade" id="modalActivity">
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h2>Detalls de l'activitat</h2>
-          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<!--Modal per visualitzar el perfil del ofertant -->
+<div class="modal fade" id="modalUser" *ngIf="showModalUser">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Perfil de l'usuari</h3>
+        <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class=" col-lg-4 card">
+          <img src="{{user.image}}" width="50%"/><br/>
         </div>
+        <div class=" col-lg-5">
+          <h2>{{user.name}}</h2>
+          <h4><small class="text-muted">@{{user.username}}</small></h4>
+          <a href="mailto:{{user.mail}}?body=Your message within Main Body">{{user.mail}}</a>
+          <p>{{user.description}}</p>
+          <h4>Puntuació: {{user.rating}}</h4>
+          <a href="#" class="btn btn-danger"> <i class="fa fa-envelope" style="font-size: 11px" title="enviar un missatge"></i> </a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="modal-body">
-          <div class=" col-lg-4 card">
-            <h2>{{activitySelect.description}}</h2>
+<!--Modal per veure una activitat -->
+<div class="modal fade" id="modalActivity" *ngIf="showModalActivity">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-primary">
+        <h1>{{activitySelect.name}}
+          <br><a><small class="text-muted">@{{activitySelect.user}}</small></a>
+        </h1>
+      </div>
+      <div class="modal-body">
+        <em>Publicat el {{activitySelect.date | date:"dd/MM/yyyy/ 'a las' h:mma"}}</em>
+        <h3>Preu: {{activitySelect.cost}}h</h3>
+        <h4>{{activitySelect.description}}</h4>
+
+        <!-- Mapa -->
+        <div>
+          <agm-map
+            [latitude]="latitud_map"
+            [longitude]="longitud_map"
+            [zoom]="17" *ngIf="showMap">
+
+            <!-- Actividad -->
+            <agm-marker
+              [latitude]="latitud_marker_activity"
+              [longitude]="longitud_marker_activity">
+              <agm-info-window>
+                {{activitySelect.name}}
+              </agm-info-window>
+            </agm-marker>
+
+            <!-- Usuario -->
+            <agm-marker
+              [latitude]="latitud_marker_user"
+              [longitude]="longitud_marker_user">
+              <agm-info-window>
+                Your current position
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
+        </div>
+        <div><br></div>
+          <div class="row">
+            <div class="card" *ngFor="let tag of activity.tags">{{tag}}</div>
           </div>
-
         </div>
-
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
         </div>
+    </div>
+  </div>
+</div>
 
+<!--Modal per fer una petició a una activitat -->
+<div class="modal fade" id="modalPeticio" *ngIf="showModalPetition">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Enviar petició</h2>
+        <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h1> hello!{{activityRequest.userFrom}}</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="sendAPetition">Enviar</button>
       </div>
     </div>
-
   </div>
-
-  <div class="modal fade" id="modalPeticio">
-
-    <div class="modal-dialog">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h2>Enviar petició</h2>
-          <button tyle="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        </div>
-
-
-        <div class="modal-body">
-          <h1> hello!{{activityRequest.userFrom}}</h1>
-
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="sendAPetition">Enviar</button>
-        </div>
-
-
-      </div>
-    </div>
-
-  </div>
-
-
+</div>
