@@ -48,6 +48,20 @@ export class UserChatService {
     return observable;
   }
 
+  /*GET ACTIVITY NOTIFICATION*/
+  getActivityNotification() {
+    const observable = new Observable<Message>(observer => {
+      this.socket.on('newActivity', (data) => {
+        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
   /* GET ALL THE USERCHATS */
   public getUserChats() {
     const id = localStorage.getItem('userId');

@@ -1,23 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {Activity} from '../../models/activity.model';
-import {User} from '../../models/user.model';
-import {NovetatsResponse} from '../../models/novetatsResponse'
-import {ActivityService} from '../../service/activity.service';
+import { Activity } from '../../models/activity.model';
+import { User } from '../../models/user.model';
+import { NovetatsResponse } from '../../models/novetatsResponse';
+import { ActivityService } from '../../service/activity.service';
+import { UserChatService } from '../../service/user.chat.service';
 import { UserService } from '../../service/user.service';
 import { Router, Params, ActivatedRoute } from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
-import {HttpErrorResponse} from '@angular/common/http';
-import {ActivityRequest} from '../../models/activityRequest.model';
-import {isDate} from 'util';
-import {DateFormatter} from '@angular/common/src/pipes/deprecated/intl';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ActivityRequest } from '../../models/activityRequest.model';
+import { isDate } from 'util';
+import { DateFormatter } from '@angular/common/src/pipes/deprecated/intl';
 
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css'],
-  providers: [ActivityService]
+  providers: [ActivityService, UserChatService]
 })
 export class ActivityComponent implements OnInit {
 
@@ -29,39 +30,50 @@ export class ActivityComponent implements OnInit {
   public novetats: NovetatsResponse[];
 
 
-  constructor(private activityService: ActivityService, private userService: UserService) {
+  constructor(private activityService: ActivityService, private userService: UserService, private userChatService: UserChatService) {
     this.activity = new Activity('', 41.275443, 1.98665, 0, localStorage.username, '', '');
   }
 
   ngOnInit() {
     this.activityService.getNovetats().subscribe(
-      response=> {
-        if(response){
-          console.log(response)
+      response => {
+        if (response) {
+          console.log(response);
           this.novetats = response;
         }
       },
-      error=> {
+      error => {
         console.log(<any>error);
+      }
+    );
+    this.userChatService.socketConnect();
+
+    this.userChatService.getActivityNotification().subscribe(
+      response => {
+        if (response) {
+          this.novetats.push(response);
+        }
       }
     );
   }
 
+
+
   addTag(tag: string) { this.activity.tags.push(tag); }
 
   veurePerfil(name: string) {
-      this.userService.getProfileUser$(name).subscribe(
-        data => {
-          this.user = data;
-          console.log(this.user);
-          },
-        (err: HttpErrorResponse) => {
-          console.log(err);
-        }
-      );
+    this.userService.getProfileUser$(name).subscribe(
+      data => {
+        this.user = data;
+        console.log(this.user);
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+      }
+    );
   }
 
-  getActivity(activitySelect: Activity){
+  getActivity(activitySelect: Activity) {
     /*this.activityService.getActivity(id).subscribe(
       data=>{
         this.activity = data;
