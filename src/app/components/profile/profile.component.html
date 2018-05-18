@@ -1,5 +1,5 @@
 <app-header></app-header>
-<body class="main-container" *ngIf=show>
+<body class="main-container" *ngIf='showProfile'>
   <div class="row">
     <div class="card profile-user">
     <img src="{{user.image}}" width="70%"/><br/>
@@ -7,20 +7,20 @@
     <h4><small class="text-muted">@{{user.username}}</small></h4>
     <a href="mailto:{{user.mail}}?body=Your message within Main Body">{{user.mail}}</a>
     <p>{{user.description}}</p>
-    <a>Temas de interés:</a>
+    <a>Temas d'interés:</a>
     <div class="row">&nbsp;&nbsp;
       <div class="card" *ngFor="let tag of user.tags">&nbsp;{{tag}}&nbsp;</div>
     </div>
-    <button type="button" (click)="addChat()" *ngIf="owner===false" class="btn btn-default">Habla conmigo</button>
+    <button type="button" (click)="addChat()" *ngIf="owner===false" class="btn btn-default">Xat</button>
   </div>
     <div class="profile-list">
-      <h3>Lista de Actividades Ofertadas</h3>
+      <h3>Llista d'Activitats Ofertades</h3>
       <div class="card" *ngFor="let activity of user.offered">
         <div class="card-body">
           <h3 class="card-text">{{activity.name}}
             <a><small class="text-muted">@{{activity.user}}</small></a>
           </h3>
-          <p><em>Publicado el {{activity.date | date:"dd/MM/yyyy/ 'a las' h:mma"}}</em></p>
+          <p><em>Publicat el {{activity.date | date:"dd/MM/yyyy/ 'a les' h:mma"}}</em></p>
           <hr><h5>{{activity.description}}</h5>
           <div class="row">&nbsp;&nbsp;
             <div class="card" *ngFor="let tag of activity.tags">&nbsp;{{tag}}&nbsp;</div>
@@ -28,11 +28,11 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <button (click)="popupView(activity)" class="btn btn-sm btn-outline-secondary"
-                  data-toggle="modal" data-target="#showActivity">VER</button>
+                  data-toggle="modal" data-target="#showActivity">OBRIR</button>
               <button (click)="popupEdit(activity)" class="btn btn-sm btn-outline-secondary"
                   data-toggle="modal" data-target="#editActivity" *ngIf="owner">EDITAR</button>
-              <button (click)="popupEdit(activity)" class="btn btn-sm btn-outline-secondary"
-                  data-toggle="modal" data-target="#editActivity" *ngIf="!owner">RESERVAR</button>
+              <button (click)="popupReservation(activity)" class="btn btn-sm btn-outline-secondary"
+                  *ngIf="!owner">RESERVAR</button>
             </div>
             <h3>{{activity.cost}}h</h3>
           </div>
@@ -140,7 +140,6 @@
                         Your current position
                       </agm-info-window>
                     </agm-marker>
-
                   </agm-map>
                 </div>
               </div>

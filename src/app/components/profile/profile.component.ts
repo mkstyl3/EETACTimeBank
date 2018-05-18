@@ -15,7 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ProfileComponent implements OnInit {
 
   user: User;
-  show: boolean;
+  showProfile: boolean;
   id_activity: string;
   tagString: string;
   first: boolean;
@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   constructor(private http: HttpClient, private userService: UserService,
     private activityService: ActivityService, private route: ActivatedRoute,
     private router: Router) {
-    this.show = false;
+    this.showProfile = false;
     this.showMap = false;
     this.tagString = '';
     this.username = localStorage.getItem('username');
@@ -48,21 +48,21 @@ export class ProfileComponent implements OnInit {
 
   // Recibe la respuesta del servidor
   connect(user: string, owner: boolean) {
-    this.show = false;
+    this.showProfile = false;
     this.owner = owner;
     if (owner === false) {this.userForeign = user; }
-    console.log(user);
     this.userService.getProfileUser$(user).subscribe(
       data => {
         this.user = data;      // El JSON se guarda en user
         console.log(this.user);
-        this.show = true;      // Mostramos el resultado
+        this.showProfile = true;      // Mostramos el resultado
       },
       (err: HttpErrorResponse) => { console.log(err.error); }
     );
   }
 
   popupView(activity) {
+    console.log('View: ' + activity.name);
     // Prepara el mapa
     this.showMap = false;
     this.latitud_map = activity.latitude;
@@ -74,6 +74,7 @@ export class ProfileComponent implements OnInit {
   }
 
   popupEdit(activity) {
+    console.log('Edit: ' + activity.name);
     this.id_activity = activity._id;
     this.first = true;
     for (const tags of activity.tags) {
@@ -84,8 +85,6 @@ export class ProfileComponent implements OnInit {
         this.tagString = this.tagString + ', ' + tags;
       }
     }
-    console.log(this.tagString);
-
     // Prepara el mapa
     this.showMap = false;
     this.latitud_map = activity.latitude;
@@ -111,9 +110,13 @@ export class ProfileComponent implements OnInit {
 
     this.activityService.updateActivity(this.id_activity, json).subscribe(data => {
       console.log(data);
-      if (data.result === 'ACTUALIZADO') { console.log('OK'); }
+      if (data.result === 'ACTUALIZADO') {
+        $('#editActivity').modal('hide');   // Cierra el modal
+      }
     });
   }
+
+  popupReservation(activity) { console.log('Reservar ' + activity.name); }
 
   addChat() {
     this.http.post<any>('chats/add',
