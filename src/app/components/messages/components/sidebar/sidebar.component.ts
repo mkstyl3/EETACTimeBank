@@ -1,4 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {UserChatService} from '../../../../service/user.chat.service';
 import { ISubscription } from 'rxjs/Subscription';
 
@@ -14,8 +15,8 @@ export class SidebarComponent implements OnInit , OnDestroy {
   userChatsSubs: ISubscription;
   currentChatSubs: ISubscription;
 
-  constructor(private userChatService: UserChatService) {
-  }
+  constructor(private userChatService: UserChatService, private route: ActivatedRoute) {}
+
   ngOnDestroy() {
     this.getUserChats.unsubscribe();
     this.userChatsSubs.unsubscribe();
@@ -24,7 +25,11 @@ export class SidebarComponent implements OnInit , OnDestroy {
 
   ngOnInit() {
     this.getUserChats = this.userChatService.getUserChats().subscribe(userChats => {
+      const chatId = this.route.snapshot.queryParams['chatId'];
       this.userChatService.userChats.next(userChats);
+      if (chatId) {
+        this.userChatService.setCurrentChat(chatId);
+      }
     });
 
     this.userChatsSubs = this.userChatService.userChats.subscribe(userChats => {

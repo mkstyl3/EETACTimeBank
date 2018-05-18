@@ -122,8 +122,8 @@ export class ProfileComponent implements OnInit {
     this.http.post<any>('chats/add',
     {user1: localStorage.getItem('username'), user2: this.userForeign}).subscribe(
       status => {
-        if (status.status != null && status.status === 'ok') {
-          this.router.navigate(['/messages']);
+        if (status.status != null && status.status === 'ok' && status.chatId) {
+          this.router.navigate(['/messages'], { queryParams: { chatId: status.chatId }});
         }
       }
     );
