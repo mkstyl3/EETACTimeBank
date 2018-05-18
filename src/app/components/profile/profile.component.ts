@@ -3,9 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
-import {BrowserDynamicTestingModule} from '@angular/platform-browser-dynamic/testing';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',

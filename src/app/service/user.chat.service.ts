@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/shareReplay';
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Chat} from '../models/chat/chat';
-import {Message} from '../models/chat/message';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Chat } from '../models/chat/chat';
+import { Message } from '../models/chat/message';
 import * as io from 'socket.io-client';
-import {messageTypes} from '../configs/enums_chat';
+import { messageTypes } from '../configs/enums_chat';
 import { environment } from '../../environments/environment';
 const url = 'chats';
 
 @Injectable()
-export class UserChatService {
+export class UserChatService implements OnDestroy{
   currentChat = new BehaviorSubject(null);
   newMessage = new BehaviorSubject(null);
   userChats = new BehaviorSubject(null);
@@ -22,11 +22,19 @@ export class UserChatService {
   constructor(private http: HttpClient) {
   }
 
+  ngOnDestroy() {
+    this.socket.disconnect();
+  }
+
   /* CREATE A SOCKET CONNECTION */
   socketConnect() {
-    this.socket = io(this.url);
-    console.log(this.socket);
-    return this.socket;
+    if (!this.socket) {
+      this.socket = io(this.url);
+      console.log('nou sockt creat' + this.socket);
+      this.sendMessageSocket(messageTypes.NEW_USER, localStorage.getItem('userId'));
+
+      return this.socket;
+    }
   }
 
   /* SEND A MESSAGE VIA SOCKET*/
@@ -42,7 +50,7 @@ export class UserChatService {
         observer.next(data);
       });
       return () => {
-        this.socket.disconnect();
+        // this.socket.disconnect();
       };
     });
     return observable;
@@ -50,13 +58,78 @@ export class UserChatService {
 
   /*GET ACTIVITY NOTIFICATION*/
   getActivityNotification() {
-    const observable = new Observable<Message>(observer => {
+    const observable = new Observable(observer => {
       this.socket.on('newActivity', (data) => {
         console.log(data);
         observer.next(data);
       });
       return () => {
-        this.socket.disconnect();
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  getNotification() {
+    const observable = new Observable(observer => {
+      this.socket.on('notification', (data) => {
+        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  getNewRequest() {
+    const observable = new Observable(observer => {
+      this.socket.on('notNewReq', (data) => {
+        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  getDelRequest() {
+    const observable = new Observable<Message>(observer => {
+      this.socket.on('notDelReq', (data) => {
+        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  getAccRequest() {
+    const observable = new Observable<Message>(observer => {
+      this.socket.on('notAccReq', (data) => {
+        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  getFinRequest() {
+    const observable = new Observable<Message>(observer => {
+      this.socket.on('notFinReq', (data) => {
+        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
       };
     });
     return observable;

@@ -1,28 +1,36 @@
-import {Component, OnInit} from '@angular/core';
-import {UserChatService} from '../../../../service/user.chat.service';
-import {Chat} from '../../../../models/chat/chat';
-import {messageTypes} from '../../../../configs/enums_chat';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserChatService } from '../../../../service/user.chat.service';
+import { Chat } from '../../../../models/chat/chat';
+import { messageTypes } from '../../../../configs/enums_chat';
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-messages-conversation',
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.css'],
 })
-export class ConversationComponent implements OnInit {
+export class ConversationComponent implements OnInit, OnDestroy {
   conversation: Chat = null;
   currentChatId;
   myPhoto;
   oppositePhoto;
+  currentChat: ISubscription;
+  newMessage: ISubscription;
+  privateMessage: ISubscription;
 
   constructor(private userChatService: UserChatService) {
+  }
+
+  ngOnDestroy() {
+    this.currentChat.unsubscribe();
+    this.newMessage.unsubscribe();
+    this.privateMessage.unsubscribe();
   }
 
   ngOnInit() {
     this.userChatService.socketConnect();
     localStorage.getItem('userId');
-    this.userChatService.sendMessageSocket(messageTypes.NEW_USER, localStorage.getItem('userId'));
-
-    this.userChatService.currentChat.subscribe((currentChatId) => {
+    this.currentChat = this.userChatService.currentChat.subscribe((currentChatId) => {
       this.currentChatId = currentChatId;
 
       if (currentChatId) {
@@ -34,9 +42,9 @@ export class ConversationComponent implements OnInit {
       }
     });
 
-    this.userChatService.newMessage.subscribe((message) => {
+    this.newMessage = this.userChatService.newMessage.subscribe((message) => {
       if (message) {
-        const frameTosend = {'chatId': this.currentChatId, message};
+        const frameTosend = { 'chatId': this.currentChatId, message };
         this.userChatService.sendMessageSocket(messageTypes.NEW_MESSAGE, frameTosend);
         this.conversation.messages.push(message);
         const userChats = this.userChatService.userChats.value;
@@ -47,7 +55,7 @@ export class ConversationComponent implements OnInit {
           console.log(chat);
           if (chat.id === this.currentChatId) {
             console.log('trobat afegeixo el missatge:' + message.text);
-            return {...chat, lastMessage: message.text};
+            return { ...chat, lastMessage: message.text };
           } else {
             return chat;
           }
@@ -56,7 +64,7 @@ export class ConversationComponent implements OnInit {
         this.scrollConversation();
       }
     });
-    this.userChatService.getPrivateMessage().subscribe(privateMessage => {
+    this.privateMessage = this.userChatService.getPrivateMessage().subscribe(privateMessage => {
       if (this.conversation) {
         this.conversation.messages.push(privateMessage);
         this.scrollConversation();
@@ -70,7 +78,7 @@ export class ConversationComponent implements OnInit {
         console.log('chat');
         console.log(chat);
         if (chat.userId === privateMessage.userFrom) {
-          return {...chat, lastMessage: privateMessage.text, newMessages: chat.newMessages + 1};
+          return { ...chat, lastMessage: privateMessage.text, newMessages: chat.newMessages + 1 };
         } else {
           return chat;
         }
@@ -107,7 +115,7 @@ export class ConversationComponent implements OnInit {
 
     const chats = userChats.map(chat => {
       if (chat.id === currentChatId) {
-        return {...chat, newMessages: 0};
+        return { ...chat, newMessages: 0 };
       } else {
         return chat;
       }
@@ -128,8 +136,7 @@ export class ConversationComponent implements OnInit {
     if (this.conversation.users[0].userId === id) {
       this.myPhoto = this.conversation.users[0].userAvatar;
       this.oppositePhoto = this.conversation.users[1].userAvatar;
-    }
-    else {
+    } else {
       this.oppositePhoto = this.conversation.users[0].userAvatar;
       this.myPhoto = this.conversation.users[1].userAvatar;
     }

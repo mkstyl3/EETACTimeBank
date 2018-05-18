@@ -24,6 +24,11 @@ import { APIInterceptor } from './interceptors/api.interceptor';
 import { AuthService } from './service/auth.service';
 import { AgmCoreModule } from '@agm/core';
 import { TableActivityRequestComponent } from './components/table-activity-request/table-activity-request.component';
+import {UserChatService} from './service/user.chat.service';
+import { ToastrModule } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
+
+
 
 @NgModule({
   declarations: [
@@ -49,9 +54,10 @@ import { TableActivityRequestComponent } from './components/table-activity-reque
     ToastModule.forRoot(),
     AppRoutingModule,
     FormsModule,
+    ToastrModule.forRoot(),
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyD4btF6um1qmUt7IZDVsU8WlWI6-PMYZk0' })
   ],
-  providers: [UserService, AuthGuard,
+  providers: [UserService, AuthGuard, UserChatService, ToastrService,
     AuthService, {
     provide: HTTP_INTERCEPTORS,
     useClass: APIInterceptor,

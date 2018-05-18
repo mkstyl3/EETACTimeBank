@@ -3,10 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Activity} from '../models/activity.model';
 import {ActivityRequest} from '../models/activityRequest.model';
-import {NovetatsResponse} from '../models/novetatsResponse';
 import { environment } from '../../environments/environment';
-import {User} from '../models/user.model';
-
 
 @Injectable()
 export class ActivityService {
@@ -25,18 +22,15 @@ export class ActivityService {
     return this.http.put<any>('activities/' + id, updateActivity);
   }
 
-  getNovetats() {
-    return this.http.get<NovetatsResponse[]>('activities/novetats').map(res => res);
+  getActivityAll() {
+    return this.http.get<Activity>('activities/').map(res => res);
   }
 
-  getActivity(id){
-    return this.http.get<Activity>('activities/' +id).map(res => res);
+  getActivity(id) {
+    return this.http.get<Activity>('activities/' + id).map(res => res);
   }
 
   makeApetition(newRequest) {
     return this.http.post<ActivityRequest>('activityRequest/fromname/' , newRequest).map(res => res);
-
   }
-
-
 }
