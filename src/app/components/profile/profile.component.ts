@@ -4,6 +4,7 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import {Activity} from '../../models/activity.model';
 
 @Component({
   selector: 'app-profile',
@@ -15,8 +16,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  activitySelected: Activity;
   showProfile: boolean;
-  id_activity: string;
+  showView: boolean;
+  showEdit: boolean;
+  showMap: boolean;
   tagString: string;
   first: boolean;
   latitud_map: number;
@@ -25,7 +29,6 @@ export class ProfileComponent implements OnInit {
   longitud_marker_user: number;
   latitud_marker_activity: number;
   longitud_marker_activity: number;
-  showMap: boolean;
   username: string;
   owner: boolean;
   userForeign: string;
@@ -34,6 +37,8 @@ export class ProfileComponent implements OnInit {
     private activityService: ActivityService, private route: ActivatedRoute,
     private router: Router) {
     this.showProfile = false;
+    this.showView = false;
+    this.showEdit = false;
     this.showMap = false;
     this.tagString = '';
     this.username = localStorage.getItem('username');
@@ -50,7 +55,7 @@ export class ProfileComponent implements OnInit {
   connect(user: string, owner: boolean) {
     this.showProfile = false;
     this.owner = owner;
-    if (owner === false) {this.userForeign = user; }
+    if (owner === false) { this.userForeign = user; }
     this.userService.getProfileUser$(user).subscribe(
       data => {
         this.user = data;      // El JSON se guarda en user
@@ -62,22 +67,28 @@ export class ProfileComponent implements OnInit {
   }
 
   popupView(activity) {
-    console.log('View: ' + activity.name);
+    this.showView = false;
+    this.activitySelected = activity;
+    this.showView = true;
+
     // Prepara el mapa
     this.showMap = false;
-    this.latitud_map = activity.latitude;
-    this.longitud_map = activity.longitude;
-    this.latitud_marker_activity = activity.latitude;
-    this.longitud_marker_activity = activity.longitude;
+    this.latitud_map = this.activitySelected.latitude;
+    this.longitud_map = this.activitySelected.longitude;
+    this.latitud_marker_activity = this.activitySelected.latitude;
+    this.longitud_marker_activity = this.activitySelected.longitude;
 
     this.setUpPosicion(); // Coloca la posicion del usuario
   }
 
   popupEdit(activity) {
-    console.log('Edit: ' + activity.name);
-    this.id_activity = activity._id;
+    this.showEdit = false;
+    this.activitySelected = activity;
+    this.showEdit = true;
+
+    // Prepara el input de tags
     this.first = true;
-    for (const tags of activity.tags) {
+    for (const tags of this.activitySelected.tags) {
       if (this.first === true) {
         this.tagString = tags;
         this.first = false;
@@ -85,12 +96,13 @@ export class ProfileComponent implements OnInit {
         this.tagString = this.tagString + ', ' + tags;
       }
     }
+
     // Prepara el mapa
     this.showMap = false;
-    this.latitud_map = activity.latitude;
-    this.longitud_map = activity.longitude;
-    this.latitud_marker_activity = activity.latitude;
-    this.longitud_marker_activity = activity.longitude;
+    this.latitud_map = this.activitySelected.latitude;
+    this.longitud_map = this.activitySelected.longitude;
+    this.latitud_marker_activity = this.activitySelected.latitude;
+    this.longitud_marker_activity = this.activitySelected.longitude;
 
     this.setUpPosicion(); // Coloca la posicion del usuario
   }
@@ -108,7 +120,7 @@ export class ProfileComponent implements OnInit {
 
     console.log(json); // Body de la petición PUT
 
-    this.activityService.updateActivity(this.id_activity, json).subscribe(data => {
+    this.activityService.updateActivity(this.activitySelected._id, json).subscribe(data => {
       console.log(data);
       if (data.result === 'ACTUALIZADO') {
         $('#editActivity').modal('hide');   // Cierra el modal
@@ -119,14 +131,16 @@ export class ProfileComponent implements OnInit {
   popupReservation(activity) { console.log('Reservar ' + activity.name); }
 
   addChat() {
-    this.http.post<any>('chats/add',
-    {user1: localStorage.getItem('username'), user2: this.userForeign}).subscribe(
-      status => {
-        if (status.status != null && status.status === 'ok') {
-          this.router.navigate(['/messages']);
-        }
+    const json = {
+      user1: localStorage.getItem('username'),
+      user2: this.userForeign
+    };
+
+    this.http.post<any>('chats/add', json).subscribe(status => {
+      if (status.status != null && status.status === 'ok') {
+        this.router.navigate(['/messages']);
       }
-    );
+    });
   }
 
 
