@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Activity } from '../../models/activity.model';
 import { User } from '../../models/user.model';
 import { ActivityService } from '../../service/activity.service';
@@ -7,12 +7,13 @@ import { UserService } from '../../service/user.service';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { ActivityRequest } from '../../models/activityRequest.model';
 import { isDate } from 'util';
 import { DateFormatter } from '@angular/common/src/pipes/deprecated/intl';
 import { ISubscription } from 'rxjs/Subscription';
 import { ToastrService } from 'ngx-toastr';
+import { ImageuploadComponent } from '../imageupload/imageupload.component';
 
 
 
@@ -42,9 +43,10 @@ export class ActivityComponent implements OnInit, OnDestroy {
   longitud_marker_activity: number;
   showMap: boolean;
   activityNotifSubs: ISubscription;
+  @ViewChild('activityimage') imageUploader: ImageuploadComponent;
 
   constructor(private activityService: ActivityService, private userService: UserService,
-     private userChatService: UserChatService, private toastr: ToastrService) {
+    private userChatService: UserChatService, private toastr: ToastrService) {
     this.activity = new Activity('', 41.275443, 1.98665, 0, localStorage.username, '', '');
     this.showMap = false;
     this.showModalUser = false;
@@ -79,15 +81,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
     );
   }
 
-
-
   addTag(tag: string) { this.activity.tags.push(tag); }
 
   // Mostra el modal d'un usuari
   veurePerfil(name: string) {
     this.showModalUser = false;
     this.userService.getProfileUser$(name).subscribe(
-    data => {
+      data => {
         this.user = data;
         console.log(this.user);
       },
@@ -145,10 +145,12 @@ export class ActivityComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     console.log(this.activity);
+    if (this.imageUploader.imageId) {this.activity['imatge'] = this.imageUploader.imageId; }
     this.activityService.newActivity(this.activity).subscribe(
       response => {
         if (response) {
           console.log(response);
+          this.imageUploader.reset();
         }
 
       },

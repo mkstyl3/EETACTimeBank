@@ -1,0 +1,5 @@
+<div class="container">
+    <input type="file" name="file" accept="image/*"  (change)="uploadFile($event.target.files)" #fileImage>
+    <img src="{{activityImageSrc}}" (click)="openFileDialog()">
+    <button class="btn" *ngIf="loaded" (click)="reset()">X</button>
+</div>

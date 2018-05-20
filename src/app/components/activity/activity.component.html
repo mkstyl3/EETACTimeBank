@@ -37,7 +37,8 @@
         </select>
         <br>
         <label>Imatge:</label>
-        <input type="file" class="imatge"  name="imatge" #imatge="ngModel" [(ngModel)]="activity.imatge" lang="cat" class="form-control">
+        <app-imageupload #activityimage></app-imageupload>
+        
       </div>
       <div class="col">
         <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>

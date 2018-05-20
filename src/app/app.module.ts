@@ -27,6 +27,7 @@ import { TableActivityRequestComponent } from './components/table-activity-reque
 import {UserChatService} from './service/user.chat.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastrService } from 'ngx-toastr';
+import { ImageuploadComponent } from './components/imageupload/imageupload.component';
 
 
 
@@ -45,7 +46,8 @@ import { ToastrService } from 'ngx-toastr';
     HeaderComponent,
     ActivityComponent,
     ProfileComponent,
-    TableActivityRequestComponent
+    TableActivityRequestComponent,
+    ImageuploadComponent
   ],
   imports: [
     BrowserModule,

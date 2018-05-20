@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpEvent, HttpEventType } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { Observable } from '../../../node_modules/rxjs';
 import {ActivityRequest} from '../models/activityRequest.model';
@@ -26,5 +26,12 @@ export class UserService {
 
   getProfileUser$(name: string) {
     return this.http.get<User>(url + '/' + name);
+  }
+
+  fileUpdate(file: File) {
+    const req = new HttpRequest('POST', '/file', file, {
+      reportProgress: true
+    });
+    return this.http.request(req);
   }
 }
