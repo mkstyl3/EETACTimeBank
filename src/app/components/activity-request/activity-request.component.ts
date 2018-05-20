@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivityRequestService } from '../../service/activity-request.service'
 import { Activity } from '../../models/activity.model'
 import { ActivityRequest } from '../../models/activityRequest.model'
@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Message } from '../../models/chat/message';
 import { ISubscription } from 'rxjs/Subscription';
 import { UserChatService } from '../../service/user.chat.service';
+import { RateComponent } from '../rate/rate.component';
 
 @Component({
   selector: 'app-activity-request',
@@ -27,6 +28,7 @@ export class ActivityRequestComponent implements OnInit, OnDestroy {
   notDelActSub: ISubscription;
   notAccActSub: ISubscription;
   notFinActSub: ISubscription;
+  @ViewChild('apprate') apprate: RateComponent;
 
   constructor(private actvitiyRequestService: ActivityRequestService,
     private userChatService: UserChatService) {
@@ -140,11 +142,24 @@ export class ActivityRequestComponent implements OnInit, OnDestroy {
   }
 
   donePetition(peticion) {
-    this.actvitiyRequestService.donePetition(peticion._id).subscribe(
+    this.apprate.show(peticion._id);
+    /*this.actvitiyRequestService.donePetition(peticion._id).subscribe(
       data => {
         console.log(data);
         if (data['message'] === 'ok') {
           peticion.isDone = true;
+        }
+      }
+    );*/
+  }
+
+  sendDonePeticion(data) {
+    console.log(data);
+    this.actvitiyRequestService.donePetition(data['id'], data['rate']).subscribe(
+      resp => {
+        if (resp['message'] === 'ok') {
+          let pos = this.myPetition.findIndex(element => element['_id'] === data['id']);
+        if (pos > -1) { this.myPetition[pos]['isDone'] = true; }
         }
       }
     );

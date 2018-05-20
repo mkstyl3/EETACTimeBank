@@ -1,32 +1,31 @@
 <app-header></app-header>
 <div class="container-fluid general ">
-
-    <div class="col-lg-2 divisor"  >
-      <div ng *ngIf="counters">
-        <h1 class="h1-strong">Resum</h1>
-        <h4>Total sol·licituds Pendents</h4>
-        <p > {{counters.petitions}} </p>
-        <h4>Total sol·licituds teves</h4>
-        <p > {{counters.requested}} </p>
-      </div>
+  <div class="col-lg-2 divisor">
+    <div ng *ngIf="counters">
+      <h1 class="h1-strong">Resum</h1>
+      <h4>Total sol·licituds Pendents</h4>
+      <p> {{counters.petitions}} </p>
+      <h4>Total sol·licituds teves</h4>
+      <p> {{counters.requested}} </p>
     </div>
+  </div>
 
-    <div class="col-lg-4 card divisor">
-      <h1 class="h1-strong">Les teves sol·licituds</h1>
-      <table class="table table-striped tabla">
-        <thead>
-          <tr>
-            <th>Nom Activitat</th>
-            <th>Descripció</th>
-            <th>Usuari</th>
-            <th>Preu</th>
-            <th>Borrar</th>
-            <th>Realitzada</th>
-            <th>Finalitzar</th>
-          </tr>
-        </thead>
+  <div class="col-lg-4 card divisor">
+    <h1 class="h1-strong">Les teves sol·licituds</h1>
+    <table class="table table-striped tabla">
+      <thead>
+        <tr>
+          <th>Nom Activitat</th>
+          <th>Descripció</th>
+          <th>Usuari</th>
+          <th>Preu</th>
+          <th>Borrar</th>
+          <th>Realitzada</th>
+          <th>Finalitzar</th>
+        </tr>
+      </thead>
 
-        <tbody>
+      <tbody>
         <tr *ngFor="let petition of myPetition">
           <td>
             {{petition.activity.name}}
@@ -41,7 +40,7 @@
             {{petition.activity.cost}}
           </td>
           <td>
-            <button class="btn btn-danger" (click)="deletePetition(petition._id)"  >
+            <button class="btn btn-danger" (click)="deletePetition(petition._id)">
               <i class="fa fa-trash" style="font-size: 12px "></i>
             </button>
           </td>
@@ -56,7 +55,7 @@
             Finalitzada
           </td>
           <td *ngIf="petition.accepted&&!petition.isDone">
-            <button class="btn btn-danger" (click)="donePetition(petition)" >
+            <button class="btn btn-danger" (click)="donePetition(petition)">
               <i class="fa fa-check" style="font-size: 12px "></i>
             </button>
           </td>
@@ -67,25 +66,25 @@
           </td>
         </tr>
 
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="col-lg-4 card divisor">
-      <h1 class="h1-strong">Sol·licituds d'altres usuaris</h1>
-      <table class="table table-striped tabla">
-        <thead>
-          <tr>
-            <th>Nom activitat</th>
-            <th>Descripció</th>
-            <th>Usuari </th>
-            <th>Preu</th>
-            <th>Gestionar </th>
-            <th>Estat</th>
-          </tr>
-        </thead>
+  <div class="col-lg-4 card divisor">
+    <h1 class="h1-strong">Sol·licituds d'altres usuaris</h1>
+    <table class="table table-striped tabla">
+      <thead>
+        <tr>
+          <th>Nom activitat</th>
+          <th>Descripció</th>
+          <th>Usuari </th>
+          <th>Preu</th>
+          <th>Gestionar </th>
+          <th>Estat</th>
+        </tr>
+      </thead>
 
-        <tbody>
+      <tbody>
         <tr *ngFor="let request of theirPetition">
           <td>{{request.activity.name}} </td>
           <td>{{request.activity.description}}</td>
@@ -95,7 +94,7 @@
             <button class="btn btn-danger" *ngIf="request.accepted===undefined||request.accepted===false" (click)="acceptPetition(request)">
               <i class="fa fa-check" style="font-size: 12px "></i>
             </button>
-            <button class="btn btn-danger" (click)="deletePetition(request._id)" >
+            <button class="btn btn-danger" (click)="deletePetition(request._id)">
               <i class="fa fa-trash" style="font-size: 12px "></i>
             </button>
           </td>
@@ -112,8 +111,8 @@
 
         </tr>
 
-        </tbody>
-      </table>
-    </div>
-
+      </tbody>
+    </table>
+  </div>
 </div>
+<app-rate #apprate (emitRate)="sendDonePeticion($event)"></app-rate>

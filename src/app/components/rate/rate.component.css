@@ -1,0 +1,20 @@
+.container img{
+    width: 50px;
+    height: 50px;
+}
+
+.container{
+    background-color: rgba(235, 235, 235, 0.836);
+    position: fixed;
+    bottom: 50%;
+    right: 0;
+    left: 0;
+    width: 400px;
+    height: 150px;
+    display: none;
+}
+
+.container a{
+    padding: 5px;
+    font-size: 32px;
+}

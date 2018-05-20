@@ -28,6 +28,7 @@ import {UserChatService} from './service/user.chat.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastrService } from 'ngx-toastr';
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
+import { RateComponent } from './components/rate/rate.component';
 
 
 
@@ -47,7 +48,8 @@ import { ImageuploadComponent } from './components/imageupload/imageupload.compo
     ActivityComponent,
     ProfileComponent,
     TableActivityRequestComponent,
-    ImageuploadComponent
+    ImageuploadComponent,
+    RateComponent
   ],
   imports: [
     BrowserModule,

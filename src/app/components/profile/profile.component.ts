@@ -6,6 +6,8 @@ import { ActivityService } from '../../service/activity.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Activity} from '../../models/activity.model';
 
+declare let require: any;
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -32,6 +34,14 @@ export class ProfileComponent implements OnInit {
   username: string;
   owner: boolean;
   userForeign: string;
+
+  fullstar = require('../../../assets/img/star-full.png');
+  star = require('../../../assets/img/star.png');
+  star1img = this.fullstar;
+  star2img = this.star;
+  star3img = this.star;
+  star4img = this.star;
+  star5img = this.star;
 
   constructor(private http: HttpClient, private userService: UserService,
     private activityService: ActivityService, private route: ActivatedRoute,
@@ -61,6 +71,7 @@ export class ProfileComponent implements OnInit {
         this.user = data;      // El JSON se guarda en user
         console.log(this.user);
         this.showProfile = true;      // Mostramos el resultado
+        this.setStars(data.rating);
       },
       (err: HttpErrorResponse) => { console.log(err.error); }
     );
@@ -161,5 +172,47 @@ export class ProfileComponent implements OnInit {
   mapClick(event) {
     this.latitud_marker_activity = event.coords.lat;
     this.longitud_marker_activity = event.coords.lng;
+  }
+
+  setStars(num: number) {
+    num = Math.round(num);
+    console.log(num);
+    switch (num) {
+      case 1:
+      this.star1img = this.fullstar;
+      this.star2img = this.star;
+      this.star3img = this.star;
+      this.star4img = this.star;
+      this.star5img = this.star;
+      break;
+      case 2:
+      this.star1img = this.fullstar;
+      this.star2img = this.fullstar;
+      this.star3img = this.star;
+      this.star4img = this.star;
+      this.star5img = this.star;
+      break;
+      case 3:
+      this.star1img = this.fullstar;
+      this.star2img = this.fullstar;
+      this.star3img = this.fullstar;
+      this.star4img = this.star;
+      this.star5img = this.star;
+      break;
+      case 4:
+      this.star1img = this.fullstar;
+      this.star2img = this.fullstar;
+      this.star3img = this.fullstar;
+      this.star4img = this.fullstar;
+      this.star5img = this.star;
+      break;
+      case 5:
+      this.star1img = this.fullstar;
+      this.star2img = this.fullstar;
+      this.star3img = this.fullstar;
+      this.star4img = this.fullstar;
+      this.star5img = this.fullstar;
+      break;
+    }
   }
 }

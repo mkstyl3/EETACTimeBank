@@ -16,6 +16,11 @@
   width: 100%;
 }
 
+
+.star-container img{
+  width: 10%;
+}
+
 agm-map {
   width: 450px;
   height: 300px;

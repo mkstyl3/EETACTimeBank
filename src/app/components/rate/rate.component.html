@@ -1,0 +1,10 @@
+<div class="container" #maindiv>
+  <a>Valora la Activitat</a><br>
+  <img [src]="star1img" (click)="click(1)">
+  <img [src]="star2img" (click)="click(2)">
+  <img [src]="star3img" (click)="click(3)">
+  <img [src]="star4img" (click)="click(4)">
+  <img [src]="star5img" (click)="click(5)"><br>
+  <button (click)="send()">Eniva</button>
+  <button (click)="hide()">Cancela</button>
+</div>

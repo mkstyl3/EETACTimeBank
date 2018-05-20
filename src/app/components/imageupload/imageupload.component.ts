@@ -20,7 +20,7 @@ export class ImageuploadComponent implements OnInit {
 
 
   constructor(private fileService: FileService) {
-    this.spinner = environment.urlBackend + '/files/spinner.gif';
+    this.spinner = '../../../assets/img/spinner.gif';
     this.addImage = environment.urlBackend + '/files/addfile.png';
     this.activityImageSrc = this.addImage;
    }
