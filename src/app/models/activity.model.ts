@@ -17,6 +17,7 @@ export class Activity {
     this.imatge = imatge;
     this.tags = [];
   }
+  _id: string;
   name: string;
   latitude: number;
   longitude: number;
