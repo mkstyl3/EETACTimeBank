@@ -18,7 +18,6 @@ const routes: Routes = [
   { path: 'profile/:username',          component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'messages',         component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'activityRequest',  component: ActivityRequestComponent, canActivate: [AuthGuard] },
-
   { path: '**', pathMatch: 'full', redirectTo: 'signin' }
 ];
 
