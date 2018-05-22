@@ -24,13 +24,11 @@ import { APIInterceptor } from './interceptors/api.interceptor';
 import { AuthService } from './service/auth.service';
 import { AgmCoreModule } from '@agm/core';
 import { TableActivityRequestComponent } from './components/table-activity-request/table-activity-request.component';
-import {UserChatService} from './service/user.chat.service';
+import { UserChatService} from './service/user.chat.service';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastrService } from 'ngx-toastr';
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
 import { RateComponent } from './components/rate/rate.component';
-
-
 
 @NgModule({
   declarations: [

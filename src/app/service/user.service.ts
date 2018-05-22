@@ -28,6 +28,10 @@ export class UserService {
     return this.http.get<User>(url + '/' + name);
   }
 
+  addchat$(json: any) {
+    return this.http.post<any>(url + 'chats/add', json);
+  }
+
   fileUpdate(file: File) {
     const req = new HttpRequest('POST', '/file', file, {
       reportProgress: true

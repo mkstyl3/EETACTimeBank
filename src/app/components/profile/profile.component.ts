@@ -142,14 +142,16 @@ export class ProfileComponent implements OnInit {
   popupReservation(activity) { console.log('Reservar ' + activity.name); }
 
   addChat() {
-    this.http.post<any>('chats/add',
-    {user1: localStorage.getItem('username'), user2: this.userForeign}).subscribe(
-      status => {
-        if (status.status != null && status.status === 'ok' && status.chatId) {
-          this.router.navigate(['/messages'], { queryParams: { chatId: status.chatId }});
-        }
+    const json = {
+      user1: localStorage.getItem('username'),
+      user2: this.userForeign
+    };
+
+    this.userService.addchat$(json).subscribe(status => {
+      if (status.status != null && status.status === 'ok' && status.chatId) {
+        this.router.navigate(['/messages'], { queryParams: { chatId: status.chatId }});
       }
-    );
+    });
   }
 
 

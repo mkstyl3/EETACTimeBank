@@ -4,15 +4,15 @@
     <div class="card profile-user">
     <img src="{{user.image}}" width="70%"/><br/>
     <h3>{{user.name}}</h3>
-      <div class="star-container" >
-        <img [src]="star1img">
-        <img [src]="star2img">
-        <img [src]="star3img">
-        <img [src]="star4img">
-        <img [src]="star5img">
-      </div>
     <h4><small class="text-muted">@{{user.username}}</small></h4>
     <a href="mailto:{{user.mail}}?body=Your message within Main Body">{{user.mail}}</a>
+    <div class="star-container" >
+      <img [src]="star1img">
+      <img [src]="star2img">
+      <img [src]="star3img">
+      <img [src]="star4img">
+      <img [src]="star5img">
+    </div>
     <p>{{user.description}}</p>
     <a>Temas d'interés:</a>
     <div class="row">&nbsp;&nbsp;
