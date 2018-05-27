@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import 'rxjs/Rx';
 import {Activity} from '../models/activity.model';
 import {ActivityRequest} from '../models/activityRequest.model';

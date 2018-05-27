@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit , OnDestroy {
     this.getUserChats = this.userChatService.getUserChats().subscribe(userChats => {
       const chatId = this.route.snapshot.queryParams['chatId'];
       this.userChatService.userChats.next(userChats);
+      console.log(userChats);
       if (chatId) {
         this.userChatService.setCurrentChat(chatId);
       }

@@ -7,9 +7,9 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class APIInterceptor implements HttpInterceptor {
-  
+
   constructor(private authService: AuthService, private router: Router) { }
-  
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
     if(req.url.match('users/signin') || req.url.match('users/signup') || req.url.match('users/oauth/google/code') || req.url.match('users/oauth/google/token')) {

@@ -5,6 +5,9 @@ export const messageTypes = {
   CURRENT_CONNECTED_USER: 'currentConnectedUser',
   ALL_CONNECTED_USERS: 'allConnectedUsers',
   NEW_MESSAGE: 'privateMessage',
+  ERROR: 'Error',
   NEW_DISCONNECTED_USER: 'newDisconnectedUser',
-  NOTIFICATION: 'notification'
+  NOTIFICATION: 'notification',
+  NEW_CHAT: 'newChat',
+  ERRORCHAT: 'ErrorChat'
 };

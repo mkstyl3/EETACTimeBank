@@ -18,6 +18,21 @@
 .messages li {
  overflow: hidden;
 }
+.messages .mensage .error{
+  background: #51A351;
+
+
+}
+.messages .message .error .errorImage{
+  height: 16px;
+  width: 16px;
+  postion: absolute;
+  position: absolute;
+
+  left: 6px;
+  bottom: 0.8px;
+}
+
 
 .messages .user-image img {
   width: 50px;
@@ -32,13 +47,18 @@
   border-radius: 3px 0 3px 3px;
   font-weight: bold;
   position: relative;
+  min-width: 73px;
 }
 
 .messages .message-container.profile-message {
-  float: right;
+  float: right !important;
+  }
+.messages .message-container.user-message {
+  float: left !important;
 }
 .messages .message-container.profile-message .user-image {
   position: relative;
+  cursor: pointer;
   cursor: pointer;
 }
 .messages .message-container.profile-message .user-image .status {
@@ -49,6 +69,7 @@
   background-color: #76b858;
   right: 3px;
   bottom: 5px;
+
 }
 .messages .message-container.profile-message .message {
   background-color: #54bae2;
@@ -74,9 +95,7 @@
   top: 0;
   border-style: solid;
 }
-.messages .message-container.user-message {
-  float: left;
-}
+
 .messages .message-container.user-message .message {
   background-color: white;
   color: black;
@@ -89,4 +108,46 @@
   content: '';
   top: 0;
   border-style: solid;
+}
+
+.messages .message-container.has-error .message {
+  background: red;
+}
+
+.messages .message-container.profile-message.has-error .message:after {
+  border-color: red transparent transparent red;
+}
+.alert {
+  border: 14px solid transparent;
+  border-radius: 4px;
+  bottom: 0px;
+  right: 0;
+  left: 0;
+  position: absolute;
+  z-index: 2000;
+}
+
+/* The close button */
+.closebtn {
+  right: -11px;
+  bottom: 41px;
+  color: white;
+  background: black;
+  border-radius: 50%;
+  width: 22px;
+  font-weight: bold;
+  float: right;
+  font-size: 23px;
+  text-align: center;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  /* bottom: 0; */
+  position: absolute;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
 }

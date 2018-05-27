@@ -2,23 +2,26 @@
   <div *ngIf=conversation (click)="onConversationClicked()" >
     <ul *ngFor="let message of conversation.messages">
       <li *ngIf=isTheUser(message)>
-        <div class="profile-message message-container">
+        <div class="profile-message message-container" [ngClass]="{'has-error':message.error}">
           <div class="user-image float-right">
-            <img src={{myPhoto}}>
-            <span class="status"></span>
+            <a (click)="sendToprofile(message.id)">
+              <img src={{myPhoto}}> </a>
           </div>
+
+          <span *ngIf=message.error>Tiene un error        </span>
           <div class="message">
             <p maxlength="4" class="ng-binding">{{message.text}}</p>
             <p class="dateOfMessage"> {{setDate(message)}} </p>
-
+            <div class= "error" *ngIf=message.error><a (click)="clica()"><img src=" https://image.flaticon.com/icons/png/512/55/55551.png" class="errorImage" ></a></div>
           </div>
         </div>
       </li>
       <li *ngIf=!isTheUser(message) >
         <div class="user-message message-container ng-scope">
           <div class="user-image float-left">
+            <a (click)="sendToprofile(message.id)">
             <img src={{oppositePhoto}}>
-          </div>
+            </a></div>
           <div class="message">
             <p maxlength="4" class="ng-binding">{{message.text}}</p>
             <p class="dateOfMessage"> {{setDate(message)}}</p>
@@ -29,5 +32,11 @@
   </div>
   <div *ngIf=!conversation>
     Selecciona una conversación
+  </div>
+  <div *ngIf="chatError">
+    <div class="alert">
+      <span class="closebtn" onclick="clica()">&times;</span>
+      Aquest xat ja no esta disponible.
+    </div>
   </div>
 </section>
