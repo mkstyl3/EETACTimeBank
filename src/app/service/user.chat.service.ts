@@ -6,14 +6,17 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Chat } from '../models/chat/chat';
 import { Message } from '../models/chat/message';
+import {MessageFromChat} from '../models/chat/MessageFromChat'
 import * as io from 'socket.io-client';
 import { messageTypes } from '../configs/enums_chat';
 import { environment } from '../../environments/environment';
+import {ChatList} from '../models/chat/chat_List';
 const url = 'chats';
 
 @Injectable()
-export class UserChatService implements OnDestroy{
+export class UserChatService implements OnDestroy {
   currentChat = new BehaviorSubject(null);
+  currentOppositeUserName = new BehaviorSubject(null);
   newMessage = new BehaviorSubject(null);
   userChats = new BehaviorSubject(null);
   private socket;
@@ -23,7 +26,7 @@ export class UserChatService implements OnDestroy{
   }
 
   ngOnDestroy() {
-    this.socket.disconnect();
+
   }
 
   /* CREATE A SOCKET CONNECTION */
@@ -32,7 +35,6 @@ export class UserChatService implements OnDestroy{
       this.socket = io(this.url);
       console.log('nou sockt creat' + this.socket);
       this.sendMessageSocket(messageTypes.NEW_USER, localStorage.getItem('userId'));
-
       return this.socket;
     }
   }
@@ -44,8 +46,47 @@ export class UserChatService implements OnDestroy{
   }
   /* GET A NEW MESSAGE*/
   getPrivateMessage() {
-    const observable = new Observable<Message>(observer => {
+    const observable = new Observable<MessageFromChat>(observer => {
       this.socket.on(messageTypes.NEW_MESSAGE, (data) => {
+        console.log(data);
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+  /* GET A MESSAGE ERROR*/
+  getMessagesErrors() {
+    const observable = new Observable<Message>(observer => {
+      this.socket.on(messageTypes.ERROR, (data) => {
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+
+  /* GET A CHAT ERROR, THIS CHAT WAS DELETED*/
+  getChatError() {
+    const observable = new Observable<string>(observer => {
+      debugger;
+      this.socket.on(messageTypes.ERRORCHAT, (data) => {
+        observer.next(data);
+      });
+      return () => {
+        // this.socket.disconnect();
+      };
+    });
+    return observable;
+  }
+  /* GET A NEW CHAT*/
+  getNewChat() {
+    const observable = new Observable(observer => {
+      this.socket.on(messageTypes.NEW_CHAT, (data) => {
         console.log(data);
         observer.next(data);
       });
@@ -148,14 +189,15 @@ export class UserChatService implements OnDestroy{
   }
 
   /* SET THE CURRENT CHAT CHANGING BY A CLICK */
+  /*SETTING ALSO THE OPPOSITE USERNAME*/
   public setCurrentChat(chatId): BehaviorSubject<Chat> {
     this.currentChat.next(chatId);
-
-    const userChats = this.userChats.value;
+        const userChats = this.userChats.value;
     const chats = userChats.map(chat => {
+      this.currentOppositeUserName.next(chat.userName);
       if (chat.id === chatId) {
         return { ...chat, newMessages: 0 };
-      } else {
+             } else {
         return chat;
       }
     });
@@ -165,8 +207,10 @@ export class UserChatService implements OnDestroy{
 
   /* ACTUALIZE WITH A NEW MESSAGE*/
   public sendMessage(message): BehaviorSubject<Chat> {
-    const id = localStorage.getItem('userId');
-    const messageToSend = new Message(id, message, new Date(), false);
+    const messageDate = new Date();
+    const temporaryMessageId = messageDate + 'ID';
+    const userFromId = localStorage.getItem('userId');
+    const messageToSend = new Message(userFromId, message, messageDate, false, temporaryMessageId);
     this.newMessage.next(messageToSend);
     return message;
   }

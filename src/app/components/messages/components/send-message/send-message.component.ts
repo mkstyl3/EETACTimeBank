@@ -10,14 +10,11 @@ import {UserChatService} from '../../../../service/user.chat.service';
 export class SendMessageComponent implements OnInit {
   message;
 
-  constructor(private userChatService: UserChatService) {
-  }
+  constructor(private userChatService: UserChatService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSendMessage() {
-    console.log(this.message);
     this.userChatService.sendMessage(this.message);
     this.message = null;
   }
