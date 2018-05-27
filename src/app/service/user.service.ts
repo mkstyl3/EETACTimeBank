@@ -9,6 +9,8 @@ const url = 'users';
 @Injectable()
 export class UserService {
 
+  public token: any;
+  public user;
   constructor(private http: HttpClient) { }
 
   signIn$(username: string, password: string): Observable<any> {
@@ -26,5 +28,20 @@ export class UserService {
 
   getProfileUser$(name: string) {
     return this.http.get<User>(url + '/' + name);
+  }
+
+  googleCode$(code): Observable<any> {
+    this.token = this.http.post(url + '/oauth/google/code', code);
+    return this.token;
+  }
+
+  googleOAuthInitService$(): Observable<any> {
+    return this.http
+      .get<any>(url + '/signin/google/code');
+  }
+
+  googleToken$(access_token): any {
+    this.user = this.http.post(url + '/oauth/google/token', {access_token});
+    return this.user;
   }
 }

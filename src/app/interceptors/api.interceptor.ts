@@ -12,7 +12,7 @@ export class APIInterceptor implements HttpInterceptor {
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
-    if(req.url.match('users/signin') || req.url.match('users/signup')) {
+    if(req.url.match('users/signin') || req.url.match('users/signup') || req.url.match('users/oauth/google/code') || req.url.match('users/oauth/google/token')) {
       const apiReq = req.clone({ 
         url: environment.urlBackend + `/${req.url}`
       });
