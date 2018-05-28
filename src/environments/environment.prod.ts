@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  urlBackend: 'https://bancdetemps.tk:3000',
+  urlBackend: 'https://backend.bancdetemps.tk',
   urlFrontend: 'https://bancdetemps.tk',
-  urlChat: 'https://bancdetemps.tk:8880'
+  urlChat: 'https://chat.bancdetemps.tk'
 };
