@@ -45,7 +45,7 @@ export class UserService {
     return this.user;
   }
   addchat$(json: any) {
-    return this.http.post<any>(url + 'chats/add', json);
+    return this.http.post<any>('chats/add', json);
   }
 
   fileUpdate(file: File) {

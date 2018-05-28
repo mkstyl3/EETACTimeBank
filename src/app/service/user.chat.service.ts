@@ -73,7 +73,6 @@ export class UserChatService implements OnDestroy {
   /* GET A CHAT ERROR, THIS CHAT WAS DELETED*/
   getChatError() {
     const observable = new Observable<string>(observer => {
-      debugger;
       this.socket.on(messageTypes.ERRORCHAT, (data) => {
         observer.next(data);
       });
