@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@auth0/angular-jwt": "^1.1.0",
+    "@types/facebook-js-sdk": "^2.8.4",
     "angular-oauth2": "^4.2.0",
     "angular-rating": "^3.0.3",
     "bootstrap": "3.3.6",
