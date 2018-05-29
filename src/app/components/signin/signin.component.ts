@@ -3,9 +3,11 @@ import { UserService } from '../../service/user.service';
 import { ToastsManager } from 'ng2-toastr';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
+/// <reference path="@types/facebook-js-sdk/index.d.ts" />
 
 declare const require: any;
 declare const gapi: any;
+//declare const FB: facebook.FacebookStatic;
 declare const FB: any;
 
 @Component({
@@ -65,10 +67,15 @@ export class SigninComponent implements AfterViewInit, OnInit {
       console.log(response);
       if (response.status === 'connected') {
         this.router.navigate(['./home']);
+        FB.api('/' + response.authResponse.accesToken, 'GET', {}, function(responsePerfil) {
+          console.log(responsePerfil);
+        });
       } else {
         FB.login((loginResponse) => {
           console.log(loginResponse);
-          this.router.navigate(['./home']);
+          FB.api('/' + response.authResponse.accesToken, 'GET', {}, function(responsePerfil) {
+            console.log(responsePerfil);
+          });
         });
       }
     });
