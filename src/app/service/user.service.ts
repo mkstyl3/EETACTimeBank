@@ -3,8 +3,10 @@ import { HttpClient, HttpHeaders, HttpRequest, HttpEvent, HttpEventType } from '
 import { User } from '../models/user.model';
 import { Observable } from '../../../node_modules/rxjs';
 import {ActivityRequest} from '../models/activityRequest.model';
+import {environment} from '../../environments/environment';
 
 const url = 'users';
+const urlChats = 'chats';
 
 @Injectable()
 export class UserService {
@@ -45,7 +47,7 @@ export class UserService {
     return this.user;
   }
   addchat$(json: any) {
-    return this.http.post<any>('chats/add', json);
+    return this.http.post<any>(urlChats + '/add', json);
   }
 
   fileUpdate(file: File) {

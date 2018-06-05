@@ -11,9 +11,9 @@ export class APIInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    if(req.url.match('users/signin') || req.url.match('users/signup') || req.url.match('users/oauth/google/code') || req.url.match('users/oauth/google/token')) {
-      const apiReq = req.clone({ 
+
+    if (req.url.match('users/signin') || req.url.match('users/signup')) {
+      const apiReq = req.clone({
         url: environment.urlBackend + `/${req.url}`
       });
       return next.handle(apiReq);
@@ -32,8 +32,9 @@ export class APIInterceptor implements HttpInterceptor {
             this.router.navigate(['/signin']);
             return Observable.throw(error);
 
-        };
-        if(error.status === 419){
+        }
+        ;
+        if (error.status === 419){
           return Observable.throw(error);
         }
         return Observable.throw(error);
