@@ -1,11 +1,14 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewContainerRef} from '@angular/core';
-import {UserService} from '../../service/user.service';
-import {ToastsManager} from 'ng2-toastr';
-import {User} from '../../models/user.model';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { UserService } from '../../service/user.service';
+import { ToastsManager } from 'ng2-toastr';
+import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
+/// <reference path="@types/facebook-js-sdk/index.d.ts" />
 
 declare const require: any;
 declare const gapi: any;
+//declare const FB: facebook.FacebookStatic;
+declare const FB: any;
 
 @Component({
   selector: 'app-signin',
@@ -48,13 +51,33 @@ export class SigninComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit(): void {
-    gapi.load('auth2', function() {
+    gapi.load('auth2', function () {
       gapi.auth2.init({
         client_id: '608592243393-g1fl4e07qrgkstfph804oo7fb5enssee.apps.googleusercontent.com',
         secret_id: 'AzUQlZvB4w0Cigt0uCkWkTLT',
         redirect_uri: 'postmessage',
         //By default, the fetch_basic_profile parameter of gapi.auth2.init() is set to true, which will automatically add 'email profile openid' as scope.
       });
+    });
+  }
+
+  public onFacebookClick() {
+    // this.router.navigate(['./home']);
+    FB.getLoginStatus((response) => {
+      console.log(response);
+      if (response.status === 'connected') {
+        this.router.navigate(['./home']);
+        FB.api('/' + response.authResponse.accesToken, 'GET', {}, function(responsePerfil) {
+          console.log(responsePerfil);
+        });
+      } else {
+        FB.login((loginResponse) => {
+          console.log(loginResponse);
+          FB.api('/' + response.authResponse.accesToken, 'GET', {}, function(responsePerfil) {
+            console.log(responsePerfil);
+          });
+        });
+      }
     });
   }
 
@@ -72,7 +95,7 @@ export class SigninComponent implements AfterViewInit, OnInit {
 
     this.userService.googleCode$(code).subscribe((data) => {
       //Decode Token and get "username"
-      
+
       /*const username = profile.getFamilyName();
       const access_token = data.tokens.access_token;
       this.showSuccessToast('User ' + username + ' Logged In');
@@ -83,7 +106,7 @@ export class SigninComponent implements AfterViewInit, OnInit {
       //this.showSuccessToast('User ' + username + ' Logged In');*/
       console.log(data);
       const access_token = data.access_token;
-      this.userService.googleToken$(access_token).subscribe((data) => { 
+      this.userService.googleToken$(access_token).subscribe((data) => {
         console.log(data);
         //this.showSuccessToast('User ' + username + ' Logged In');
         localStorage.setItem('username', data.username);
@@ -92,6 +115,7 @@ export class SigninComponent implements AfterViewInit, OnInit {
         localStorage.setItem('googleToken', data.googleToken);
         this.router.navigate(['home']);
       });
-  });}
+    });
+  }
 }
 
