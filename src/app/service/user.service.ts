@@ -30,6 +30,10 @@ export class UserService {
     return this.http.get<User>(url + '/' + name);
   }
 
+  updateProfileUser$(name: string, body: any) {
+    return this.http.put<any>(url + '/' + name, body);
+  }
+
   googleCode$(code): Observable<any> {
     this.token = this.http.post(url + '/oauth/google/code', code);
     return this.token;

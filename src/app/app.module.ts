@@ -29,6 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ToastrService } from 'ngx-toastr';
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
 import { RateComponent } from './components/rate/rate.component';
+import { FavouritesComponent } from './components/favourites/favourites.component';
 
 @NgModule({
   declarations: [
@@ -45,9 +46,11 @@ import { RateComponent } from './components/rate/rate.component';
     HeaderComponent,
     ActivityComponent,
     ProfileComponent,
+    FavouritesComponent,
     TableActivityRequestComponent,
     ImageuploadComponent,
-    RateComponent
+    RateComponent,
+    FavouritesComponent
   ],
   imports: [
     BrowserModule,

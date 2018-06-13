@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit {
   username: string;
   owner: boolean;
   userForeign: string;
+  favoritList: Activity[];
 
   fullstar = require('../../../assets/img/star-full.png');
   star = require('../../../assets/img/star.png');
@@ -70,8 +71,9 @@ export class ProfileComponent implements OnInit {
       data => {
         this.user = data;      // El JSON se guarda en user
         console.log(this.user);
-        this.showProfile = true;      // Mostramos el resultado
         this.setStars(data.rating);
+        this.favoritList = this.user.favorite;
+        this.showProfile = true;      // Mostramos el resultado
       },
       (err: HttpErrorResponse) => { console.log(err.error); }
     );
@@ -154,6 +156,44 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // Establece el color del icono Favoritos
+  isFavorite(activity: Activity): boolean {
+    for (const i in this.favoritList) {
+      if (this.favoritList[i]._id === activity._id) { return true; }
+    }
+    return false;
+  }
+
+  favorite(activity: Activity) {
+    let find: boolean;
+    let send: string[];
+
+    find = false;
+    send = this.favoritList.map((object) => {
+      if (object._id === activity._id) { find = true; }
+      return object._id;
+    });
+
+    if (find === false) {
+      // Añadimos la actividad a Favoritos
+      send.push(activity._id);
+      this.favoritList.push(activity);
+    } else {
+      // Eliminamos la actividad de Favoritos
+      const num = this.favoritList.indexOf(activity);
+      send.splice(num, 1);
+      this.favoritList.splice(num, 1);
+    }
+
+    this.update(send);
+  }
+
+  update(send: string[]) {
+    this.userService.updateProfileUser$(localStorage.getItem('username'),
+      {favorite: send}).subscribe(data => {
+      console.log(data);
+    });
+  }
 
   /*******************  MAPAS  *******************/
 

@@ -38,7 +38,7 @@
         <br>
         <label>Imatge:</label>
         <app-imageupload #activityimage></app-imageupload>
-        
+
       </div>
       <div class="col">
         <h4>Afegeix algunes caracteristiques (tags) a la teva activitat</h4>
@@ -150,10 +150,12 @@
 <div class="modal fade" id="modalActivity" *ngIf="showModalActivity">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header modal-header-primary">
+      <div class="modal-header modal-header-primary d-flex justify-content-between align-items-center">
         <h1>{{activitySelect.name}}
           <br><a><small class="text-muted">@{{activitySelect.user}}</small></a>
         </h1>
+        <i *ngIf="isFavorite(activitySelect)" class="fa fa-heart" aria-hidden="true" (click)="favorite(activitySelect)"></i>
+        <i *ngIf="!isFavorite(activitySelect)" class="fa fa-heart-o" aria-hidden="true" (click)="favorite(activitySelect)"></i>
       </div>
       <div class="modal-body">
         <em>Publicat el {{activitySelect.date | date:"dd/MM/yyyy/ 'a las' h:mma"}}</em>
