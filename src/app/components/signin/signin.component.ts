@@ -66,16 +66,20 @@ export class SigninComponent implements AfterViewInit, OnInit {
     FB.getLoginStatus((response) => {
       console.log(response);
       if (response.status === 'connected') {
-        this.router.navigate(['./home']);
-        FB.api('/' + response.authResponse.accesToken, 'GET', {}, function(responsePerfil) {
-          console.log(responsePerfil);
-        });
+        this.userService.signInFace(response).subscribe(
+          data => {
+            console.log(data);
+            localStorage.setItem('userId', data.userId);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('username', data.username);
+            this.router.navigate(['./home']);
+          }, err => {
+            console.log(err);
+          });
+
       } else {
         FB.login((loginResponse) => {
           console.log(loginResponse);
-          FB.api('/' + response.authResponse.accesToken, 'GET', {}, function(responsePerfil) {
-            console.log(responsePerfil);
-          });
         });
       }
     });
