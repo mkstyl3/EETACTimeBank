@@ -44,6 +44,7 @@ export class SidebarComponent implements OnInit , OnDestroy {
   }
 
   onUserClick(chatId) {
+    debugger;
     this.userChatService.setCurrentChat(chatId);
   }
 

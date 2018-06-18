@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import {UserChatService} from '../../../../service/user.chat.service';
 import {Chat} from '../../../../models/chat/chat';
 import {messageTypes} from '../../../../configs/enums_chat';
@@ -10,8 +10,13 @@ import {Router} from '@angular/router';
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.css'],
 })
-export class ConversationComponent implements OnInit, OnDestroy {
-  conversation: Chat = null;
+export class ConversationComponent implements OnInit, OnDestroy, AfterViewInit {
+  conversation: Chat = {
+    _id: null,
+    users: [],
+    messages: [],
+  };
+  finalMessagesReached;
   currentChatId;
   currentOppositeUserName;
   myPhoto;
@@ -22,39 +27,71 @@ export class ConversationComponent implements OnInit, OnDestroy {
   chatError;
 
   constructor(private userChatService: UserChatService, private router: Router) {
+    this.conversation.messages = new Array();
   }
 
   ngOnDestroy() {
+    debugger;
+    this.conversation.users = [];
+    this.conversation.messages = [];
     this.currentChat.unsubscribe();
     this.newMessage.unsubscribe();
     this.privateMessage.unsubscribe();
+    this.currentChat = null;
+    this.userChatService.currentChat.next(null);
+
   }
-clica() {
-    console.log('reeenviar');
-}
-sendToprofile(idUser) {
-    if (idUser !== localStorage.getItem('userId')) {
-      this.router.navigate(['/profile/' + this.currentOppositeUserName]);
-    } else {
-      this.router.navigate(['/home']);
-    }
-}
-  ngOnInit() {
-    this.userChatService.socketConnect();
-    localStorage.getItem('userId');
-    this.currentChat = this.userChatService.currentChat.subscribe((currentChatId) => {
-      this.currentChatId = currentChatId;
-      if (currentChatId) {
-        this.userChatService.getUserChat(currentChatId).subscribe((conversation) => {
-          this.conversation = conversation;
-          this.assignPhotos();
-          this.scrollConversation();
-        });
+
+  sendToprofile(idUser) {
+      if (idUser !== localStorage.getItem('userId')) {
+        this.router.navigate(['/profile/' + this.currentOppositeUserName]);
+      } else {
+        this.router.navigate(['/home']);
+      }
+  }
+
+  getMessages(currentChatId, offset, limit, callback) {
+    this.userChatService.getChatMessages(currentChatId, offset, limit).subscribe(({ messages }) => {
+      this.conversation.messages = [...messages, ...this.conversation.messages];
+      if (messages.length < limit) {
+        this.finalMessagesReached = true;
+      }
+      if (callback) {
+        callback();
       }
     });
+  }
+
+  getUsers(currentChatId) {
+    this.userChatService.getChatUsers(currentChatId).subscribe((users) => {
+      this.conversation.users = users;
+      this.assignPhotos();
+    });
+  }
+
+  ngAfterViewInit () {
+    this.conversation.users = [];
+    this.conversation.messages = [];
+    setTimeout(() => this.scrollConversation(), 0);
+  }
+
+  ngOnInit() {
+    this.currentChat = null;
+    this.userChatService.socketConnect();
+    this.currentChat = this.userChatService.currentChat.subscribe( async(currentChatId) => {
+      this.currentChatId = currentChatId;
+      if (currentChatId) {
+        this.conversation._id = currentChatId;
+        this.conversation.messages = [];
+        this.conversation.users = [];
+        await this.getUsers(currentChatId);
+        await this.getMessages(currentChatId, 0, 10, () => this.scrollConversation());
+      }
+    });
+
     this.userChatService.currentOppositeUserName.subscribe((actualOppositeUserName) => {
       this.currentOppositeUserName = actualOppositeUserName;
-    })
+    });
 
     this.userChatService.getMessagesErrors().subscribe((messageWithError) => {
       this.conversation.messages.forEach(message => {
@@ -69,7 +106,6 @@ sendToprofile(idUser) {
       this.userChatService.userChats.next(result);
       if (this.currentChatId === ChatId) {
         this.currentChatId = null;
-        console.log("es la conversa actual");
       }
       this.chatError = true;
       });
@@ -82,11 +118,9 @@ sendToprofile(idUser) {
         if (this.conversation) {
           this.conversation.messages.push(message);
           const userChats = this.userChatService.userChats.value;
-          console.log(userChats);
-          console.log(this.currentChatId);
+
           const chats = userChats.map(chat => {
             if (chat.id === this.currentChatId) {
-              console.log('trobat afegeixo el missatge:' + message.text);
               return {...chat, lastMessage: message.text};
             } else {
               return chat;
@@ -151,23 +185,23 @@ sendToprofile(idUser) {
 
   isTheUser(Object) {
     const id = localStorage.getItem('userId');
-    if (Object.userFrom === id) {
-      return true;
-    }
-    return false;
+    return Object.userFrom === id;
   }
 
   scrollConversation() {
-    setTimeout(function () {
-      const mainEl = document.querySelector('.messages');
-      mainEl.scrollTop = mainEl.scrollHeight;
+    if (this.conversation.messages) {
+      setTimeout(function () {
+        const mainEl = document.querySelector('.messages');
+        mainEl.scrollTop = mainEl.scrollHeight;
 
-      document.body.scrollTop = mainEl.scrollHeight;
-      document.documentElement.scrollTop = mainEl.scrollHeight;
-    }, 0);
+        document.body.scrollTop = mainEl.scrollHeight;
+        document.documentElement.scrollTop = mainEl.scrollHeight;
+      }, 0);
+    }
   }
 
   onConversationClicked() {
+    debugger;
     const currentChatId = this.currentChatId;
     const userChats = this.userChatService.userChats.value;
 
@@ -179,6 +213,7 @@ sendToprofile(idUser) {
       }
     });
     this.userChatService.userChats.next(chats);
+
   }
 
   private setDate(message) {
@@ -197,6 +232,13 @@ sendToprofile(idUser) {
     } else {
       this.oppositePhoto = this.conversation.users[0].userAvatar;
       this.myPhoto = this.conversation.users[1].userAvatar;
+    }
+  }
+
+  onScroll ({ target }) {
+    const scrolledToTheTop = target.scrollTop === 0;
+    if (scrolledToTheTop && !this.finalMessagesReached) {
+      this.getMessages(this.currentChatId, this.conversation.messages.length, 10, null);
     }
   }
 }

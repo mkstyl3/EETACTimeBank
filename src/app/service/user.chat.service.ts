@@ -6,10 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Chat } from '../models/chat/chat';
 import { Message } from '../models/chat/message';
-import {MessageFromChat} from '../models/chat/MessageFromChat'
+import {MessageFromChat} from '../models/chat/MessageFromChat';
+import {environment} from '../../environments/environment';
 import * as io from 'socket.io-client';
 import { messageTypes } from '../configs/enums_chat';
-import { environment } from '../../environments/environment';
+
 import {ChatList} from '../models/chat/chat_List';
 const url = 'chats';
 
@@ -38,7 +39,6 @@ export class UserChatService implements OnDestroy {
       return this.socket;
     }
   }
-
   /* SEND A MESSAGE VIA SOCKET*/
   sendMessageSocket(messageType, message) {
     this.socket.emit(messageType, JSON.stringify(message));
@@ -69,7 +69,6 @@ export class UserChatService implements OnDestroy {
     });
     return observable;
   }
-
   /* GET A CHAT ERROR, THIS CHAT WAS DELETED*/
   getChatError() {
     const observable = new Observable<string>(observer => {
@@ -82,8 +81,10 @@ export class UserChatService implements OnDestroy {
     });
     return observable;
   }
+
   /* GET A NEW CHAT*/
   getNewChat() {
+    debugger;
     const observable = new Observable(observer => {
       this.socket.on(messageTypes.NEW_CHAT, (data) => {
         console.log(data);
@@ -109,7 +110,6 @@ export class UserChatService implements OnDestroy {
     });
     return observable;
   }
-
   getNotification() {
     const observable = new Observable(observer => {
       this.socket.on('notification', (data) => {
@@ -122,7 +122,6 @@ export class UserChatService implements OnDestroy {
     });
     return observable;
   }
-
   getNewRequest() {
     const observable = new Observable(observer => {
       this.socket.on('notNewReq', (data) => {
@@ -135,7 +134,6 @@ export class UserChatService implements OnDestroy {
     });
     return observable;
   }
-
   getDelRequest() {
     const observable = new Observable<Message>(observer => {
       this.socket.on('notDelReq', (data) => {
@@ -148,7 +146,6 @@ export class UserChatService implements OnDestroy {
     });
     return observable;
   }
-
   getAccRequest() {
     const observable = new Observable<Message>(observer => {
       this.socket.on('notAccReq', (data) => {
@@ -161,7 +158,6 @@ export class UserChatService implements OnDestroy {
     });
     return observable;
   }
-
   getFinRequest() {
     const observable = new Observable<Message>(observer => {
       this.socket.on('notFinReq', (data) => {
@@ -177,21 +173,40 @@ export class UserChatService implements OnDestroy {
 
   /* GET ALL THE USERCHATS */
   public getUserChats() {
+    debugger;
     const id = localStorage.getItem('userId');
     return this.http.get<any>(url + '/' + id);
   }
 
-  /* GET A PARTICULAR CHAT*/
-  public getUserChat(chatId): Observable<Chat> {
+  /* GET CHAT USERS */
+  public getChatUsers(chatId): Observable<any> {
+    debugger;
     const id = localStorage.getItem('userId');
-    return this.http.get<any>(url + '/' + chatId + '/' + id);
+    console.log('*** GET CHAT USERS ', chatId);
+    return this.http.get<any>(url + '/users/' + chatId + '/' + id);
+  }
+
+  /* GET CHAT MESSAGES */
+  public getChatMessages(chatId, offset, limit): Observable<any> {
+    debugger;
+    const id = localStorage.getItem('userId');
+    return this.http.get<any>(url + '/messages/' + chatId + '/' + id, {
+        params: {
+          offset,
+          limit
+        },
+      }
+    );
   }
 
   /* SET THE CURRENT CHAT CHANGING BY A CLICK */
   /*SETTING ALSO THE OPPOSITE USERNAME*/
   public setCurrentChat(chatId): BehaviorSubject<Chat> {
-    this.currentChat.next(chatId);
-        const userChats = this.userChats.value;
+    if (this.currentChat.value !== chatId) {
+      this.currentChat.next(chatId);
+    }
+
+    const userChats = this.userChats.value;
     const chats = userChats.map(chat => {
       this.currentOppositeUserName.next(chat.userName);
       if (chat.id === chatId) {
@@ -206,6 +221,7 @@ export class UserChatService implements OnDestroy {
 
   /* ACTUALIZE WITH A NEW MESSAGE*/
   public sendMessage(message): BehaviorSubject<Chat> {
+    debugger;
     const messageDate = new Date();
     const temporaryMessageId = messageDate + 'ID';
     const userFromId = localStorage.getItem('userId');
@@ -213,10 +229,4 @@ export class UserChatService implements OnDestroy {
     this.newMessage.next(messageToSend);
     return message;
   }
-
-  public sendaMessage(message): Observable<any> {
-    console.log(message);
-    return this.http.post<any>(url + '/messageToChat', message);
-  }
-
 }
