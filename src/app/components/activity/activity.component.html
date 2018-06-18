@@ -100,6 +100,9 @@
                 </button>
               </td>
             </tr>
+            <tr>
+              <img mat-card-image src={{activity.imatge}} md-media-sm>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -136,7 +139,7 @@
           <a href="mailto:{{user.mail}}?body=Your message within Main Body">{{user.mail}}</a>
           <p>{{user.description}}</p>
           <h4>Puntuació: {{user.rating}}</h4>
-          <a href="#" class="btn btn-danger"> <i class="fa fa-envelope" style="font-size: 11px" title="enviar un missatge"></i> </a>
+          <a href="#" class="btn btn-danger" (click)="redirigir(user.username)"> <i class="fa fa-envelope" style="font-size: 11px" title="enviar un missatge"></i> </a>
         </div>
       </div>
       <div class="modal-footer">
