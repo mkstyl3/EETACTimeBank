@@ -4,13 +4,8 @@ import { User } from '../../models/user.model';
 import { ActivityService } from '../../service/activity.service';
 import { UserChatService } from '../../service/user.chat.service';
 import { UserService } from '../../service/user.service';
-import { Router, Params, ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ActivityRequest } from '../../models/activityRequest.model';
-import { isDate } from 'util';
-import { DateFormatter } from '@angular/common/src/pipes/deprecated/intl';
 import { ISubscription } from 'rxjs/Subscription';
 import { ToastrService } from 'ngx-toastr';
 import { ImageuploadComponent } from '../imageupload/imageupload.component';
@@ -34,7 +29,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
   activitySelect: Activity;
   activityRequest: ActivityRequest;
   user: User;
-
+  favoritList: Activity[];
   latitud_map: number;
   longitud_map: number;
   latitud_marker_user: number;
@@ -43,6 +38,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
   longitud_marker_activity: number;
   showMap: boolean;
   activityNotifSubs: ISubscription;
+
   @ViewChild('activityimage') imageUploader: ImageuploadComponent;
 
   constructor(private activityService: ActivityService, private userService: UserService,
@@ -70,6 +66,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
         console.log(<any>error);
       }
     );
+
+    this.userService.getProfileUser$(localStorage.getItem('username')).subscribe(
+      data => {
+        this.favoritList = data.favorite;
+      }
+    );
+
     this.userChatService.socketConnect();
 
     this.activityNotifSubs = this.userChatService.getActivityNotification().subscribe(
@@ -152,11 +155,50 @@ export class ActivityComponent implements OnInit, OnDestroy {
           console.log(response);
           this.imageUploader.reset();
         }
-
       },
       error => {
         console.log(<any>error);
       }
     );
+  }
+
+
+  // Establece el color del icono Favoritos
+  isFavorite(activity: Activity): boolean {
+    for (const i in this.favoritList) {
+      if (this.favoritList[i]._id === activity._id) { return true; }
+    }
+    return false;
+  }
+
+  favorite(activity: Activity) {
+    let find: boolean;
+    let send: string[];
+
+    find = false;
+    send = this.favoritList.map((object) => {
+      if (object._id === activity._id) { find = true; }
+      return object._id;
+    });
+
+    if (find === false) {
+      // Añadimos la actividad a Favoritos
+      send.push(activity._id);
+      this.favoritList.push(activity);
+    } else {
+      // Eliminamos la actividad de Favoritos
+      const num = this.favoritList.indexOf(activity);
+      send.splice(num, 1);
+      this.favoritList.splice(num, 1);
+    }
+
+    this.update(send);
+  }
+
+  update(send: string[]) {
+    this.userService.updateProfileUser$(localStorage.getItem('username'),
+      {favorite: send}).subscribe(data => {
+      console.log(data);
+    });
   }
 }

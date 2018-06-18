@@ -7,6 +7,7 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { AuthGuard } from './auth/auth.guard';
 import {ActivityRequestComponent} from './components/activity-request/activity-request.component';
 import {ProfileComponent} from './components/profile/profile.component';
+import {FavouritesComponent} from './components/favourites/favourites.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'register',         component: RegisterComponent },
   { path: 'home',             component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'profile',          component: ProfileComponent, canActivate: [AuthGuard]},
-  { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'profile/:username',          component: ProfileComponent, canActivate: [AuthGuard]},
   { path: 'messages',         component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'activityRequest',  component: ActivityRequestComponent, canActivate: [AuthGuard] },
   { path: '**', pathMatch: 'full', redirectTo: 'signin' }
