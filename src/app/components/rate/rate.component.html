@@ -5,6 +5,8 @@
   <img [src]="star3img" (click)="click(3)">
   <img [src]="star4img" (click)="click(4)">
   <img [src]="star5img" (click)="click(5)"><br>
-  <button (click)="send()">Eniva</button>
+
+  <textarea  rows="2" cols="50" #comment></textarea><br>
+  <button (click)="send(comment.value)">Envia</button>
   <button (click)="hide()">Cancela</button>
 </div>

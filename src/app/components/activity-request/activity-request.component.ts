@@ -155,7 +155,8 @@ export class ActivityRequestComponent implements OnInit, OnDestroy {
 
   sendDonePeticion(data) {
     console.log(data);
-    this.actvitiyRequestService.donePetition(data['id'], data['rate']).subscribe(
+    let rating = {userId: localStorage.getItem('userId'), comment: data['comment'], rate: data['rate']};
+    this.actvitiyRequestService.donePetition(data['id'], data['rate'], rating).subscribe(
       resp => {
         if (resp['message'] === 'ok') {
           let pos = this.myPetition.findIndex(element => element['_id'] === data['id']);

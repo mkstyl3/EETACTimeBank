@@ -8,17 +8,20 @@ import { AuthGuard } from './auth/auth.guard';
 import {ActivityRequestComponent} from './components/activity-request/activity-request.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {FavouritesComponent} from './components/favourites/favourites.component';
+import {FitxaComponent} from './components/fitxa/fitxa.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/signin', pathMatch: 'full' },
-  { path: 'signin',           component: SigninComponent },
-  { path: 'register',         component: RegisterComponent },
-  { path: 'home',             component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'profile',          component: ProfileComponent, canActivate: [AuthGuard]},
-  { path: 'profile/:username',          component: ProfileComponent, canActivate: [AuthGuard]},
-  { path: 'messages',         component: MessagesComponent, canActivate: [AuthGuard] },
-  { path: 'activityRequest',  component: ActivityRequestComponent, canActivate: [AuthGuard] },
+  { path: 'signin',            component: SigninComponent },
+  { path: 'register',          component: RegisterComponent },
+  { path: 'home',              component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'profile',           component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'profile/:username', component: ProfileComponent, canActivate: [AuthGuard]},
+  { path: 'favourites',        component: FavouritesComponent, canActivate: [AuthGuard] },
+  { path: 'messages',          component: MessagesComponent, canActivate: [AuthGuard] },
+  { path: 'activityRequest',   component: ActivityRequestComponent, canActivate: [AuthGuard] },
+  { path: 'fitxa',             component: FitxaComponent, canActivate: [AuthGuard] },
   { path: '**', pathMatch: 'full', redirectTo: 'signin' }
 ];
 
