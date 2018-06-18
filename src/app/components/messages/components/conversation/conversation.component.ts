@@ -70,8 +70,8 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit () {
-    this.conversation.users = [];
-    this.conversation.messages = [];
+    //this.conversation.users = [];
+    //this.conversation.messages = [];
     setTimeout(() => this.scrollConversation(), 0);
   }
 
@@ -80,6 +80,7 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewInit {
     this.userChatService.socketConnect();
     this.currentChat = this.userChatService.currentChat.subscribe( async(currentChatId) => {
       this.currentChatId = currentChatId;
+      this.finalMessagesReached = false;
       if (currentChatId) {
         this.conversation._id = currentChatId;
         this.conversation.messages = [];
@@ -200,6 +201,7 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+
   onConversationClicked() {
     debugger;
     const currentChatId = this.currentChatId;
@@ -236,8 +238,10 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onScroll ({ target }) {
-    const scrolledToTheTop = target.scrollTop === 0;
-    if (scrolledToTheTop && !this.finalMessagesReached) {
+    console.log(target.scrollTop);
+    const scrolledToTheTop = target.scrollTop === 1;
+    if (target.scrollTop === 0 && !this.finalMessagesReached) {
+      console.log("fem peticio");
       this.getMessages(this.currentChatId, this.conversation.messages.length, 10, null);
     }
   }
