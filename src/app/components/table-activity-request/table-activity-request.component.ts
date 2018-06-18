@@ -28,7 +28,6 @@ export class TableActivityRequestComponent implements OnInit {
         const da: any = data;
         this.myActivitiesList = da;
         this.SearchDone = true;
-        console.log(this.myActivitiesList);
       }
     );
     this.activityRequestService.getTheirPetitions(id).subscribe(
@@ -36,7 +35,6 @@ export class TableActivityRequestComponent implements OnInit {
         const da2: any = data;
         this.theirActivitiesList = da2;
         this.SearchDone = true;
-        console.log(this.theirActivitiesList);
       }
     );
   }
@@ -45,7 +43,6 @@ export class TableActivityRequestComponent implements OnInit {
     this.userService.getUserWallet(id).subscribe(
       data => {
         this.user = data;
-        console.log(data);
       },
       data => {
         console.error(data);

@@ -32,8 +32,8 @@ export class RateComponent implements OnInit {
     this.mainDiv.nativeElement.style.display = 'none';
   }
 
-  send() {
-    const te = {'id': this.id, 'rate': this.rate};
+  send(comment) {
+    const te = {'id': this.id, 'rate': this.rate, 'comment': comment};
     this.emitRate.emit(te);
     this.mainDiv.nativeElement.style.display = 'none';
   }

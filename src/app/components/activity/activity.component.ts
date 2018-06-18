@@ -9,6 +9,7 @@ import { ActivityRequest } from '../../models/activityRequest.model';
 import { ISubscription } from 'rxjs/Subscription';
 import { ToastrService } from 'ngx-toastr';
 import { ImageuploadComponent } from '../imageupload/imageupload.component';
+import {SiblingComponentsService} from '../../service/siblingComponents.service';
 
 
 
@@ -42,7 +43,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
   @ViewChild('activityimage') imageUploader: ImageuploadComponent;
 
   constructor(private activityService: ActivityService, private userService: UserService,
-    private userChatService: UserChatService, private toastr: ToastrService) {
+    private userChatService: UserChatService, private toastr: ToastrService, public siblingService: SiblingComponentsService) {
     this.activity = new Activity('', 41.275443, 1.98665, 0, localStorage.username, '', '');
     this.showMap = false;
     this.showModalUser = false;
@@ -105,7 +106,6 @@ export class ActivityComponent implements OnInit, OnDestroy {
   getActivity(activity: Activity) {
     this.showModalActivity = false;
     this.activitySelect = activity;
-    console.log(this.activitySelect);
 
     // Prepara el mapa
     this.showMap = false;
@@ -200,5 +200,9 @@ export class ActivityComponent implements OnInit, OnDestroy {
       {favorite: send}).subscribe(data => {
       console.log(data);
     });
+  }
+
+  fitxa () {
+    this.siblingService.publishActivity(this.activitySelect);
   }
 }

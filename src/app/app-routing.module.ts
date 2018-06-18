@@ -8,6 +8,7 @@ import { AuthGuard } from './auth/auth.guard';
 import {ActivityRequestComponent} from './components/activity-request/activity-request.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {FavouritesComponent} from './components/favourites/favourites.component';
+import {FitxaComponent} from './components/fitxa/fitxa.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'favourites',        component: FavouritesComponent, canActivate: [AuthGuard] },
   { path: 'messages',          component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'activityRequest',   component: ActivityRequestComponent, canActivate: [AuthGuard] },
+  { path: 'fitxa',             component: FitxaComponent, canActivate: [AuthGuard] },
   { path: '**', pathMatch: 'full', redirectTo: 'signin' }
 ];
 

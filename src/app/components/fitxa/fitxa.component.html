@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<body class="main-container">
+  <div class="row">
+    <div class="card profile-user">
+      <h2>Activitat: {{activity.name}}</h2>
+      <p>Descripció: {{activity.description}}</p>
+      <p>Preu: {{activity.cost}}</p>
+      <p>Propietari: {{activity.user}}</p>
+    </div>
+
+    <div class="profile-list">
+      <h3>Comentaris</h3>
+      <div class="card" *ngFor="let rating of ratings">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <h3 class="card-text"><a>@{{rating.userId.name}}</a> va valorar aquesta activitat amb {{rating.rate}}
+            <i class="fa fa-star" aria-hidden="true" ></i>
+          </h3>
+        </div>
+
+        <div class="card-body">
+          <p align="justify">
+            {{rating.comment}}
+          </p>
+          <p align="right">
+            {{rating.date | date:"dd/MM/yyyy/ 'a les' h:mma"}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

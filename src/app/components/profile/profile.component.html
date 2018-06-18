@@ -13,6 +13,7 @@
         <img [src]="star3img">
         <img [src]="star4img">
         <img [src]="star5img">
+        <p>{{shRating}}</p>
       </div>
       <p>{{user.description}}</p>
       <a>Temas d'interés:</a>
@@ -68,6 +69,7 @@
           <em>Publicat el {{activitySelected.date | date:"dd/MM/yyyy/ 'a las' h:mma"}}</em>
           <h3>Preu: {{activitySelected.cost}}h</h3>
           <h4>{{activitySelected.description}}</h4>
+          <button  class="btn btn-info"  type="button" data-dismiss="modal" routerLink="/fitxa" (click)="fitxa()">  Obrir Fitxa    </button>
 
           <!-- Mapa -->
           <div>

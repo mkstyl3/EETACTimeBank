@@ -30,6 +30,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ImageuploadComponent } from './components/imageupload/imageupload.component';
 import { RateComponent } from './components/rate/rate.component';
 import { FavouritesComponent } from './components/favourites/favourites.component';
+import { FitxaComponent } from './components/fitxa/fitxa.component';
+import {SiblingComponentsService} from './service/siblingComponents.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { FavouritesComponent } from './components/favourites/favourites.componen
     TableActivityRequestComponent,
     ImageuploadComponent,
     RateComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    FitxaComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,7 @@ import { FavouritesComponent } from './components/favourites/favourites.componen
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({ apiKey: 'AIzaSyD4btF6um1qmUt7IZDVsU8WlWI6-PMYZk0' })
   ],
-  providers: [UserService, AuthGuard, UserChatService, ToastrService,
+  providers: [UserService, AuthGuard, UserChatService, ToastrService, SiblingComponentsService,
     AuthService, {
     provide: HTTP_INTERCEPTORS,
     useClass: APIInterceptor,

@@ -5,6 +5,7 @@ import { UserService } from '../../service/user.service';
 import { ActivityService } from '../../service/activity.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Activity} from '../../models/activity.model';
+import {SiblingComponentsService} from '../../service/siblingComponents.service';
 
 declare let require: any;
 
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
   username: string;
   owner: boolean;
   userForeign: string;
+  shRating;
   favoritList: Activity[];
 
   fullstar = require('../../../assets/img/star-full.png');
@@ -46,7 +48,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(private http: HttpClient, private userService: UserService,
     private activityService: ActivityService, private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router, public siblingService: SiblingComponentsService) {
     this.showProfile = false;
     this.showView = false;
     this.showEdit = false;
@@ -70,6 +72,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfileUser$(user).subscribe(
       data => {
         this.user = data;      // El JSON se guarda en user
+        this.shRating = this.user.rating.toFixed(2);
         console.log(this.user);
         this.setStars(data.rating);
         this.favoritList = this.user.favorite;
@@ -256,5 +259,9 @@ export class ProfileComponent implements OnInit {
       this.star5img = this.fullstar;
       break;
     }
+  }
+
+  fitxa (user) {
+    this.siblingService.publishActivity(this.activitySelected);
   }
 }
